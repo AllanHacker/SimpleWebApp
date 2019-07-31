@@ -22,9 +22,18 @@ public class UserController {
 	 * 顯示註冊頁面
 	 * @return 註冊頁面
 	 */
-	@RequestMapping("/register.do")
-	public String showRegister() {
+	@RequestMapping("/registerPage.do")
+	public String registerPage() {
 		return "register";
+	}
+	
+	/**
+	 * 顯示登入頁面
+	 * @return 登入頁面
+	 */
+	@RequestMapping("/loginPage.do")
+	public String loginPage() {
+		return "login";
 	}
 	
 	/**
@@ -169,4 +178,24 @@ public class UserController {
 		return responseResult = new ResponseResult(0, "資料有誤，請先核對再註冊");
 	}
 	
+	@RequestMapping(value = "userLogin.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult userLogin(String username, String password, String verification, 
+			HttpSession session) {
+		ResponseResult responseResult;
+		String verificationQ = (String) session.getAttribute("verification");
+		if (!verificationQ.equals(verification.toUpperCase())) {
+			return responseResult = new ResponseResult(2, "驗證碼錯誤");
+		} else {
+			User user = userService.findUserByUsername(username);
+			if (user == null) {
+				return responseResult = new ResponseResult(0, "無此帳號");
+			} else {
+				if (!user.getPassword().equals(password)) {
+					return responseResult = new ResponseResult(0, "密碼錯誤");
+				}
+			}
+			return responseResult = new ResponseResult(1, "登入成功");
+		}
+	}
 }

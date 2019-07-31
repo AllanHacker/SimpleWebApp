@@ -35,7 +35,7 @@ public class VerificationController {
 	public ResponseResult verificationCheck(String verificationA, HttpSession session) {
 		ResponseResult responseResult;
 		String verificationQ = (String) session.getAttribute("verification");
-		if (verificationA.toUpperCase().equals(verificationQ)) {
+		if (verificationQ.equals(verificationA.toUpperCase())) {
 			responseResult = new ResponseResult(1, "驗證成功");
 		} else {
 			responseResult = new ResponseResult(0, "請再看清楚一點");

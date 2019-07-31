@@ -10,8 +10,8 @@
 		<header id="header">
 			<a href="#">首頁</a>
 			<a href="#">購物車</a>
-			<a href="register.do">註冊</a>
-			<a href="#">登入</a>
+			<a href="registerPage.do">註冊</a>
+			<a href="loginPage.do">登入</a>
 		</header>
 		<div id="content">
 			<h2>註冊</h2>
@@ -64,7 +64,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input id="submitButton" type="button" value="確定" onclick="submitInfo()">
+							<input id="submitButton" type="button" value="確定" onclick="userRegister()">
 						</td>
 					</tr>
 				</table>
@@ -204,7 +204,7 @@
 				$("#verificationImg")[0].src="verification.do?"+new Date();
 			}
 			
-			function submitInfo() {
+			function userRegister() {
 				$.ajax({
 					url: "userRegister.do",
 					data: $("#registerInformation").serialize(),

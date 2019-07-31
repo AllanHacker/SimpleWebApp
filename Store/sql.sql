@@ -9,3 +9,9 @@ create table user_table(
 select * from user_table;
 
 desc user_table;
+
+delete from user_table;
+
+insert into user_table(username, password) values('aaa', 'aaa');
+
+

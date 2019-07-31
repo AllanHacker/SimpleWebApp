@@ -3,8 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="wang.store.mapper.UserMapper">
 	
-	<!-- 向資料庫新增用戶
-	int insert(); -->
+	<!-- 向資料庫新增用戶 int insert() -->
 	<insert id="insert" parameterType="wang.store.bean.User">
 		INSERT INTO user_table(
 			username,
@@ -19,6 +18,32 @@
 			#{phone}
 		);
 	</insert>
+	
+	<!--  根據會員的id查找會員資料 User findUserByUserId(Integer userId) -->
+	<select id="findUserByUserId" resultType="wang.store.bean.User">
+		SELECT
+			username,
+			password,
+			email,
+			phone
+		FROM
+			user_table
+		WHERE
+			user_id=#{userId}
+	</select>
+	
+	<!-- 根據會員帳號名稱查找會員資料 User findUserByUsername(String username) -->
+	<select id="findUserByUsername" resultType="wang.store.bean.User">
+		SELECT
+			username,
+			password,
+			email,
+			phone
+		FROM
+			user_table
+		WHERE
+			username=#{username}
+	</select>
 	
 </mapper>
 
