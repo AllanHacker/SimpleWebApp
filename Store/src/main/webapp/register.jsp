@@ -74,112 +74,125 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			function submitInfo() {
+			function usernameCheck() {
 				$.ajax({
-					url: "userRegister.do",
-					data: $("#registerInformation").serialize(),
+					url: "usernameCheck.do",
+					data: "username=" + $("#username").val(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						alert(obj.message);
+						$("#usernameAlert").html(obj.message);
+						if (obj.state == 1) {
+							$("#usernameAlert").css("color", "green");
+							$("#username").css("border-color", "initial");
+							$("#username").css("border-width", "2px");
+							$("#username").css("border-style", "inset");
+						} else {
+							$("#usernameAlert").css("color", "red");
+							$("#username").css("border", "red 2px solid");
+						}
 					}
 				});
 			}
 			
-			function usernameCheck() {
-				var reg = /\w{6,20}/;
-				var username = $("#username").val();
-				if (reg.test(username)) {
-					$("#usernameAlert").html("正確");
-					$("#usernameAlert").css("color","green");
-					$("#username").css("border-color","initial");
-					$("#username").css("border-width","2px");
-					$("#username").css("border-style","inset");
-				} else {
-					$("#usernameAlert").html("帳號不符規定");
-					$("#usernameAlert").css("color","red");
-					$("#username").css("border","red 2px solid");
-				}
-			}
-			
 			function passwordCheck() {
-				var reg = /\w{8,30}/;
-				var password = $("#password").val();
-				if (reg.test(password)) {
-					$("#passwordAlert").html("正確");
-					$("#passwordAlert").css("color","green");
-					$("#password").css("border-color","initial");
-					$("#password").css("border-width","2px");
-					$("#password").css("border-style","inset");
-				} else {
-					$("#passwordAlert").html("密碼不符規定");
-					$("#passwordAlert").css("color","red");
-					$("#password").css("border","red 2px solid");
-				}
+				$.ajax({
+					url: "passwordCheck.do",
+					data: "password=" + $("#password").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						$("#passwordAlert").html(obj.message);
+						if (obj.state == 1) {
+							$("#passwordAlert").css("color", "green");
+							$("#password").css("border-color", "initial");
+							$("#password").css("border-width", "2px");
+							$("#password").css("border-style", "inset");
+						} else {
+							$("#passwordAlert").css("color", "red");
+							$("#password").css("border", "red 2px solid");
+						}
+					}
+				});
 			}
 			
 			function password2Check() {
-				var password = $("#password").val();
-				var password2 = $("#password2").val();
-				if (password == password2) {
-					$("#password2Alert").html("正確");
-					$("#password2Alert").css("color","green");
-					$("#password2").css("border-color","initial");
-					$("#password2").css("border-width","2px");
-					$("#password2").css("border-style","inset");
-				} else {
-					$("#password2Alert").html("密碼不一致");
-					$("#password2Alert").css("color","red");
-					$("#password2").css("border","red 2px solid");
-				}
+				$.ajax({
+					url: "password2Check.do",
+					data: "password=" + $("#password").val() + "&password2=" + $("#password2").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						$("#password2Alert").html(obj.message);
+						if (obj.state == 1) {
+							$("#password2Alert").css("color", "green");
+							$("#password2").css("border-color", "initial");
+							$("#password2").css("border-width", "2px");
+							$("#password2").css("border-style", "inset");
+						} else {
+							$("#password2Alert").css("color", "red");
+							$("#password2").css("border", "red 2px solid");
+						}
+					}
+				});
 			}
 			
 			function emailCheck() {
-				var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-				var email = $("#email").val();
-				if (reg.test(email)) {
-					$("#emailAlert").html("正確");
-					$("#emailAlert").css("color","green");
-					$("#email").css("border-color","initial");
-					$("#email").css("border-width","2px");
-					$("#email").css("border-style","inset");
-				} else {
-					$("#emailAlert").html("這不是一個信箱");
-					$("#emailAlert").css("color","red");
-					$("#email").css("border","red 2px solid");
-				}
+				$.ajax({
+					url: "emailCheck.do",
+					data: "email=" + $("#email").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						$("#emailAlert").html(obj.message);
+						if (obj.state == 1) {
+							$("#emailAlert").css("color", "green");
+							$("#email").css("border-color", "initial");
+							$("#email").css("border-width", "2px");
+							$("#email").css("border-style", "inset");
+						} else {
+							$("#emailAlert").css("color", "red");
+							$("#email").css("border", "red 2px solid");
+						}
+					}
+				});
 			}
 			
 			function phoneCheck() {
-				var phone = $("#phone").val();
-				if (/^09\d{8}$/.test(phone)) {
-					$("#phoneAlert").html("正確");
-					$("#phoneAlert").css("color","green");
-					$("#phone").css("border-color","initial");
-					$("#phone").css("border-width","2px");
-					$("#phone").css("border-style","inset");
-				} else {
-					$("#phoneAlert").html("手機格式錯誤");
-					$("#phoneAlert").css("color","red");
-					$("#phone").css("border","red 2px solid");
-				}
+				$.ajax({
+					url: "phoneCheck.do",
+					data: "phone=" + $("#phone").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						$("#phoneAlert").html(obj.message);
+						if (obj.state == 1) {
+							$("#phoneAlert").css("color", "green");
+							$("#phone").css("border-color", "initial");
+							$("#phone").css("border-width", "2px");
+							$("#phone").css("border-style", "inset");
+						} else {
+							$("#phoneAlert").css("color", "red");
+							$("#phone").css("border", "red 2px solid");
+						}
+					}
+				});
 			}
 			
 			function verificationCheck() {
-				var verification = $("#verification").val();
 				$.ajax({
-					url: "checkVerification.do?verificationA=" + verification,
+					url: "verificationCheck.do",
+					data: "verificationA=" + $("#verification").val(),
 					type: "get",
 					dataType: "json",
 					success: function(obj){
+						$("#verificationAlert").html(obj.message);
 						if (obj.state == 1) {
-							$("#verificationAlert").html("正確");
 							$("#verificationAlert").css("color","green");
 							$("#verification").css("border-color","initial");
 							$("#verification").css("border-width","2px");
 							$("#verification").css("border-style","inset");
 						} else {
-							$("#verificationAlert").html("驗證碼錯誤");
 							$("#verificationAlert").css("color","red");
 							$("#verification").css("border","red 2px solid");
 						}
@@ -191,6 +204,17 @@
 				$("#verificationImg")[0].src="verification.do?"+new Date();
 			}
 			
+			function submitInfo() {
+				$.ajax({
+					url: "userRegister.do",
+					data: $("#registerInformation").serialize(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						alert(obj.message);
+					}
+				});
+			}
 		</script>
 	</body>
 </html>

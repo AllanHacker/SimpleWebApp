@@ -30,15 +30,15 @@ public class VerificationController {
 	 * @param session 系統儲存的位置
 	 * @return 正確返回1，錯誤返回0
 	 */
-	@RequestMapping("/checkVerification.do")
+	@RequestMapping("/verificationCheck.do")
 	@ResponseBody
-	public ResponseResult checkVerification(String verificationA, HttpSession session) {
+	public ResponseResult verificationCheck(String verificationA, HttpSession session) {
 		ResponseResult responseResult;
 		String verificationQ = (String) session.getAttribute("verification");
 		if (verificationA.toUpperCase().equals(verificationQ)) {
-			responseResult = new ResponseResult(1);
+			responseResult = new ResponseResult(1, "驗證成功");
 		} else {
-			responseResult = new ResponseResult(0);
+			responseResult = new ResponseResult(0, "請再看清楚一點");
 		}
 		return responseResult;
 	}

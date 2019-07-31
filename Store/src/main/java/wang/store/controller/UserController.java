@@ -1,6 +1,7 @@
 package wang.store.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,28 +28,145 @@ public class UserController {
 	}
 	
 	/**
-	 * 使用者註冊功能
+	 * 驗證用戶提交的帳號資料
+	 * @param username 用戶提交的帳號資料
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "usernameCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult usernameCheck(String username) {
+		ResponseResult responseResult;
+		String regex = "\\w{6,20}";
+		if (username.matches(regex)) {
+			return responseResult = new ResponseResult(1, "格式正確");
+		} else {
+			return responseResult = new ResponseResult(0, "格式錯誤");
+		}
+	}
+	
+	/**
+	 * 驗證用戶提交的密碼資料
+	 * @param password 用戶提交的密碼資料
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "passwordCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult passwordCheck(String password) {
+		ResponseResult responseResult;
+		String regex = "\\w{8,30}";
+		if (password.matches(regex)) {
+			return responseResult = new ResponseResult(1, "格式正確");
+		} else {
+			return responseResult = new ResponseResult(0, "格式錯誤");
+		}
+	}
+	
+	/**
+	 * 驗證用戶提交的密碼確認資料
+	 * @param password 密碼
+	 * @param password2 密碼確認
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "password2Check.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult password2Check(String password, String password2) {
+		ResponseResult responseResult;
+		if (password.equals(password2)) {
+			return responseResult = new ResponseResult(1, "正確");
+		} else {
+			return responseResult = new ResponseResult(0, "密碼不一致");
+		}
+	}
+	
+	/**
+	 * 驗證用戶提交的信箱資料
+	 * @param email 用戶提交的信箱資料
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "emailCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult emailCheck(String email) {
+		ResponseResult responseResult;
+		String regex = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$";
+		if (email.matches(regex)) {
+			return responseResult = new ResponseResult(1, "正確");
+		} else {
+			return responseResult = new ResponseResult(0, "這不是信箱");
+		}
+	}
+	
+	/**
+	 * 驗證用戶提交的手機資料
+	 * @param phone 用戶提交的手機資料
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "phoneCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult phoneCheck(String phone) {
+		ResponseResult responseResult;
+		String regex = "^09\\d{8}$";
+		if (phone.matches(regex)) {
+			return responseResult = new ResponseResult(1, "正確");
+		} else {
+			return responseResult = new ResponseResult(0, "手機號碼有誤");
+		}
+	}
+	
+	/**
+	 * 使用者註冊功能，所有資料驗證通過才能註冊
 	 * @param username 帳號
 	 * @param password 密碼
 	 * @param email 電郵
 	 * @param phone 手機
-	 * @return 0是失敗，1是成功
+	 * @return 成功返回1，失敗返回0
 	 */
 	@RequestMapping(value = "userRegister.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult userRegister(String username, String password, String email, String phone) {
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setEmail(email);
-		user.setPhone(phone);
-		int result = userService.userRegister(user);
+	public ResponseResult userRegister(String username, String password, String password2, 
+			String email, String phone, String verification, HttpSession session) {
 		ResponseResult responseResult;
-		if (result == 0) {
-			return responseResult = new ResponseResult(0, "註冊失敗");
-		} else {
-			return responseResult = new ResponseResult(1, "註冊成功");
+		VerificationController vc = new VerificationController();
+		boolean flag = true;
+		
+		responseResult = usernameCheck(username);
+		if (responseResult.getState() == 0) {
+			flag = false;
 		}
+		responseResult = passwordCheck(password);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = password2Check(password, password2);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = emailCheck(email);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = phoneCheck(phone);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = vc.verificationCheck(verification, session);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		
+		if (flag) {
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setEmail(email);
+			user.setPhone(phone);
+			int result = userService.userRegister(user);
+			if (result == 1) {
+				return responseResult = new ResponseResult(1, "註冊成功");
+			} else {
+				return responseResult = new ResponseResult(0, "註冊失敗");
+			}
+		}
+		return responseResult = new ResponseResult(0, "資料有誤，請先核對再註冊");
 	}
 	
 }
