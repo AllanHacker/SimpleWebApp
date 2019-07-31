@@ -1,8 +1,12 @@
 package wang.store.controller;
 
+import java.util.ResourceBundle;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.jdbc.core.metadata.Db2CallMetaDataProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -163,9 +167,14 @@ public class UserController {
 		}
 		
 		if (flag) {
+			//String salt = "愛的是非對錯已太多";
+			ResourceBundle properties = ResourceBundle.getBundle("db");
+			String salt = properties.getString("salt");
+			password = password + salt;
+			
 			User user = new User();
 			user.setUsername(username);
-			user.setPassword(password);
+			user.setPassword(DigestUtils.md5Hex(password));
 			user.setEmail(email);
 			user.setPhone(phone);
 			int result = userService.userRegister(user);
@@ -178,6 +187,14 @@ public class UserController {
 		return responseResult = new ResponseResult(0, "資料有誤，請先核對再註冊");
 	}
 	
+	/**
+	 * 使用者登入功能
+	 * @param username 帳號
+	 * @param password 密碼
+	 * @param verification 驗證碼
+	 * @param session 系統的驗證碼儲存的位置
+	 * @return 登入成功返回1，帳號密碼錯誤返回0，驗證碼錯誤返回2
+	 */
 	@RequestMapping(value = "userLogin.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult userLogin(String username, String password, String verification, 
@@ -191,7 +208,10 @@ public class UserController {
 			if (user == null) {
 				return responseResult = new ResponseResult(0, "無此帳號");
 			} else {
-				if (!user.getPassword().equals(password)) {
+				ResourceBundle properties = ResourceBundle.getBundle("db");
+				String salt = properties.getString("salt");
+				password = password + salt;
+				if (!user.getPassword().equals(DigestUtils.md5Hex(password))) {
 					return responseResult = new ResponseResult(0, "密碼錯誤");
 				}
 			}
