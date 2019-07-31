@@ -1,0 +1,42 @@
+@charset "BIG5";
+
+#header a{
+	font-size: 14px;
+	text-decoration: none;
+	color: blue;
+}
+
+#registerInformation .words{
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	font-size: 18px;
+}
+
+#registerInformation input{
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	width: 250px;
+	font-size: 18px;
+}
+
+#registerInformation div{
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	width: 250px;
+	font-size: 18px;
+}
+
+#registerInformation a{
+	font-size: 12px;
+	text-decoration: none;
+	color: blue;
+}
+
+#registerInformation #submitButton{
+	height: 25px;
+	width: 50px;
+	font-size: 18px;
+}

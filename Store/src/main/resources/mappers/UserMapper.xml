@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.mapper.UserMapper">
+	
+	<!-- 向資料庫新增用戶
+	int insert(); -->
+	<insert id="insert" parameterType="wang.store.bean.User">
+		INSERT INTO user_table(
+			username,
+			password,
+			email,
+			phone
+		) 
+		VALUES(
+			#{username},
+			#{password},
+			#{email},
+			#{phone}
+		);
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
