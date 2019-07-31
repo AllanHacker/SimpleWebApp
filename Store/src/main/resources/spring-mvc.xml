@@ -32,16 +32,14 @@
 	</bean>
 
 	<mvc:annotation-driven />
-<!--  
+
 	<mvc:interceptors>
-		
 		<mvc:interceptor>
-			<mvc:mapping path="" />
+			<mvc:mapping path="/profilePage.do" />
 			<mvc:exclude-mapping path="" />
-			<bean class="cn.tedu.store.interceptor.LoginInterceptor" />
+			<bean class="wang.store.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
--->
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

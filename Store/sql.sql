@@ -10,7 +10,7 @@ select * from user_table;
 
 desc user_table;
 
-delete from user_table;
+delete from user_table where user_id=28;
 
 insert into user_table(username, password) values('aaa', 'aaa');
 

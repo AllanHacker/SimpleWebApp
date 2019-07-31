@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Register</title>
+		<title>User Login</title>
 		<link href="register.css" rel="stylesheet" />
 		
 	</head>
@@ -12,6 +12,8 @@
 			<a href="#">購物車</a>
 			<a href="registerPage.do">註冊</a>
 			<a href="loginPage.do">登入</a>
+			<a href="logout.do">登出</a>
+			<a href="profilePage.do">會員中心</a>
 		</header>
 		<div id="content">
 			<h2>登入</h2>
@@ -121,7 +123,7 @@
 								$("#login").css("border", "red 2px solid");
 							}
 							if (obj.state == 1) {
-								location.href = "index.do";
+								location.href = "profilePage.do";
 							}
 						}
 					});

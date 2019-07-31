@@ -41,6 +41,26 @@ public class UserController {
 	}
 	
 	/**
+	 * 顯示會員中心頁面
+	 * @return 會員中心頁面
+	 */
+	@RequestMapping("/profilePage.do")
+	public String profilePage() {
+		return "profile";
+	}
+	
+	/**
+	 * 登出功能
+	 * @param session 會員id
+	 * @return 回到登入頁面
+	 */
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userId");
+		return "login";
+	}
+	
+	/**
 	 * 驗證用戶提交的帳號資料
 	 * @param username 用戶提交的帳號資料
 	 * @return 正確返回1，錯誤返回0
@@ -215,6 +235,7 @@ public class UserController {
 					return responseResult = new ResponseResult(0, "密碼錯誤");
 				}
 			}
+			session.setAttribute("userId", user.getId());
 			return responseResult = new ResponseResult(1, "登入成功");
 		}
 	}

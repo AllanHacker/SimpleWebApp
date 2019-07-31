@@ -22,6 +22,7 @@
 	<!--  根據會員的id查找會員資料 User findUserByUserId(Integer userId) -->
 	<select id="findUserByUserId" resultType="wang.store.bean.User">
 		SELECT
+			user_id AS userId,
 			username,
 			password,
 			email,
@@ -35,6 +36,7 @@
 	<!-- 根據會員帳號名稱查找會員資料 User findUserByUsername(String username) -->
 	<select id="findUserByUsername" resultType="wang.store.bean.User">
 		SELECT
+			user_id AS userId,
 			username,
 			password,
 			email,
