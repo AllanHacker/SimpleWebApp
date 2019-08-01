@@ -24,7 +24,7 @@
 						<td class="words">密碼：</td>
 						<td>
 							<div id=""></div>
-							<input id="oldPassword" name="oldPassword" type="text" placeholder="請輸入原本的密碼">
+							<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
 							<div id="oldPasswordAlert"></div>
 						</td>
 					</tr>
@@ -100,16 +100,7 @@
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						$("#passwordAlert").html(obj.message);
-						if (obj.state == 1) {
-							$("#passwordAlert").css("color", "green");
-							$("#password").css("border-color", "initial");
-							$("#password").css("border-width", "2px");
-							$("#password").css("border-style", "inset");
-						} else {
-							$("#passwordAlert").css("color", "red");
-							$("#password").css("border", "red 2px solid");
-						}
+						showMessage("password", obj);
 					}
 				});
 			}
@@ -121,16 +112,7 @@
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						$("#password2Alert").html(obj.message);
-						if (obj.state == 1) {
-							$("#password2Alert").css("color", "green");
-							$("#password2").css("border-color", "initial");
-							$("#password2").css("border-width", "2px");
-							$("#password2").css("border-style", "inset");
-						} else {
-							$("#password2Alert").css("color", "red");
-							$("#password2").css("border", "red 2px solid");
-						}
+						showMessage("password2", obj);
 					}
 				});
 			}
@@ -142,16 +124,7 @@
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						$("#emailAlert").html(obj.message);
-						if (obj.state == 1) {
-							$("#emailAlert").css("color", "green");
-							$("#email").css("border-color", "initial");
-							$("#email").css("border-width", "2px");
-							$("#email").css("border-style", "inset");
-						} else {
-							$("#emailAlert").css("color", "red");
-							$("#email").css("border", "red 2px solid");
-						}
+						showMessage("email", obj);
 					}
 				});
 			}
@@ -163,16 +136,7 @@
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						$("#phoneAlert").html(obj.message);
-						if (obj.state == 1) {
-							$("#phoneAlert").css("color", "green");
-							$("#phone").css("border-color", "initial");
-							$("#phone").css("border-width", "2px");
-							$("#phone").css("border-style", "inset");
-						} else {
-							$("#phoneAlert").css("color", "red");
-							$("#phone").css("border", "red 2px solid");
-						}
+						showMessage("phone", obj);
 					}
 				});
 			}
@@ -211,6 +175,18 @@
 				}
 			}
 			
+			function showMessage(tag, obj) {
+				$("#" + tag + "Alert").html(obj.message);
+				if (obj.state == 1) {
+					$("#" + tag + "Alert").css("color", "green");
+					$("#" + tag).css("border-color", "initial");
+					$("#" + tag).css("border-width", "2px");
+					$("#" + tag).css("border-style", "inset");
+				} else {
+					$("#" + tag + "Alert").css("color", "red");
+					$("#" + tag).css("border", "red 2px solid");
+				}
+			}
 		</script>
 	</body>
 </html>

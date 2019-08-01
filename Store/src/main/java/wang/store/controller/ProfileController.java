@@ -106,7 +106,6 @@ public class ProfileController {
 		}
 	}
 	
-	
 	/**
 	 * 將會員的資料載入到會員中心頁面中
 	 * @param session 會員資料儲存的位置
@@ -207,7 +206,6 @@ public class ProfileController {
 		} else {
 			return responseResult = new ResponseResult(0, "密碼不正確");
 		}
-		
-		
 	}
+	
 }

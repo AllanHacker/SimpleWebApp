@@ -23,6 +23,7 @@
 	<select id="findUserByUserId" resultType="wang.store.bean.User">
 		SELECT
 			user_id AS userId,
+			state,
 			username,
 			password,
 			email,
@@ -38,6 +39,7 @@
 	<select id="findUserByUsername" resultType="wang.store.bean.User">
 		SELECT
 			user_id AS userId,
+			state,
 			username,
 			password,
 			email,

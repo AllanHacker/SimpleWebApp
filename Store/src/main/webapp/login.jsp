@@ -22,23 +22,23 @@
 					<tr>
 						<td class="words">帳號：</td>
 						<td>
-							<input id="username" name="username" type="text">
+							<input id="username" name="username" type="text" onblur="clearMessage(this)">
 							<div id="usernameAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">密碼：</td>
 						<td>
-							<input id="password" name="password" type="password">
+							<input id="password" name="password" type="password" onblur="clearMessage(this)">
 							<div id="passwordAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">驗證碼：</td>
 						<td>
-							<input id="verification" name="verification" type="text">
+							<input id="verification" name="verification" type="text" onblur="clearMessage(this)">
 							<img id="verificationImg" src="verification.do" />
-							<a href="#" onclick="refreshCode()">刷新</a></br>
+							<a href="#" onclick="refreshCode()">刷新</a>
 							<div id="verificationAlert"></div>
 						</td>
 					</tr>
@@ -57,28 +57,13 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
 			
-			$("#username").blur(function() {
-				$("#usernameAlert").html("");
-				$("#loginAlert").html("");
-				$(this).css("border-color", "initial");
-				$(this).css("border-width", "2px");
-				$(this).css("border-style", "inset");	
-			});
-			
-			$("#password").blur(function() {
-				$("#passwordAlert").html("");
-				$("#loginAlert").html("");
-				$(this).css("border-color", "initial");
-				$(this).css("border-width", "2px");
-				$(this).css("border-style", "inset");	
-			});
-			
-			$("#verification").blur(function() {
-				$("#verificationAlert").html("");
-				$(this).css("border-color", "initial");
-				$(this).css("border-width", "2px");
-				$(this).css("border-style", "inset");	
-			});
+			function clearMessage(tag) {
+				var name = $(tag).attr("name");
+				$("#" + name + "Alert").html("");
+				$(tag).css("border-color", "initial");
+				$(tag).css("border-width", "2px");
+				$(tag).css("border-style", "inset");	
+			}
 			
 			function refreshCode() {
 				$("#verificationImg")[0].src="verification.do?"+new Date();
@@ -87,21 +72,15 @@
 			function userLogin() {
 				var flag = true;
 				if ($("#username").val() == "") {
-					$("#usernameAlert").html("帳號不得為空");
-					$("#usernameAlert").css("color", "red");
-					$("#username").css("border", "red 2px solid");
+					showMessage("username", "帳號不得為空");
 					flag = false;
 				}
 				if ($("#password").val() == "") {
-					$("#passwordAlert").html("密碼不得為空");
-					$("#passwordAlert").css("color", "red");
-					$("#password").css("border", "red 2px solid");
+					showMessage("password", "密碼不得為空");
 					flag = false;
 				}
 				if ($("#verification").val() == "") {
-					$("#verificationAlert").html("請輸入驗證碼");
-					$("#verificationAlert").css("color", "red");
-					$("#verification").css("border", "red 2px solid");
+					showMessage("verification", "請輸入驗證碼");
 					flag = false;
 				}
 				
@@ -113,14 +92,10 @@
 						dataType: "json",
 						success: function(obj){
 							if (obj.state == 2) {
-								$("#verificationAlert").html(obj.message);
-								$("#verificationAlert").css("color", "red");
-								$("#verification").css("border", "red 2px solid");
+								showMessage("verification", obj.message);
 							}
 							if (obj.state == 0) {
-								$("#loginAlert").html(obj.message);
-								$("#loginAlert").css("color", "red");
-								$("#login").css("border", "red 2px solid");
+								showMessage("login", obj.message);
 							}
 							if (obj.state == 1) {
 								location.href = "profilePage.do";
@@ -128,6 +103,13 @@
 						}
 					});
 				}
+				
+				function showMessage(tag, string) {
+					$("#" + tag + "Alert").html(string);
+					$("#" + tag + "Alert").css("color", "red");
+					$("#" + tag).css("border", "red 2px solid");
+				}
+				
 			}
 		</script>
 	</body>
