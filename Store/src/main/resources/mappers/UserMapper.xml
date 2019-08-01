@@ -47,6 +47,17 @@
 			username=#{username}
 	</select>
 	
+	<!-- 修改會員的資料 Integer update(User user) -->
+	<update id="update" parameterType="wang.store.bean.User">
+		UPDATE 
+			user_table 
+		SET 
+			password=#{password},
+			email=#{email},
+			phone=#{phone}
+		WHERE
+			user_id=#{userId}
+	</update>
 </mapper>
 
 

@@ -24,15 +24,15 @@
 						<td class="words">密碼：</td>
 						<td>
 							<div id=""></div>
-							<input id="username" name="username" type="text" placeholder="請輸入原本的密碼" onblur="oldPasswordCheck()">
-							<div id="usernameAlert"></div>
+							<input id="oldPassword" name="oldPassword" type="text" placeholder="請輸入原本的密碼">
+							<div id="oldPasswordAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">新密碼：</td>
 						<td>
 							<div id=""></div>
-							<input id="password" name="password" type="password" placeholder="請輸入新密碼"onblur="passwordCheck()">
+							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="passwordCheck()">
 							<div id="passwordAlert"></div>
 						</td>
 					</tr>
@@ -40,14 +40,14 @@
 						<td class="words">密碼驗證：</td>
 						<td>
 							<div id=""></div>
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼"onblur="password2Check()">
+							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="password2Check()">
 							<div id="password2Alert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">電子信箱：</td>
 						<td>
-							<div id="selectEmail"></div>
+							<div id="showEmail"></div>
 							<input id="email" name="email" type="text" onblur="emailCheck()">
 							<div id="emailAlert"></div>
 						</td>
@@ -55,7 +55,7 @@
 					<tr>
 						<td class="words">手機號碼：</td>
 						<td>
-							<div id="selectPhone"></div>
+							<div id="showPhone"></div>
 							<input id="phone" name="phone" type="text" onblur="phoneCheck()">
 							<div id="phoneAlert"></div>
 						</td>
@@ -64,7 +64,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input id="submitButton" type="button" value="確定" onclick="update()">
+							<input id="submitButton" type="button" value="確定" onclick="userUpdate()">
 						</td>
 					</tr>
 				</table>
@@ -81,32 +81,11 @@
 					dataType: "json",
 					success: function(obj){
 						$("#showUsername").html(obj.data[0]);
-						$("#selectEmail").html(obj.data[1]);
-						$("#selectPhone").html(obj.data[2]);
+						$("#showEmail").html(obj.data[1]);
+						$("#showPhone").html(obj.data[2]);
 					}
 				});
 			})
-			
-			function oldPasswordCheck() {
-				$.ajax({
-					url: "usernameCheck.do",
-					data: "username=" + $("#username").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						$("#usernameAlert").html(obj.message);
-						if (obj.state == 1) {
-							$("#usernameAlert").css("color", "green");
-							$("#username").css("border-color", "initial");
-							$("#username").css("border-width", "2px");
-							$("#username").css("border-style", "inset");
-						} else {
-							$("#usernameAlert").css("color", "red");
-							$("#username").css("border", "red 2px solid");
-						}
-					}
-				});
-			}
 			
 			function passwordCheck() {
 				$.ajax({
@@ -192,16 +171,17 @@
 				});
 			}
 			
-			function update() {
+			function userUpdate() {
+				confirm("確定要修改嗎?")
 				$.ajax({
-					url: "userRegister.do",
+					url: "userUpdate.do",
 					data: $("#registerInformation").serialize(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
 						alert(obj.message);
 						if (obj.state == 1) {
-							location.href = "loginPage.do";
+							window.location.reload();
 						}
 					}
 				});

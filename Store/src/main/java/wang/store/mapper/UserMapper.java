@@ -23,4 +23,11 @@ public interface UserMapper {
 	 * @return 會員資料
 	 */
 	User findUserByUsername(String username);
+	
+	/**
+	 * 修改會員的資料
+	 * @param user 新的會員資料
+	 * @return 受影響的行數
+	 */
+	Integer update(User user);
 }

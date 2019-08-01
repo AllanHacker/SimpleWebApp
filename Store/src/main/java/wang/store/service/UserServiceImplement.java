@@ -28,4 +28,9 @@ public class UserServiceImplement implements UserServiceInterface{
 		return user;
 	}
 
+	public Integer userUpdate(User user) {
+		Integer result = userMapper.update(user);
+		return null;
+	}
+
 }

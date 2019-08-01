@@ -262,4 +262,57 @@ public class UserController {
 		String[] data = {username, email, phone};
 		return responseResult = new ResponseResult(1, data);
 	}
+	
+	/**
+	 * 會員資料修改功能
+	 * @param oldPassword 會員密碼
+	 * @param password 新密碼
+	 * @param password2 新密碼確認
+	 * @param email 新信箱
+	 * @param phone 新手機
+	 * @param session 會員id儲存的位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping(value = "userUpdate.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult userUpdate(String oldPassword, String password, String password2,
+			String email, String phone, HttpSession session) {
+		ResponseResult responseResult;
+		boolean flag = true;
+		responseResult = passwordCheck(password);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = password2Check(password, password2);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = emailCheck(email);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = phoneCheck(phone);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		if (flag) {
+			Integer userId = (Integer) session.getAttribute("userId");
+			User user = userService.findUserByUserId(userId);
+			ResourceBundle properties = ResourceBundle.getBundle("db");
+			String salt = properties.getString("salt");
+			oldPassword = oldPassword + salt;
+			if (user.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
+				password = password + salt;
+				user.setPassword(DigestUtils.md5Hex(password));
+				user.setEmail(email);
+				user.setPhone(phone);
+				userService.userUpdate(user);
+				return responseResult = new ResponseResult(1, "修改成功");
+			} else {
+				return responseResult = new ResponseResult(0, "密碼錯誤");
+			}
+		} else {
+			return responseResult = new ResponseResult(0, "資料有誤，無法修改");
+		}
+	}
 }

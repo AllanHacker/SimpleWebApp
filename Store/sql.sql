@@ -14,4 +14,4 @@ delete from user_table where user_id=28;
 
 insert into user_table(username, password) values('aaa', 'aaa');
 
-
+UPDATE user_table set password='a', email='a', phone='0' where user_id=30;
