@@ -76,7 +76,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$.ajax({
-					url: "loadData.do",
+					url: "profile/loadData.do",
 					type: "post",
 					dataType: "json",
 					success: function(obj){
@@ -89,7 +89,7 @@
 			
 			function passwordCheck() {
 				$.ajax({
-					url: "passwordCheck.do",
+					url: "profile/passwordCheck.do",
 					data: "password=" + $("#password").val(),
 					type: "post",
 					dataType: "json",
@@ -110,7 +110,7 @@
 			
 			function password2Check() {
 				$.ajax({
-					url: "password2Check.do",
+					url: "profile/password2Check.do",
 					data: "password=" + $("#password").val() + "&password2=" + $("#password2").val(),
 					type: "post",
 					dataType: "json",
@@ -131,7 +131,7 @@
 			
 			function emailCheck() {
 				$.ajax({
-					url: "emailCheck.do",
+					url: "profile/emailCheck.do",
 					data: "email=" + $("#email").val(),
 					type: "post",
 					dataType: "json",
@@ -152,7 +152,7 @@
 			
 			function phoneCheck() {
 				$.ajax({
-					url: "phoneCheck.do",
+					url: "profile/phoneCheck.do",
 					data: "phone=" + $("#phone").val(),
 					type: "post",
 					dataType: "json",
@@ -172,19 +172,20 @@
 			}
 			
 			function userUpdate() {
-				confirm("確定要修改嗎?")
-				$.ajax({
-					url: "userUpdate.do",
-					data: $("#registerInformation").serialize(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						alert(obj.message);
-						if (obj.state == 1) {
-							window.location.reload();
+				if (confirm("確定要修改嗎?")) {
+					$.ajax({
+						url: "profile/userUpdate.do",
+						data: $("#registerInformation").serialize(),
+						type: "post",
+						dataType: "json",
+						success: function(obj){
+							alert(obj.message);
+							if (obj.state == 1) {
+								window.location.reload();
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 			
 		</script>
