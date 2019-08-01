@@ -8,7 +8,7 @@ import org.apache.poi.ss.formula.functions.T;
  * @author wbx
  *
  */
-public class ResponseResult implements Serializable{
+public class ResponseResult<T> implements Serializable{
 	
 	private static final long serialVersionUID = -6303089820968923059L;
 	private Integer state;

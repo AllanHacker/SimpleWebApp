@@ -17,6 +17,7 @@
 		</header>
 		<div id="content">
 			<h2>會員中心</h2>
+			歡迎 <span id="showUsername"></span>
 			<form id="registerInformation">
 				<table>
 					<tr>
@@ -63,7 +64,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input id="submitButton" type="button" value="確定" onclick="userRegister()">
+							<input id="submitButton" type="button" value="確定" onclick="update()">
 						</td>
 					</tr>
 				</table>
@@ -73,6 +74,19 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
+			$(function(){
+				$.ajax({
+					url: "loadData.do",
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						$("#showUsername").html(obj.data[0]);
+						$("#selectEmail").html(obj.data[1]);
+						$("#selectPhone").html(obj.data[2]);
+					}
+				});
+			})
+			
 			function oldPasswordCheck() {
 				$.ajax({
 					url: "usernameCheck.do",
@@ -178,7 +192,7 @@
 				});
 			}
 			
-			function userRegister() {
+			function update() {
 				$.ajax({
 					url: "userRegister.do",
 					data: $("#registerInformation").serialize(),

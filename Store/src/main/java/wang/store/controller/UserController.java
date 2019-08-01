@@ -239,4 +239,22 @@ public class UserController {
 			return responseResult = new ResponseResult(1, "登入成功");
 		}
 	}
+	
+	/**
+	 * 將會員的資料載入到會員中心頁面中
+	 * @param session 會員資料儲存的位置
+	 * @return 帳號、信箱、手機
+	 */
+	@RequestMapping(value = "loadData.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult loadData(HttpSession session) {
+		ResponseResult responseResult;
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		String username = user.getUsername();
+		String email = user.getEmail();
+		String phone = user.getPhone();
+		String[] data = {username, email, phone};
+		return responseResult = new ResponseResult(1, data);
+	}
 }
