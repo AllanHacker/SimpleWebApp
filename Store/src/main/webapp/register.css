@@ -41,6 +41,12 @@
 	font-size: 18px;
 }
 
+#registerInformation #deleteButton{
+	height: 25px;
+	width: 50px;
+	font-size: 18px;
+}
+
 #registerInformation #loginAlert{
 	margin: 7px 0 0 0;
 }

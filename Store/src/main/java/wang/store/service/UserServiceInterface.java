@@ -14,14 +14,14 @@ public interface UserServiceInterface {
 	/**
 	 * 根據會員的id查找會員資料
 	 * @param userId 會員id
-	 * @return 會員資料
+	 * @return 未被刪除的會員資料
 	 */
 	User findUserByUserId(Integer userId);
 	
 	/**
 	 * 根據會員帳號名稱查找會員資料
 	 * @param username 會員帳號名稱
-	 * @return 會員資料
+	 * @return 未被刪除的會員資料
 	 */
 	User findUserByUsername(String username);
 	

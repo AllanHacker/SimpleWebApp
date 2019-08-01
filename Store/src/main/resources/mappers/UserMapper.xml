@@ -30,7 +30,8 @@
 		FROM
 			user_table
 		WHERE
-			user_id=#{userId}
+			user_id=#{userId} AND
+			state=1
 	</select>
 	
 	<!-- 根據會員帳號名稱查找會員資料 User findUserByUsername(String username) -->
@@ -44,7 +45,8 @@
 		FROM
 			user_table
 		WHERE
-			username=#{username}
+			username=#{username} AND
+			state=1
 	</select>
 	
 	<!-- 修改會員的資料 Integer update(User user) -->
@@ -52,6 +54,7 @@
 		UPDATE 
 			user_table 
 		SET 
+			state=#{state},
 			password=#{password},
 			email=#{email},
 			phone=#{phone}

@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.jdbc.core.metadata.Db2CallMetaDataProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -183,5 +182,32 @@ public class ProfileController {
 		} else {
 			return responseResult = new ResponseResult(0, "資料有誤，無法修改");
 		}
+	}
+	
+	/**
+	 * 刪除帳號功能
+	 * @param oldPassword 會員的密碼
+	 * @param session 會員id儲存的位置
+	 * @return 刪除成功返回1，密碼錯誤返回0
+	 */
+	@RequestMapping(value = "deleteUser.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult deleteUser(String oldPassword, HttpSession session) {
+		ResponseResult responseResult;
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		ResourceBundle properties = ResourceBundle.getBundle("db");
+		String salt = properties.getString("salt");
+		oldPassword = oldPassword + salt;
+		if (user.getPassword().equals(DigestUtils.md5Hex(oldPassword))) {
+			Integer state = 0;
+			user.setState(state);
+			userService.userUpdate(user);
+			return responseResult = new ResponseResult(1, "帳號已被刪除");
+		} else {
+			return responseResult = new ResponseResult(0, "密碼不正確");
+		}
+		
+		
 	}
 }

@@ -67,6 +67,12 @@
 							<input id="submitButton" type="button" value="確定" onclick="userUpdate()">
 						</td>
 					</tr>
+					<tr>
+						<td class="words">刪除帳號：</td>
+						<td>
+							<input id="deleteButton" type="button" value="確定" onclick="deleteUser()">
+						</td>
+					</tr>
 				</table>
 			</form>
 		</div>
@@ -182,6 +188,23 @@
 							alert(obj.message);
 							if (obj.state == 1) {
 								window.location.reload();
+							}
+						}
+					});
+				}
+			}
+			
+			function deleteUser() {
+				if (confirm("確定要刪除帳號嗎")) {
+					$.ajax({
+						url: "profile/deleteUser.do",
+						data: $("#registerInformation").serialize(),
+						type: "post",
+						dataType: "json",
+						success: function(obj){
+							alert(obj.message);
+							if (obj.state == 1) {
+								location.href = "logout.do";
 							}
 						}
 					});

@@ -240,7 +240,7 @@ public class UserController {
 					return responseResult = new ResponseResult(0, "密碼錯誤");
 				}
 			}
-			session.setAttribute("userId", user.getId());
+			session.setAttribute("userId", user.getUserId());
 			return responseResult = new ResponseResult(1, "登入成功");
 		}
 	}
