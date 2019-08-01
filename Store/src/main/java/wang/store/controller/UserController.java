@@ -32,12 +32,17 @@ public class UserController {
 	}
 	
 	/**
-	 * 顯示登入頁面
-	 * @return 登入頁面
+	 * 根據會員id判斷，顯示登入頁面或已登入頁面
+	 * @param session 會員id儲存的位置
+	 * @return 登入頁面或已登入頁面
 	 */
 	@RequestMapping("/loginPage.do")
-	public String loginPage() {
-		return "login";
+	public String loginPage(HttpSession session) {
+		if (session.getAttribute("userId") == null) {
+			return "login";
+		} else {
+			return "loginAlready";
+		}
 	}
 	
 	/**
