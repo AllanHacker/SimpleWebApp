@@ -17,7 +17,7 @@
 		</header>
 		<div id="content">
 			<h2>會員中心</h2>
-			歡迎 <span id="showUsername"></span>
+			歡迎 <span id="usernameShow"></span>
 			<form id="registerInformation">
 				<table>
 					<tr>
@@ -32,7 +32,7 @@
 						<td class="words">新密碼：</td>
 						<td>
 							<div id=""></div>
-							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="passwordCheck()">
+							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
 							<div id="passwordAlert"></div>
 						</td>
 					</tr>
@@ -40,23 +40,23 @@
 						<td class="words">密碼驗證：</td>
 						<td>
 							<div id=""></div>
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="password2Check()">
+							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
 							<div id="password2Alert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">電子信箱：</td>
 						<td>
-							<div id="showEmail"></div>
-							<input id="email" name="email" type="text" onblur="emailCheck()">
+							<div id="emailShow"></div>
+							<input id="email" name="email" type="text" onblur="dataCheck(this)">
 							<div id="emailAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">手機號碼：</td>
 						<td>
-							<div id="showPhone"></div>
-							<input id="phone" name="phone" type="text" onblur="phoneCheck()">
+							<div id="phoneShow"></div>
+							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
 							<div id="phoneAlert"></div>
 						</td>
 					</tr>
@@ -70,7 +70,7 @@
 					<tr>
 						<td class="words">刪除帳號：</td>
 						<td>
-							<input id="deleteButton" type="button" value="確定" onclick="deleteUser()">
+							<input id="deleteButton" type="button" value="確定" onclick="userDelete()">
 						</td>
 					</tr>
 				</table>
@@ -82,61 +82,35 @@
 		<script type="text/javascript">
 			$(function(){
 				$.ajax({
-					url: "profile/loadData.do",
+					url: "profile/dataLoad.do",
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						$("#showUsername").html(obj.data[0]);
-						$("#showEmail").html(obj.data[1]);
-						$("#showPhone").html(obj.data[2]);
+						$("#usernameShow").html(obj.data[0]);
+						$("#emailShow").html(obj.data[1]);
+						$("#phoneShow").html(obj.data[2]);
 					}
 				});
 			})
 			
-			function passwordCheck() {
+			function dataCheck(tag) {
+				var name = $(tag).attr("name");
 				$.ajax({
-					url: "profile/passwordCheck.do",
-					data: "password=" + $("#password").val(),
+					url: "profile/" + name + "Check.do",
+					data: $("#registerInformation").serialize(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						showMessage("password", obj);
-					}
-				});
-			}
-			
-			function password2Check() {
-				$.ajax({
-					url: "profile/password2Check.do",
-					data: "password=" + $("#password").val() + "&password2=" + $("#password2").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("password2", obj);
-					}
-				});
-			}
-			
-			function emailCheck() {
-				$.ajax({
-					url: "profile/emailCheck.do",
-					data: "email=" + $("#email").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("email", obj);
-					}
-				});
-			}
-			
-			function phoneCheck() {
-				$.ajax({
-					url: "profile/phoneCheck.do",
-					data: "phone=" + $("#phone").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("phone", obj);
+						$("#" + name + "Alert").html(obj.message);
+						if (obj.state == 1) {
+							$("#" + name + "Alert").css("color", "green");
+							$("#" + name).css("border-color", "initial");
+							$("#" + name).css("border-width", "2px");
+							$("#" + name).css("border-style", "inset");
+						} else {
+							$("#" + name + "Alert").css("color", "red");
+							$("#" + name).css("border", "red 2px solid");
+						}
 					}
 				});
 			}
@@ -158,10 +132,10 @@
 				}
 			}
 			
-			function deleteUser() {
+			function userDelete() {
 				if (confirm("確定要刪除帳號嗎")) {
 					$.ajax({
-						url: "profile/deleteUser.do",
+						url: "profile/userDelete.do",
 						data: $("#registerInformation").serialize(),
 						type: "post",
 						dataType: "json",
@@ -175,18 +149,6 @@
 				}
 			}
 			
-			function showMessage(tag, obj) {
-				$("#" + tag + "Alert").html(obj.message);
-				if (obj.state == 1) {
-					$("#" + tag + "Alert").css("color", "green");
-					$("#" + tag).css("border-color", "initial");
-					$("#" + tag).css("border-width", "2px");
-					$("#" + tag).css("border-style", "inset");
-				} else {
-					$("#" + tag + "Alert").css("color", "red");
-					$("#" + tag).css("border", "red 2px solid");
-				}
-			}
 		</script>
 	</body>
 </html>

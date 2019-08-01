@@ -22,23 +22,23 @@
 					<tr>
 						<td class="words">帳號：</td>
 						<td>
-							<input id="username" name="username" type="text" onblur="clearMessage(this)">
+							<input id="username" name="username" type="text" onblur="alertClear(this)">
 							<div id="usernameAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">密碼：</td>
 						<td>
-							<input id="password" name="password" type="password" onblur="clearMessage(this)">
+							<input id="password" name="password" type="password" onblur="alertClear(this)">
 							<div id="passwordAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">驗證碼：</td>
 						<td>
-							<input id="verification" name="verification" type="text" onblur="clearMessage(this)">
+							<input id="verification" name="verification" type="text" onblur="alertClear(this)">
 							<img id="verificationImg" src="verification.do" />
-							<a href="#" onclick="refreshCode()">刷新</a>
+							<a href="#" onclick="codeRefresh()">刷新</a>
 							<div id="verificationAlert"></div>
 						</td>
 					</tr>
@@ -57,7 +57,7 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
 			
-			function clearMessage(tag) {
+			function alertClear(tag) {
 				var name = $(tag).attr("name");
 				$("#" + name + "Alert").html("");
 				$(tag).css("border-color", "initial");
@@ -65,22 +65,22 @@
 				$(tag).css("border-style", "inset");	
 			}
 			
-			function refreshCode() {
+			function codeRefresh() {
 				$("#verificationImg")[0].src="verification.do?"+new Date();
 			}
 			
 			function userLogin() {
 				var flag = true;
 				if ($("#username").val() == "") {
-					showMessage("username", "帳號不得為空");
+					alertShow("username", "帳號不得為空");
 					flag = false;
 				}
 				if ($("#password").val() == "") {
-					showMessage("password", "密碼不得為空");
+					alertShow("password", "密碼不得為空");
 					flag = false;
 				}
 				if ($("#verification").val() == "") {
-					showMessage("verification", "請輸入驗證碼");
+					alertShow("verification", "請輸入驗證碼");
 					flag = false;
 				}
 				
@@ -92,10 +92,10 @@
 						dataType: "json",
 						success: function(obj){
 							if (obj.state == 2) {
-								showMessage("verification", obj.message);
+								alertShow("verification", obj.message);
 							}
 							if (obj.state == 0) {
-								showMessage("login", obj.message);
+								alertShow("login", obj.message);
 							}
 							if (obj.state == 1) {
 								location.href = "profilePage.do";
@@ -104,7 +104,7 @@
 					});
 				}
 				
-				function showMessage(tag, string) {
+				function alertShow(tag, string) {
 					$("#" + tag + "Alert").html(string);
 					$("#" + tag + "Alert").css("color", "red");
 					$("#" + tag).css("border", "red 2px solid");

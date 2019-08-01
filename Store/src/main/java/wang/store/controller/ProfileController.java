@@ -111,9 +111,9 @@ public class ProfileController {
 	 * @param session 會員資料儲存的位置
 	 * @return 帳號、信箱、手機
 	 */
-	@RequestMapping(value = "loadData.do", method=RequestMethod.POST)
+	@RequestMapping(value = "dataLoad.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult loadData(HttpSession session) {
+	public ResponseResult dataLoad(HttpSession session) {
 		ResponseResult responseResult;
 		Integer userId = (Integer) session.getAttribute("userId");
 		User user = userService.findUserByUserId(userId);
@@ -189,9 +189,9 @@ public class ProfileController {
 	 * @param session 會員id儲存的位置
 	 * @return 刪除成功返回1，密碼錯誤返回0
 	 */
-	@RequestMapping(value = "deleteUser.do", method=RequestMethod.POST)
+	@RequestMapping(value = "userDelete.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult deleteUser(String oldPassword, HttpSession session) {
+	public ResponseResult userDelete(String oldPassword, HttpSession session) {
 		ResponseResult responseResult;
 		Integer userId = (Integer) session.getAttribute("userId");
 		User user = userService.findUserByUserId(userId);

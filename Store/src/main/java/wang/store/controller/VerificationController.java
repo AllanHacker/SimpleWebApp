@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import wang.store.bean.ResponseResult;
@@ -30,12 +31,12 @@ public class VerificationController {
 	 * @param session 系統儲存的位置
 	 * @return 正確返回1，錯誤返回0
 	 */
-	@RequestMapping("/verificationCheck.do")
+	@RequestMapping(value = "/verificationCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult verificationCheck(String verificationA, HttpSession session) {
+	public ResponseResult verificationCheck(String verification, HttpSession session) {
 		ResponseResult responseResult;
 		String verificationQ = (String) session.getAttribute("verification");
-		if (verificationQ.equals(verificationA.toUpperCase())) {
+		if (verificationQ.equals(verification.toUpperCase())) {
 			responseResult = new ResponseResult(1, "驗證成功");
 		} else {
 			responseResult = new ResponseResult(0, "請再看清楚一點");

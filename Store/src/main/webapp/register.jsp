@@ -22,44 +22,44 @@
 					<tr>
 						<td class="words">帳號：</td>
 						<td>
-							<input id="username" name="username" type="text" placeholder="6-20位英數字或底線" onblur="usernameCheck()">
+							<input id="username" name="username" type="text" placeholder="6-20位英數字或底線" onblur="dataCheck(this)">
 							<div id="usernameAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">密碼：</td>
 						<td>
-							<input id="password" name="password" type="password" placeholder="8-30位英數字或底線"onblur="passwordCheck()">
+							<input id="password" name="password" type="password" placeholder="8-30位英數字或底線"onblur="dataCheck(this)">
 							<div id="passwordAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">密碼驗證：</td>
 						<td>
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入密碼"onblur="password2Check()">
+							<input id="password2" name="password2" type="password" placeholder="請再次輸入密碼"onblur="dataCheck(this)">
 							<div id="password2Alert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">電子信箱：</td>
 						<td>
-							<input id="email" name="email" type="text" onblur="emailCheck()">
+							<input id="email" name="email" type="text" onblur="dataCheck(this)">
 							<div id="emailAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">手機號碼：</td>
 						<td>
-							<input id="phone" name="phone" type="text" onblur="phoneCheck()">
+							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
 							<div id="phoneAlert"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="words">驗證碼：</td>
 						<td>
-							<input id="verification" name="verification" type="text" onblur="verificationCheck()">
+							<input id="verification" name="verification" type="text" onblur="dataCheck(this)">
 							<img id="verificationImg" src="verification.do" />
-							<a href="#" onclick="refreshCode()">刷新</a></br>
+							<a href="#" onclick="codeRefresh()">刷新</a></br>
 							<div id="verificationAlert"></div>
 						</td>
 					</tr>
@@ -76,79 +76,29 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			function usernameCheck() {
+			function dataCheck(tag) {
+				var name = $(tag).attr("name");
 				$.ajax({
-					url: "usernameCheck.do",
-					data: "username=" + $("#username").val(),
+					url: name + "Check.do",
+					data: $("#registerInformation").serialize(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
-						showMessage("username", obj);
+						$("#" + name + "Alert").html(obj.message);
+						if (obj.state == 1) {
+							$("#" + name + "Alert").css("color", "green");
+							$("#" + name).css("border-color", "initial");
+							$("#" + name).css("border-width", "2px");
+							$("#" + name).css("border-style", "inset");
+						} else {
+							$("#" + name + "Alert").css("color", "red");
+							$("#" + name).css("border", "red 2px solid");
+						}
 					}
 				});
 			}
 			
-			function passwordCheck() {
-				$.ajax({
-					url: "passwordCheck.do",
-					data: "password=" + $("#password").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("password", obj);
-					}
-				});
-			}
-			
-			function password2Check() {
-				$.ajax({
-					url: "password2Check.do",
-					data: "password=" + $("#password").val() + "&password2=" + $("#password2").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("password2", obj);
-					}
-				});
-			}
-			
-			function emailCheck() {
-				$.ajax({
-					url: "emailCheck.do",
-					data: "email=" + $("#email").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("email", obj);
-					}
-				});
-			}
-			
-			function phoneCheck() {
-				$.ajax({
-					url: "phoneCheck.do",
-					data: "phone=" + $("#phone").val(),
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						showMessage("phone", obj);
-					}
-				});
-			}
-			
-			function verificationCheck() {
-				$.ajax({
-					url: "verificationCheck.do",
-					data: "verificationA=" + $("#verification").val(),
-					type: "get",
-					dataType: "json",
-					success: function(obj){
-						showMessage("verification", obj);
-					}
-				});
-			}
-			
-			function refreshCode() {
+			function codeRefresh() {
 				$("#verificationImg")[0].src="verification.do?"+new Date();
 			}
 			
@@ -167,18 +117,6 @@
 				});
 			}
 			
-			function showMessage(tag, obj) {
-				$("#" + tag + "Alert").html(obj.message);
-				if (obj.state == 1) {
-					$("#" + tag + "Alert").css("color", "green");
-					$("#" + tag).css("border-color", "initial");
-					$("#" + tag).css("border-width", "2px");
-					$("#" + tag).css("border-style", "inset");
-				} else {
-					$("#" + tag + "Alert").css("color", "red");
-					$("#" + tag).css("border", "red 2px solid");
-				}
-			}
 		</script>
 	</body>
 </html>
