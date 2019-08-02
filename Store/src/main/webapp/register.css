@@ -6,6 +6,19 @@
 	color: blue;
 }
 
+#content #categoryList{
+	float: left;
+}
+
+#content #categoryListChild{
+	float: left;
+}
+
+#content ul li{
+	font-size: 20px;
+	width: 100px;
+}
+
 #registerInformation .words{
 	margin: 0px;
 	padding: 0px;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.mapper.ProductMapper">
+	
+	<!-- 找出同階層的商品目錄 List<Product_category> findCategoryByParentId(Integer parentId) -->
+	<select id="findCategoryByParentId" resultType="wang.store.bean.Product_category">
+		SELECT
+			id,
+			name,
+			parent_id AS parentId
+		FROM
+			product_category
+		WHERE
+			parent_id=#{parentId}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+

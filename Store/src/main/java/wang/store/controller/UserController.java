@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.jdbc.core.metadata.Db2CallMetaDataProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
