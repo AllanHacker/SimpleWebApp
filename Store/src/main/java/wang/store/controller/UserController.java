@@ -23,6 +23,15 @@ public class UserController {
 	private UserServiceInterface userService;
 	
 	/**
+	 * 顯示首頁
+	 * @return 首頁
+	 */
+	@RequestMapping("/indexPage.do")
+	public String indexPage() {
+		return "index";
+	}
+	
+	/**
 	 * 顯示註冊頁面
 	 * @return 註冊頁面
 	 */
