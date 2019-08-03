@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +19,13 @@ public class ProductController {
 	
 	@Resource(name = "productServiceImplement")
 	private ProductServiceInterface productService;
+	
+	@RequestMapping("/productDetailPage.do")
+	public String productDetailPage(Integer id, ModelMap modelMap) {
+		Product product = productService.findProductById(id);
+		modelMap.addAttribute("product", product);
+		return "productDetail";
+	}
 	
 	@RequestMapping("/categoryListShow.do")
 	@ResponseBody

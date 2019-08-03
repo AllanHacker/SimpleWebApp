@@ -30,6 +30,22 @@
 		WHERE
 			category_id=#{categoryId}
 	</select>
+	
+	<!-- 根據商品id找出對應的商品 Product findProductById(Integer id) -->
+	<select id="findProductById" resultType="wang.store.bean.Product">
+		SELECT
+			id,
+			name,
+			category_id AS categoryId,
+			price,
+			number,
+			image,
+			state
+		FROM
+			product
+		WHERE
+			id=#{id}
+	</select>
 </mapper>
 
 

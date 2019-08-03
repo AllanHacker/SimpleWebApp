@@ -26,4 +26,9 @@ public class ProductServiceImplement implements ProductServiceInterface{
 		return product;
 	}
 
+	public Product findProductById(Integer id) {
+		Product product = productMapper.findProductById(id);
+		return product;
+	}
+
 }

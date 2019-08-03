@@ -20,4 +20,11 @@ public interface ProductMapper {
 	 * @return 某商品分類id中的所有商品
 	 */
 	List<Product> findProductByCategoryId(Integer categoryId);
+	
+	/**
+	 * 根據商品id找出對應的商品
+	 * @param id 商品id
+	 * @return 對應的商品
+	 */
+	Product findProductById(Integer id);
 }
