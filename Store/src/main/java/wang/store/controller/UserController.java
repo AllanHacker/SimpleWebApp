@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,16 @@ public class UserController {
 	@RequestMapping("/indexPage.do")
 	public String indexPage() {
 		return "index";
+	}
+	
+	/**
+	 * 顯示購物車頁面
+	 * @return 購物車頁面
+	 */
+	@RequestMapping("/cartPage.do")
+	public String cartPage(Integer userId, ModelMap modelMap) {
+		//modelMap.addAttribute("cart", cartList);
+		return "cart";
 	}
 	
 	/**
@@ -69,7 +80,7 @@ public class UserController {
 	 */
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
-		session.removeAttribute("userId");
+		session.invalidate();
 		return "login";
 	}
 	
