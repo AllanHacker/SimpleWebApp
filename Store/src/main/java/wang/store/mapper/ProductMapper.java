@@ -2,6 +2,7 @@ package wang.store.mapper;
 
 import java.util.List;
 
+import wang.store.bean.Product;
 import wang.store.bean.Product_category;
 
 public interface ProductMapper {
@@ -12,4 +13,11 @@ public interface ProductMapper {
 	 * @return 同階層的商品目錄
 	 */
 	List<Product_category> findCategoryByParentId(Integer parentId);
+	
+	/**
+	 * 根據商品分類id找出該類的所有商品
+	 * @param categoryId 商品分類id
+	 * @return 某商品分類id中的所有商品
+	 */
+	List<Product> findProductByCategoryId(Integer categoryId);
 }

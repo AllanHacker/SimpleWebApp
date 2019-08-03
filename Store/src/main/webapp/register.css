@@ -19,6 +19,25 @@
 	width: 100px;
 }
 
+#productList {
+	float: left;
+	width: 100%;
+}
+
+#productList div{
+	width: 250px;
+	height: 300px;
+	float: left;
+}
+
+#productList img{
+	height: 200px;
+}
+
+#productList span, b{
+	font-size: 20px;
+}
+
 #registerInformation .words{
 	margin: 0px;
 	padding: 0px;

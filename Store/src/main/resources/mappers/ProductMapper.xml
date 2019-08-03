@@ -15,6 +15,21 @@
 			parent_id=#{parentId}
 	</select>
 	
+	<!-- 根據商品分類id找出該類的所有商品 List<Product> findProductByCategoryId(Integer categoryId) -->
+	<select id="findProductByCategoryId" resultType="wang.store.bean.Product">
+		SELECT
+			id,
+			name,
+			category_id AS categoryId,
+			price,
+			number,
+			image,
+			state
+		FROM
+			product
+		WHERE
+			category_id=#{categoryId}
+	</select>
 </mapper>
 
 

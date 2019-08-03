@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import wang.store.bean.Product;
 import wang.store.bean.Product_category;
 import wang.store.bean.User;
 import wang.store.mapper.ProductMapper;
@@ -20,9 +21,9 @@ public class Beta {
 	public void testMapper() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		ProductMapper mapper = ctx.getBean("productMapper", ProductMapper.class);
-		List<Product_category> p = mapper.findCategoryByParentId(0);
-		for (Product_category product_category : p) {
-			System.out.println(product_category.getName());
+		List<Product> p = mapper.findProductByCategoryId(2);
+		for (Product product : p) {
+			System.out.println(product.getName());
 		}
 		
 	}
@@ -31,9 +32,9 @@ public class Beta {
 	public void testService() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		ProductServiceImplement service = ctx.getBean("productServiceImplement", ProductServiceImplement.class);
-		List<Product_category> p = service.findCategoryByParentId(0);
-		for (Product_category product_category : p) {
-			System.out.println(product_category.getName());
+		List<Product> p = service.findProductByCategoryId(2);
+		for (Product product : p) {
+			System.out.println(product.getName());
 		}
 		
 	}

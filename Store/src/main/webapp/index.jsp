@@ -14,6 +14,7 @@
 			<h2>首頁</h2>
 			<ul id="categoryList"></ul>
 			<div id="categoryListChild"></div>
+			<div id="productList"></div>
 		</div>
 		<footer id="footer"></footer>
 		
@@ -54,6 +55,25 @@
 			$(document).on("mouseout", "li", function(event){
 				$(this).css("background-color", "white");
 				$("#categoryListChild").empty();
+			});
+			
+			$(document).on("click", "li", function(event){
+				$("#productList").empty();
+				var id = $(this).attr("id");
+				$.ajax({
+					url: "productListShow.do",
+					data: "categoryId=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						obj.data.forEach(function(product){
+							$("#productList").append("<div></div>");
+							$("#productList div:last").append("<img src=${pageContext.request.contextPath}" + product.image + "></img></br>");
+							$("#productList div:last").append("<span>" + product.name + "</span></br>");
+							$("#productList div:last").append("<b>" + product.price + "</b>");
+						});
+					}
+				});
 			});
 			
 		</script>
