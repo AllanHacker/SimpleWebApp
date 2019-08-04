@@ -31,4 +31,9 @@ public class ProductServiceImplement implements ProductServiceInterface{
 		return product;
 	}
 
+	public Integer productPost(Product product) {
+		Integer result = productMapper.insertProduct(product);
+		return result;
+	}
+
 }

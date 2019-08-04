@@ -42,4 +42,19 @@ public class ProductController {
 		ResponseResult responseResult = new ResponseResult(products);
 		return responseResult;
 	}
+	
+	@RequestMapping("/productPost.do")
+	@ResponseBody
+	public ResponseResult productPost(String productName, Integer categoryId, Integer price, Integer number, String image) {
+		ResponseResult responseResult;
+		Product product = new Product();
+		product.setName(productName);
+		product.setCategoryId(categoryId);
+		product.setPrice(price);
+		product.setNumber(number);
+		product.setImage(image);
+		productService.productPost(product);
+		return responseResult = new ResponseResult(1, "商品新增成功");
+	}
+	
 }

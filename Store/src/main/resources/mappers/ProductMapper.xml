@@ -46,6 +46,24 @@
 		WHERE
 			id=#{id}
 	</select>
+	
+	<!-- 新增商品 Integer insertProduct(Product product) -->
+	<insert id="insertProduct" parameterType="wang.store.bean.Product">
+		INSERT INTO product(
+			name,
+			category_id,
+			price,
+			number,
+			image
+		)
+		VALUES(
+			#{name},
+			#{categoryId},
+			#{price},
+			#{number},
+			#{image}
+		);
+	</insert>
 </mapper>
 
 

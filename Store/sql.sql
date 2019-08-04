@@ -48,6 +48,8 @@ CREATE TABLE product(
 	state int NOT NULL DEFAULT 1
 );
 
+ALTER TABLE product MODIFY state int DEFAULT 1;
+
 desc product;
 
 insert into product(name, category_id, price, number, image, state) values
@@ -61,5 +63,26 @@ drop table product;
 
 select * from product;
 
-http://pngimg.com/
+insert into product(name, category_id, price, number, image, state) values
+('The North Face 後背包', 1, 5632, 21, '/img/backpack.png', 1),
+('LV 精品包', 1, 42011, 11, '/img/bag_lv.png', 1),
+('紫羅蘭碎花洋裝', 1, 3204, 43, '/img/dress.png', 1),
+('夏日風短裙', 1, 1004, 57, '/img/dress_model.png', 1),
+('牛仔夾克', 1, 2543, 32, '/img/jacket.png', 1),
+('騎士風衣外套 黑', 1, 1500, 14, '/img/jacket_black.png', 1),
+('亮色系防潑水路跑外套', 1, 2403, 23, '/img/jacket_green.png', 1),
+('休閒卡其褲', 1, 870, 67, '/img/pant.png', 1),
+('紳士合身襯衫', 1, 1546, 57, '/img/shirt.png', 1),
+('運動短T', 1, 705, 52, '/img/T-shirt_grey.png', 1),
+('素T', 1, 500, 88, '/img/T-shirt_red.png', 1),
+('嬰兒裝', 1, 900, 78, '/img/baby_cloth.png', 1);
+
+delete from product where id=20;
+
+
+
+
+
+
+
 

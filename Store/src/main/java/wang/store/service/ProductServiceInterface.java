@@ -27,4 +27,11 @@ public interface ProductServiceInterface {
 	 * @return 對應的商品
 	 */
 	Product findProductById(Integer id);
+	
+	/**
+	 * 新增商品
+	 * @param product 商品資料封裝的實體類
+	 * @return 受影響的行數
+	 */
+	Integer productPost(Product product);
 }
