@@ -20,6 +20,12 @@ public class ProductController {
 	@Resource(name = "productServiceImplement")
 	private ProductServiceInterface productService;
 	
+	/**
+	 * 顯示某個商品詳細資料的頁面
+	 * @param id 該商品的id
+	 * @param modelMap 商品詳細資料
+	 * @return 商品詳細資料的頁面
+	 */
 	@RequestMapping("/productDetailPage.do")
 	public String productDetailPage(Integer id, ModelMap modelMap) {
 		Product product = productService.findProductById(id);
@@ -27,6 +33,11 @@ public class ProductController {
 		return "productDetail";
 	}
 	
+	/**
+	 * 顯示商品目錄列表
+	 * @param parentId 父級分類id
+	 * @return 商品目錄列表
+	 */
 	@RequestMapping("/categoryListShow.do")
 	@ResponseBody
 	public ResponseResult categoryListShow(Integer parentId) {
@@ -35,6 +46,11 @@ public class ProductController {
 		return responseResult;
 	}
 	
+	/**
+	 * 顯示某分類的所有商品
+	 * @param categoryId 分類id
+	 * @return 商品列表
+	 */
 	@RequestMapping("/productListShow.do")
 	@ResponseBody
 	public ResponseResult productListShow(Integer categoryId) {
@@ -43,6 +59,15 @@ public class ProductController {
 		return responseResult;
 	}
 	
+	/**
+	 * 刊登新商品
+	 * @param productName 商品名稱
+	 * @param categoryId 商品分類
+	 * @param price 商品價格
+	 * @param number 商品數量
+	 * @param image 商品圖片位置
+	 * @return 成功
+	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
 	public ResponseResult productPost(String productName, Integer categoryId, Integer price, Integer number, String image) {
