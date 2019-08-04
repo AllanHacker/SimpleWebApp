@@ -48,6 +48,8 @@
 						<td>
 							<input id="image" name="image" type="text" onblur="dataCheck(this)">
 							<div id=""></div>
+							<input id="file" type="file">
+							<input type="button" value="上傳" onclick="imageUpload()">
 						</td>
 					</tr>
 					<tr>
@@ -58,6 +60,7 @@
 					</tr>
 				</table>
 			</form>
+		
 		</div>
 		<footer id="footer"></footer>
 		
@@ -77,6 +80,23 @@
 				});
 			}
 			
+			function imageUpload() {
+				var formData = new FormData();
+				var image = $("#file")[0].files[0];
+				formData.append("image", image);
+				formData.append("name", $("#image").val());
+				$.ajax({
+					url: "imageUpload.do",
+					type: "post",
+					data: formData,
+					dataType: "json",
+					processData: false,
+					contentType: false,
+					success: function(obj){
+						alert(obj.message);
+					}
+				});
+			}
 		</script>
 	</body>
 </html>

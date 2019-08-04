@@ -1,13 +1,17 @@
 package wang.store.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import wang.store.bean.Product;
 import wang.store.bean.Product_category;
@@ -77,9 +81,31 @@ public class ProductController {
 		product.setCategoryId(categoryId);
 		product.setPrice(price);
 		product.setNumber(number);
+		image = "/img/" + image + ".png";
 		product.setImage(image);
 		productService.productPost(product);
 		return responseResult = new ResponseResult(1, "商品新增成功");
+	}
+	
+	/**
+	 * 圖片上傳功能
+	 * @param image 圖片檔案
+	 * @param name 圖片名稱
+	 * @param request 讀取路徑
+	 * @return 成功返回1，失敗返回0
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping("/imageUpload.do")
+	@ResponseBody
+	public ResponseResult<Void> imageUpload(MultipartFile image, String name, HttpServletRequest request) throws IllegalStateException, IOException {
+		if (image == null) {
+			return new ResponseResult<Void>(0, "找不到檔案");
+		}
+		String path = "/img/" + name + ".png";
+		path = request.getServletContext().getRealPath(path);
+		image.transferTo(new File(path));
+		return new ResponseResult<Void>(1, "上傳成功");
 	}
 	
 }
