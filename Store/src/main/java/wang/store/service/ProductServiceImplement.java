@@ -25,6 +25,10 @@ public class ProductServiceImplement implements ProductServiceInterface{
 		List<Product> product = productMapper.findProductByCategoryId(categoryId);
 		return product;
 	}
+	
+	public List<Product> findProductByUserId(Integer userId) {
+		return productMapper.findProductByUserId(userId);
+	}
 
 	public Product findProductById(Integer id) {
 		Product product = productMapper.findProductById(id);

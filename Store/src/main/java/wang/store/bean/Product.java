@@ -3,8 +3,8 @@ package wang.store.bean;
 import java.io.Serializable;
 
 public class Product implements Serializable{
-
-	private static final long serialVersionUID = -4814459804119346259L;
+	
+	private static final long serialVersionUID = -711192107852666140L;
 	private Integer id;
 	private String name;
 	private Integer categoryId;
@@ -12,12 +12,14 @@ public class Product implements Serializable{
 	private Integer number;
 	private String image;
 	private Integer state;
+	private Integer userId;
 	
 	public Product() {
 		super();
 	}
+
 	public Product(Integer id, String name, Integer categoryId, Integer price, Integer number, String image,
-			Integer state) {
+			Integer state, Integer userId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -26,49 +28,73 @@ public class Product implements Serializable{
 		this.number = number;
 		this.image = image;
 		this.state = state;
+		this.userId = userId;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Integer getCategoryId() {
 		return categoryId;
 	}
+
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
+
 	public Integer getPrice() {
 		return price;
 	}
+
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+
 	public Integer getNumber() {
 		return number;
 	}
+
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+
 	public String getImage() {
 		return image;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
+
 	public Integer getState() {
 		return state;
 	}
+
 	public void setState(Integer state) {
 		this.state = state;
 	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,8 +106,10 @@ public class Product implements Serializable{
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -126,12 +154,18 @@ public class Product implements Serializable{
 				return false;
 		} else if (!state.equals(other.state))
 			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", categoryId=" + categoryId + ", price=" + price + ", number="
-				+ number + ", image=" + image + ", state=" + state + "]";
+				+ number + ", image=" + image + ", state=" + state + ", userId=" + userId + "]";
 	}
 	
 }

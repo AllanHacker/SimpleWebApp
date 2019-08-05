@@ -24,11 +24,29 @@
 			price,
 			number,
 			image,
-			state
+			state,
+			user_id AS userId
 		FROM
 			product
 		WHERE
 			category_id=#{categoryId}
+	</select>
+	
+	<!-- 根據會員id找出他所刊登的所有商品 List<Product> findProductByUserId(Integer userId) -->
+	<select id="findProductByUserId" resultType="wang.store.bean.Product">
+		SELECT
+			id,
+			name,
+			category_id AS categoryId,
+			price,
+			number,
+			image,
+			state,
+			user_id AS userId
+		FROM
+			product
+		WHERE
+			user_id=#{userId}
 	</select>
 	
 	<!-- 根據商品id找出對應的商品 Product findProductById(Integer id) -->
@@ -40,7 +58,8 @@
 			price,
 			number,
 			image,
-			state
+			state,
+			user_id AS userId
 		FROM
 			product
 		WHERE
@@ -54,14 +73,16 @@
 			category_id,
 			price,
 			number,
-			image
+			image,
+			user_id
 		)
 		VALUES(
 			#{name},
 			#{categoryId},
 			#{price},
 			#{number},
-			#{image}
+			#{image},
+			#{userId}
 		);
 	</insert>
 </mapper>

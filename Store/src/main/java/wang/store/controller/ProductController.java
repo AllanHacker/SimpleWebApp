@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +25,29 @@ public class ProductController {
 	
 	@Resource(name = "productServiceImplement")
 	private ProductServiceInterface productService;
+	
+	/**
+	 * 顯示拍賣頁面
+	 * @return 拍賣頁面
+	 */
+	@RequestMapping("/sellPage.do")
+	public String sellPage() {
+		return "sell";
+	}
+	
+	/**
+	 * 顯示商場頁面，並將該會員所刊登的商品都顯示出來
+	 * @param session 會員id儲存的位置
+	 * @param modelMap 商品封裝的位置
+	 * @return 商場頁面
+	 */
+	@RequestMapping("/mallPage.do")
+	public String mallPage(HttpSession session, ModelMap modelMap) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		List<Product> products = productService.findProductByUserId(userId);
+		modelMap.addAttribute("products", products);
+		return "mall";
+	}
 	
 	/**
 	 * 顯示某個商品詳細資料的頁面
@@ -169,7 +193,7 @@ public class ProductController {
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -206,6 +230,7 @@ public class ProductController {
 		product.setNumber(Integer.valueOf(number));
 		image = "/img/" + image + ".png";
 		product.setImage(image);
+		product.setUserId((Integer)session.getAttribute("userId"));
 		productService.productPost(product);
 		
 		//上傳圖片

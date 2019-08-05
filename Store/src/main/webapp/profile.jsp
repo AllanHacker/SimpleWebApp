@@ -71,6 +71,8 @@
 					</tr>
 				</table>
 			</form>
+			<a href="sellPage.do">我要拍賣</a>
+			<a href="mallPage.do">我的賣場</a>
 		</div>
 		<footer id="footer"></footer>
 		

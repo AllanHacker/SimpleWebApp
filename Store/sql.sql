@@ -79,11 +79,11 @@ insert into product(name, category_id, price, number, image, state) values
 
 delete from product where id=28;
 
-update product set image='/img/blush.png' where id=23;
+update product set user_id=34 where id=26;
+29 33 34
+alter table product add user_id int;
 
-
-
-
+desc product;
 
 
 

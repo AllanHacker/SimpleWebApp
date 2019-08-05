@@ -22,6 +22,13 @@ public interface ProductServiceInterface {
 	List<Product> findProductByCategoryId(Integer categoryId);
 	
 	/**
+	 * 根據會員id找出他所刊登的所有商品
+	 * @param userId 會員id
+	 * @return 該會員所刊登的所有商品
+	 */
+	List<Product> findProductByUserId(Integer userId);
+	
+	/**
 	 * 根據商品id找出對應的商品
 	 * @param id 商品id
 	 * @return 對應的商品

@@ -82,3 +82,24 @@
 #registerInformation #loginAlert{
 	margin: 7px 0 0 0;
 }
+
+#product{
+	font-size: 20px;
+	height: 260px;
+	border: grey 1px solid;
+	margin: 0 0 3px 0;
+	
+}
+
+#product .wrap{
+	height: 100%;
+	width: 33.3%;
+	float: left;
+	display:  flex;
+    align-items: center;
+    justify-content:  center;
+}
+
+#product img{
+	height: 100%;
+}
