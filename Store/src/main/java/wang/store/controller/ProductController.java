@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,7 +65,114 @@ public class ProductController {
 	}
 	
 	/**
-	 * 刊登新商品
+	 * 資料驗證
+	 * @param productName 商品名稱
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "productNameCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult productNameCheck(String productName) {
+		ResponseResult responseResult;
+		if ("".equals(productName)) {
+			return responseResult = new ResponseResult(0, "欄位空缺!");
+		}
+		return responseResult = new ResponseResult(1, "OK");
+	}
+	
+	/**
+	 * 資料驗證
+	 * @param categoryId 商品id
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "categoryIdCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult categoryIdCheck(String categoryId) {
+		ResponseResult responseResult;
+		if (categoryId == null) {
+			return responseResult = new ResponseResult(0, "欄位空缺!");
+		}
+		Integer in;
+		try {
+			in = Integer.valueOf(categoryId);
+		} catch (NumberFormatException e) {
+			return responseResult = new ResponseResult(0, "請填入數字");
+		}
+		if (in < 1) {
+			return responseResult = new ResponseResult(0, "至少是1");
+		}
+		return responseResult = new ResponseResult(1, "OK");
+	}
+	
+	/**
+	 * 資料驗證
+	 * @param price 商品價格
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "priceCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult priceCheck(String price) {
+		ResponseResult responseResult;
+		if (price == null) {
+			return responseResult = new ResponseResult(0, "欄位空缺!");
+		}
+		Integer in;
+		try {
+			in = Integer.valueOf(price);
+		} catch (NumberFormatException e) {
+			return responseResult = new ResponseResult(0, "請填入數字");
+		}
+		if (in < 1) {
+			return responseResult = new ResponseResult(0, "至少是1");
+		}
+		return responseResult = new ResponseResult(1, "OK");
+	}
+	
+	/**
+	 * 資料驗證
+	 * @param number 商品數量
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "numberCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult numberCheck(String number) {
+		ResponseResult responseResult;
+		if (number == null) {
+			return responseResult = new ResponseResult(0, "欄位空缺!");
+		}
+		Integer in;
+		try {
+			in = Integer.valueOf(number);
+		} catch (NumberFormatException e) {
+			return responseResult = new ResponseResult(0, "請填入數字");
+		}
+		if (in < 1) {
+			return responseResult = new ResponseResult(0, "至少是1");
+		}
+		return responseResult = new ResponseResult(1, "OK");
+	}
+	
+	/**
+	 * 資料驗證
+	 * @param image 商品圖片位址
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "imageCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult imageCheck(String image) {
+		ResponseResult responseResult;
+		if ("".equals(image)) {
+			return responseResult = new ResponseResult(0, "欄位空缺!");
+		}
+		String regex = "\\w{1,30}";
+		if (image.matches(regex)) {
+			return responseResult = new ResponseResult(1, "OK");
+		} else {
+			return responseResult = new ResponseResult(0, "格式錯誤");
+		}
+	}
+	
+	/**
+	 * 刊登新商品，資料驗證無誤才能提交
 	 * @param productName 商品名稱
 	 * @param categoryId 商品分類
 	 * @param price 商品價格
@@ -74,17 +182,41 @@ public class ProductController {
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult productPost(String productName, Integer categoryId, Integer price, Integer number, String image) {
+	public ResponseResult productPost(String productName, String categoryId, String price, String number, String image) {
 		ResponseResult responseResult;
-		Product product = new Product();
-		product.setName(productName);
-		product.setCategoryId(categoryId);
-		product.setPrice(price);
-		product.setNumber(number);
-		image = "/img/" + image + ".png";
-		product.setImage(image);
-		productService.productPost(product);
-		return responseResult = new ResponseResult(1, "商品新增成功");
+		boolean flag = true;
+		responseResult = productNameCheck(productName);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = categoryIdCheck(categoryId);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = priceCheck(price);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = numberCheck(number);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = imageCheck(image);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		if (flag) {
+			Product product = new Product();
+			product.setName(productName);
+			product.setCategoryId(Integer.valueOf(categoryId));
+			product.setPrice(Integer.valueOf(price));
+			product.setNumber(Integer.valueOf(number));
+			image = "/img/" + image + ".png";
+			product.setImage(image);
+			productService.productPost(product);
+			return responseResult = new ResponseResult(1, "商品新增成功");
+		}
+		return responseResult = new ResponseResult(0, "商品資料有誤");
 	}
 	
 	/**
