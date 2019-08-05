@@ -53,8 +53,7 @@
 					<tr>
 						<td class="words"></td>
 						<td>
-							<input id="file" name="file" type="file" accept=".png">
-							<!-- <input type="button" value="上傳" onclick="imageUpload()"> -->
+							<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
 							<div id="fileAlert"></div>
 						</td>
 					</tr>
@@ -74,11 +73,22 @@
 		<script type="text/javascript">
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
+				
+				var formData = new FormData();
+				formData.append("productName", $("#productName").val());
+				formData.append("categoryId", $("#categoryId").val());
+				formData.append("price", $("#price").val());
+				formData.append("number", $("#number").val());
+				formData.append("image", $("#image").val());
+				formData.append("file", $("#file")[0].files[0]);
+				
 				$.ajax({
 					url: name + "Check.do",
-					data: $("#registerInformation").serialize(),
+					data: formData,
 					type: "post",
 					dataType: "json",
+					contentType: false,
+					processData: false,
 					success: function(obj){
 						$("#" + name + "Alert").html(obj.message);
 						if (obj.state == 1) {
@@ -95,36 +105,23 @@
 			}
 			
 			function productPost() {
-				//圖片上傳
-				imageUpload();
+				var formData = new FormData();
+				formData.append("productName", $("#productName").val());
+				formData.append("categoryId", $("#categoryId").val());
+				formData.append("price", $("#price").val());
+				formData.append("number", $("#number").val());
+				formData.append("image", $("#image").val());
+				formData.append("file", $("#file")[0].files[0]);
 				
-				//傳送資料
 				$.ajax({
 					url: "productPost.do",
-					data: $("#registerInformation").serialize(),
+					data: formData,
 					type: "post",
 					dataType: "json",
+					contentType: false,
+					processData: false,
 					success: function(obj){
 						alert(obj.message);
-						
-					}
-				});
-			}
-			
-			function imageUpload() {
-				var formData = new FormData();
-				var image = $("#file")[0].files[0];
-				formData.append("image", image);
-				formData.append("name", $("#image").val());
-				$.ajax({
-					url: "imageUpload.do",
-					type: "post",
-					data: formData,
-					dataType: "json",
-					processData: false,
-					contentType: false,
-					success: function(obj){
-						//alert(obj.message);
 					}
 				});
 			}

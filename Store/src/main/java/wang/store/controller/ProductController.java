@@ -73,10 +73,11 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult productNameCheck(String productName) {
 		ResponseResult responseResult;
-		if ("".equals(productName)) {
-			return responseResult = new ResponseResult(0, "欄位空缺!");
-		}
-		return responseResult = new ResponseResult(1, "OK");
+		String regex = "[^`$^&*=|;,?><\\x22]+";
+		if (!productName.matches(regex)) {
+			return responseResult = new ResponseResult(0, "error");
+		} 
+		return responseResult = new ResponseResult(1, "ok");
 	}
 	
 	/**
@@ -88,19 +89,11 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult categoryIdCheck(String categoryId) {
 		ResponseResult responseResult;
-		if (categoryId == null) {
-			return responseResult = new ResponseResult(0, "欄位空缺!");
+		String regex = "\\+?[1-9][0-9]*";
+		if (!categoryId.matches(regex)) {
+			return responseResult = new ResponseResult(0, "請填入至少為1的數");
 		}
-		Integer in;
-		try {
-			in = Integer.valueOf(categoryId);
-		} catch (NumberFormatException e) {
-			return responseResult = new ResponseResult(0, "請填入數字");
-		}
-		if (in < 1) {
-			return responseResult = new ResponseResult(0, "至少是1");
-		}
-		return responseResult = new ResponseResult(1, "OK");
+		return responseResult = new ResponseResult(1, "ok");
 	}
 	
 	/**
@@ -112,19 +105,11 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult priceCheck(String price) {
 		ResponseResult responseResult;
-		if (price == null) {
-			return responseResult = new ResponseResult(0, "欄位空缺!");
+		String regex = "\\+?[1-9][0-9]*";
+		if (!price.matches(regex)) {
+			return responseResult = new ResponseResult(0, "請填入至少為1的數");
 		}
-		Integer in;
-		try {
-			in = Integer.valueOf(price);
-		} catch (NumberFormatException e) {
-			return responseResult = new ResponseResult(0, "請填入數字");
-		}
-		if (in < 1) {
-			return responseResult = new ResponseResult(0, "至少是1");
-		}
-		return responseResult = new ResponseResult(1, "OK");
+		return responseResult = new ResponseResult(1, "ok");
 	}
 	
 	/**
@@ -136,19 +121,11 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult numberCheck(String number) {
 		ResponseResult responseResult;
-		if (number == null) {
-			return responseResult = new ResponseResult(0, "欄位空缺!");
+		String regex = "\\+?[1-9][0-9]*";
+		if (!number.matches(regex)) {
+			return responseResult = new ResponseResult(0, "請填入至少為1的數");
 		}
-		Integer in;
-		try {
-			in = Integer.valueOf(number);
-		} catch (NumberFormatException e) {
-			return responseResult = new ResponseResult(0, "請填入數字");
-		}
-		if (in < 1) {
-			return responseResult = new ResponseResult(0, "至少是1");
-		}
-		return responseResult = new ResponseResult(1, "OK");
+		return responseResult = new ResponseResult(1, "ok");
 	}
 	
 	/**
@@ -160,29 +137,47 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult imageCheck(String image) {
 		ResponseResult responseResult;
-		if ("".equals(image)) {
-			return responseResult = new ResponseResult(0, "欄位空缺!");
-		}
 		String regex = "\\w{1,30}";
-		if (image.matches(regex)) {
-			return responseResult = new ResponseResult(1, "OK");
-		} else {
-			return responseResult = new ResponseResult(0, "格式錯誤");
-		}
+		if (!image.matches(regex)) {
+			return responseResult = new ResponseResult(0, "error");
+		} 
+		return responseResult = new ResponseResult(1, "ok");
 	}
 	
 	/**
-	 * 刊登新商品，資料驗證無誤才能提交
+	 * 資料驗證
+	 * @param file 所選擇要上傳的圖片檔案，限定png格式
+	 * @return 正確返回1，錯誤返回0
+	 */
+	@RequestMapping(value = "fileCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult fileCheck(MultipartFile file) {
+		ResponseResult responseResult;
+		if (file == null) {
+			return responseResult = new ResponseResult(0, "找不到檔案");
+		}
+		if (!file.getOriginalFilename().endsWith(".png")) {
+			return responseResult = new ResponseResult(0, "請選擇png檔");
+		}
+		return responseResult = new ResponseResult(1, "ok");
+	}
+	
+	/**
+	 * 刊登新商品並上傳圖片，資料必須先驗證無誤後才能進行
 	 * @param productName 商品名稱
-	 * @param categoryId 商品分類
+	 * @param categoryId 商品id
 	 * @param price 商品價格
 	 * @param number 商品數量
-	 * @param image 商品圖片位置
-	 * @return 成功
+	 * @param image 商品圖片路徑
+	 * @param file 商品圖
+	 * @param request 
+	 * @return 成功返回1，失敗返回0
+	 * @throws IllegalStateException
+	 * @throws IOException
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult productPost(String productName, String categoryId, String price, String number, String image) {
+	public ResponseResult productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 		ResponseResult responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -205,39 +200,26 @@ public class ProductController {
 		if (responseResult.getState() == 0) {
 			flag = false;
 		}
-		if (flag) {
-			Product product = new Product();
-			product.setName(productName);
-			product.setCategoryId(Integer.valueOf(categoryId));
-			product.setPrice(Integer.valueOf(price));
-			product.setNumber(Integer.valueOf(number));
-			image = "/img/" + image + ".png";
-			product.setImage(image);
-			productService.productPost(product);
-			return responseResult = new ResponseResult(1, "商品新增成功");
+		responseResult = fileCheck(file);
+		if (responseResult.getState() == 0) {
+			flag = false;
 		}
-		return responseResult = new ResponseResult(0, "商品資料有誤");
-	}
-	
-	/**
-	 * 圖片上傳功能
-	 * @param image 圖片檔案
-	 * @param name 圖片名稱
-	 * @param request 讀取路徑
-	 * @return 成功返回1，失敗返回0
-	 * @throws IllegalStateException
-	 * @throws IOException
-	 */
-	@RequestMapping("/imageUpload.do")
-	@ResponseBody
-	public ResponseResult<Void> imageUpload(MultipartFile image, String name, HttpServletRequest request) throws IllegalStateException, IOException {
-		if (image == null) {
-			return new ResponseResult<Void>(0, "找不到檔案");
+		if (flag == false) {
+			return responseResult = new ResponseResult(0, "商品資料有誤");
 		}
-		String path = "/img/" + name + ".png";
-		path = request.getServletContext().getRealPath(path);
-		image.transferTo(new File(path));
-		return new ResponseResult<Void>(1, "上傳成功");
+		Product product = new Product();
+		product.setName(productName);
+		product.setCategoryId(Integer.valueOf(categoryId));
+		product.setPrice(Integer.valueOf(price));
+		product.setNumber(Integer.valueOf(number));
+		image = "/img/" + image + ".png";
+		product.setImage(image);
+		productService.productPost(product);
+		
+		//上傳圖片
+		image = request.getServletContext().getRealPath(image);
+		file.transferTo(new File(image));
+		return responseResult = new ResponseResult(1, "商品新增成功");
 	}
 	
 }
