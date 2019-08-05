@@ -14,6 +14,7 @@ import wang.store.bean.User;
 import wang.store.mapper.ProductMapper;
 import wang.store.mapper.UserMapper;
 import wang.store.service.ProductServiceImplement;
+import wang.store.service.ProductServiceInterface;
 
 public class Beta {
 	
@@ -21,10 +22,6 @@ public class Beta {
 	public void testMapper() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		ProductMapper mapper = ctx.getBean("productMapper", ProductMapper.class);
-		List<Product> p = mapper.findProductByCategoryId(2);
-		for (Product product : p) {
-			System.out.println(product.getName());
-		}
 		
 	}
 	
@@ -32,10 +29,6 @@ public class Beta {
 	public void testService() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		ProductServiceImplement service = ctx.getBean("productServiceImplement", ProductServiceImplement.class);
-		List<Product> p = service.findProductByCategoryId(2);
-		for (Product product : p) {
-			System.out.println(product.getName());
-		}
 		
 	}
 	
@@ -45,6 +38,15 @@ public class Beta {
 		String a = properties.getString("salt");
 		System.out.println(a);
 		System.out.println(DigestUtils.md5Hex(a));
+	}
+	
+	@Test
+	public void ddddd() {
+		ResourceBundle properties = ResourceBundle.getBundle("db");
+		String a = properties.getString("salt");
+
+		Integer num = 1;
+		System.out.println(num.getClass());
 	}
 	
 

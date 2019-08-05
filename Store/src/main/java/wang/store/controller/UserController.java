@@ -91,13 +91,12 @@ public class UserController {
 	 */
 	@RequestMapping(value = "usernameCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult usernameCheck(String username) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> usernameCheck(String username) {
 		String regex = "\\w{6,20}";
 		if (username.matches(regex)) {
-			return responseResult = new ResponseResult(1, "格式正確");
+			return new ResponseResult<Void>(1, "格式正確");
 		} else {
-			return responseResult = new ResponseResult(0, "格式錯誤");
+			return new ResponseResult<Void>(0, "格式錯誤");
 		}
 	}
 	
@@ -108,13 +107,12 @@ public class UserController {
 	 */
 	@RequestMapping(value = "passwordCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult passwordCheck(String password) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> passwordCheck(String password) {
 		String regex = "\\w{8,30}";
 		if (password.matches(regex)) {
-			return responseResult = new ResponseResult(1, "格式正確");
+			return new ResponseResult<Void>(1, "格式正確");
 		} else {
-			return responseResult = new ResponseResult(0, "格式錯誤");
+			return new ResponseResult<Void>(0, "格式錯誤");
 		}
 	}
 	
@@ -126,12 +124,11 @@ public class UserController {
 	 */
 	@RequestMapping(value = "password2Check.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult password2Check(String password, String password2) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> password2Check(String password, String password2) {
 		if (password.equals(password2)) {
-			return responseResult = new ResponseResult(1, "正確");
+			return new ResponseResult<Void>(1, "正確");
 		} else {
-			return responseResult = new ResponseResult(0, "密碼不一致");
+			return new ResponseResult<Void>(0, "密碼不一致");
 		}
 	}
 	
@@ -142,13 +139,12 @@ public class UserController {
 	 */
 	@RequestMapping(value = "emailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult emailCheck(String email) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> emailCheck(String email) {
 		String regex = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$";
 		if (email.matches(regex)) {
-			return responseResult = new ResponseResult(1, "正確");
+			return new ResponseResult<Void>(1, "正確");
 		} else {
-			return responseResult = new ResponseResult(0, "這不是信箱");
+			return new ResponseResult<Void>(0, "這不是信箱");
 		}
 	}
 	
@@ -159,13 +155,12 @@ public class UserController {
 	 */
 	@RequestMapping(value = "phoneCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult phoneCheck(String phone) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> phoneCheck(String phone) {
 		String regex = "^09\\d{8}$";
 		if (phone.matches(regex)) {
-			return responseResult = new ResponseResult(1, "正確");
+			return new ResponseResult<Void>(1, "正確");
 		} else {
-			return responseResult = new ResponseResult(0, "手機號碼有誤");
+			return new ResponseResult<Void>(0, "手機號碼有誤");
 		}
 	}
 	
@@ -179,9 +174,9 @@ public class UserController {
 	 */
 	@RequestMapping(value = "userRegister.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult userRegister(String username, String password, String password2, 
+	public ResponseResult<Void> userRegister(String username, String password, String password2, 
 			String email, String phone, String verification, HttpSession session) {
-		ResponseResult responseResult;
+		ResponseResult<Void> responseResult;
 		VerificationController vc = new VerificationController();
 		boolean flag = true;
 		
@@ -223,12 +218,12 @@ public class UserController {
 			user.setPhone(phone);
 			int result = userService.userRegister(user);
 			if (result == 1) {
-				return responseResult = new ResponseResult(1, "註冊成功");
+				return responseResult = new ResponseResult<Void>(1, "註冊成功");
 			} else {
-				return responseResult = new ResponseResult(0, "註冊失敗");
+				return responseResult = new ResponseResult<Void>(0, "註冊失敗");
 			}
 		}
-		return responseResult = new ResponseResult(0, "資料有誤，請先核對再註冊");
+		return responseResult = new ResponseResult<Void>(0, "資料有誤，請先核對再註冊");
 	}
 	
 	/**
@@ -241,26 +236,25 @@ public class UserController {
 	 */
 	@RequestMapping(value = "userLogin.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult userLogin(String username, String password, String verification, 
+	public ResponseResult<Void> userLogin(String username, String password, String verification, 
 			HttpSession session) {
-		ResponseResult responseResult;
 		String verificationQ = (String) session.getAttribute("verification");
 		if (!verificationQ.equals(verification.toUpperCase())) {
-			return responseResult = new ResponseResult(2, "驗證碼錯誤");
+			return new ResponseResult<Void>(2, "驗證碼錯誤");
 		} else {
 			User user = userService.findUserByUsername(username);
 			if (user == null) {
-				return responseResult = new ResponseResult(0, "無此帳號");
+				return new ResponseResult<Void>(0, "無此帳號");
 			} else {
 				ResourceBundle properties = ResourceBundle.getBundle("db");
 				String salt = properties.getString("salt");
 				password = password + salt;
 				if (!user.getPassword().equals(DigestUtils.md5Hex(password))) {
-					return responseResult = new ResponseResult(0, "密碼錯誤");
+					return new ResponseResult<Void>(0, "密碼錯誤");
 				}
 			}
 			session.setAttribute("userId", user.getUserId());
-			return responseResult = new ResponseResult(1, "登入成功");
+			return new ResponseResult<Void>(1, "登入成功");
 		}
 	}
 

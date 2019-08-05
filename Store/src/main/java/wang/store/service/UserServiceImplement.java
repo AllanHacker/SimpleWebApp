@@ -30,7 +30,7 @@ public class UserServiceImplement implements UserServiceInterface{
 
 	public Integer userUpdate(User user) {
 		Integer result = userMapper.update(user);
-		return null;
+		return result;
 	}
 
 }

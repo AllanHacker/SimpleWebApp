@@ -45,10 +45,9 @@ public class ProductController {
 	 */
 	@RequestMapping("/categoryListShow.do")
 	@ResponseBody
-	public ResponseResult categoryListShow(Integer parentId) {
+	public ResponseResult<List<Product_category>> categoryListShow(Integer parentId) {
 		List<Product_category> category = productService.findCategoryByParentId(parentId);
-		ResponseResult responseResult = new ResponseResult(category);
-		return responseResult;
+		return new ResponseResult<List<Product_category>>(category);
 	}
 	
 	/**
@@ -58,10 +57,9 @@ public class ProductController {
 	 */
 	@RequestMapping("/productListShow.do")
 	@ResponseBody
-	public ResponseResult productListShow(Integer categoryId) {
+	public ResponseResult<List<Product>> productListShow(Integer categoryId) {
 		List<Product> products = productService.findProductByCategoryId(categoryId);
-		ResponseResult responseResult = new ResponseResult(products);
-		return responseResult;
+		return new ResponseResult<List<Product>>(products);
 	}
 	
 	/**
@@ -71,13 +69,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "productNameCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult productNameCheck(String productName) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> productNameCheck(String productName) {
 		String regex = "[^`$^&*=|;,?><\\x22]+";
 		if (!productName.matches(regex)) {
-			return responseResult = new ResponseResult(0, "error");
+			return new ResponseResult<Void>(0, "error");
 		} 
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -87,13 +84,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "categoryIdCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult categoryIdCheck(String categoryId) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> categoryIdCheck(String categoryId) {
 		String regex = "\\+?[1-9][0-9]*";
 		if (!categoryId.matches(regex)) {
-			return responseResult = new ResponseResult(0, "請填入至少為1的數");
+			return new ResponseResult<Void>(0, "請填入至少為1的數");
 		}
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -103,13 +99,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "priceCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult priceCheck(String price) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> priceCheck(String price) {
 		String regex = "\\+?[1-9][0-9]*";
 		if (!price.matches(regex)) {
-			return responseResult = new ResponseResult(0, "請填入至少為1的數");
+			return new ResponseResult<Void>(0, "請填入至少為1的數");
 		}
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -119,13 +114,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "numberCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult numberCheck(String number) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> numberCheck(String number) {
 		String regex = "\\+?[1-9][0-9]*";
 		if (!number.matches(regex)) {
-			return responseResult = new ResponseResult(0, "請填入至少為1的數");
+			return new ResponseResult<Void>(0, "請填入至少為1的數");
 		}
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -135,13 +129,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "imageCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult imageCheck(String image) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> imageCheck(String image) {
 		String regex = "\\w{1,30}";
 		if (!image.matches(regex)) {
-			return responseResult = new ResponseResult(0, "error");
+			return new ResponseResult<Void>(0, "error");
 		} 
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -151,15 +144,14 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "fileCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult fileCheck(MultipartFile file) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> fileCheck(MultipartFile file) {
 		if (file == null) {
-			return responseResult = new ResponseResult(0, "找不到檔案");
+			return new ResponseResult<Void>(0, "找不到檔案");
 		}
 		if (!file.getOriginalFilename().endsWith(".png")) {
-			return responseResult = new ResponseResult(0, "請選擇png檔");
+			return new ResponseResult<Void>(0, "請選擇png檔");
 		}
-		return responseResult = new ResponseResult(1, "ok");
+		return new ResponseResult<Void>(1, "ok");
 	}
 	
 	/**
@@ -177,8 +169,8 @@ public class ProductController {
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
-		ResponseResult responseResult;
+	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
 		if (responseResult.getState() == 0) {
@@ -205,7 +197,7 @@ public class ProductController {
 			flag = false;
 		}
 		if (flag == false) {
-			return responseResult = new ResponseResult(0, "商品資料有誤");
+			return responseResult = new ResponseResult<Void>(0, "商品資料有誤");
 		}
 		Product product = new Product();
 		product.setName(productName);
@@ -219,7 +211,7 @@ public class ProductController {
 		//上傳圖片
 		image = request.getServletContext().getRealPath(image);
 		file.transferTo(new File(image));
-		return responseResult = new ResponseResult(1, "商品新增成功");
+		return responseResult = new ResponseResult<Void>(1, "商品新增成功");
 	}
 	
 }

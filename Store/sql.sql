@@ -77,7 +77,9 @@ insert into product(name, category_id, price, number, image, state) values
 ('素T', 1, 500, 88, '/img/T-shirt_red.png', 1),
 ('嬰兒裝', 1, 900, 78, '/img/baby_cloth.png', 1);
 
-delete from product where id=20;
+delete from product where id=28;
+
+update product set image='/img/blush.png' where id=23;
 
 
 

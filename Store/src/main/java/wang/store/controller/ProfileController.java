@@ -29,16 +29,15 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "passwordCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult passwordCheck(String password) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> passwordCheck(String password) {
 		if (password == "") {
-			return responseResult = new ResponseResult(1, "");
+			return new ResponseResult<Void>(1, "");
 		} else {
 			String regex = "\\w{8,30}";
 			if (password.matches(regex)) {
-				return responseResult = new ResponseResult(1, "格式正確");
+				return new ResponseResult<Void>(1, "格式正確");
 			} else {
-				return responseResult = new ResponseResult(0, "格式錯誤");
+				return new ResponseResult<Void>(0, "格式錯誤");
 			}
 		}
 	}
@@ -51,15 +50,14 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "password2Check.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult password2Check(String password, String password2) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> password2Check(String password, String password2) {
 		if (password2 == "") {
-			return responseResult = new ResponseResult(1, "");
+			return new ResponseResult<Void>(1, "");
 		} else {
 			if (password.equals(password2)) {
-				return responseResult = new ResponseResult(1, "正確");
+				return new ResponseResult<Void>(1, "正確");
 			} else {
-				return responseResult = new ResponseResult(0, "密碼不一致");
+				return new ResponseResult<Void>(0, "密碼不一致");
 			}
 		}
 	}
@@ -71,16 +69,15 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "emailCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult emailCheck(String email) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> emailCheck(String email) {
 		if (email == "") {
-			return responseResult = new ResponseResult(1, "");
+			return new ResponseResult<Void>(1, "");
 		} else {
 			String regex = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$";
 			if (email.matches(regex)) {
-				return responseResult = new ResponseResult(1, "正確");
+				return new ResponseResult<Void>(1, "正確");
 			} else {
-				return responseResult = new ResponseResult(0, "這不是信箱");
+				return new ResponseResult<Void>(0, "這不是信箱");
 			}
 		}
 	}
@@ -92,16 +89,15 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "phoneCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult phoneCheck(String phone) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> phoneCheck(String phone) {
 		if (phone == "") {
-			return responseResult = new ResponseResult(1, "");
+			return new ResponseResult<Void>(1, "");
 		} else {
 			String regex = "^09\\d{8}$";
 			if (phone.matches(regex)) {
-				return responseResult = new ResponseResult(1, "正確");
+				return new ResponseResult<Void>(1, "正確");
 			} else {
-				return responseResult = new ResponseResult(0, "手機號碼有誤");
+				return new ResponseResult<Void>(0, "手機號碼有誤");
 			}
 		}
 	}
@@ -113,15 +109,14 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "dataLoad.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult dataLoad(HttpSession session) {
-		ResponseResult responseResult;
+	public ResponseResult<String[]> dataLoad(HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		User user = userService.findUserByUserId(userId);
 		String username = user.getUsername();
 		String email = user.getEmail();
 		String phone = user.getPhone();
 		String[] data = {username, email, phone};
-		return responseResult = new ResponseResult(1, data);
+		return new ResponseResult<String[]>(1, data);
 	}
 	
 	/**
@@ -136,9 +131,9 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "userUpdate.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult userUpdate(String oldPassword, String password, String password2,
+	public ResponseResult<Void> userUpdate(String oldPassword, String password, String password2,
 			String email, String phone, HttpSession session) {
-		ResponseResult responseResult;
+		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = passwordCheck(password);
 		if (responseResult.getState() == 0) {
@@ -174,12 +169,12 @@ public class ProfileController {
 					user.setPhone(phone);
 				}
 				userService.userUpdate(user);
-				return responseResult = new ResponseResult(1, "修改成功");
+				return responseResult = new ResponseResult<Void>(1, "修改成功");
 			} else {
-				return responseResult = new ResponseResult(0, "密碼錯誤");
+				return responseResult = new ResponseResult<Void>(0, "密碼錯誤");
 			}
 		} else {
-			return responseResult = new ResponseResult(0, "資料有誤，無法修改");
+			return responseResult = new ResponseResult<Void>(0, "資料有誤，無法修改");
 		}
 	}
 	
@@ -191,8 +186,7 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "userDelete.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult userDelete(String oldPassword, HttpSession session) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> userDelete(String oldPassword, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		User user = userService.findUserByUserId(userId);
 		ResourceBundle properties = ResourceBundle.getBundle("db");
@@ -202,9 +196,9 @@ public class ProfileController {
 			Integer state = 0;
 			user.setState(state);
 			userService.userUpdate(user);
-			return responseResult = new ResponseResult(1, "帳號已被刪除");
+			return new ResponseResult<Void>(1, "帳號已被刪除");
 		} else {
-			return responseResult = new ResponseResult(0, "密碼不正確");
+			return new ResponseResult<Void>(0, "密碼不正確");
 		}
 	}
 	

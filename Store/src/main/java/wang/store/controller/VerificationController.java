@@ -33,13 +33,13 @@ public class VerificationController {
 	 */
 	@RequestMapping(value = "/verificationCheck.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult verificationCheck(String verification, HttpSession session) {
-		ResponseResult responseResult;
+	public ResponseResult<Void> verificationCheck(String verification, HttpSession session) {
+		ResponseResult<Void> responseResult;
 		String verificationQ = (String) session.getAttribute("verification");
 		if (verificationQ.equals(verification.toUpperCase())) {
-			responseResult = new ResponseResult(1, "驗證成功");
+			responseResult = new ResponseResult<Void>(1, "驗證成功");
 		} else {
-			responseResult = new ResponseResult(0, "請再看清楚一點");
+			responseResult = new ResponseResult<Void>(0, "請再看清楚一點");
 		}
 		return responseResult;
 	}

@@ -73,15 +73,7 @@
 		<script type="text/javascript">
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
-				
-				var formData = new FormData();
-				formData.append("productName", $("#productName").val());
-				formData.append("categoryId", $("#categoryId").val());
-				formData.append("price", $("#price").val());
-				formData.append("number", $("#number").val());
-				formData.append("image", $("#image").val());
-				formData.append("file", $("#file")[0].files[0]);
-				
+				var formData = new FormData($("#registerInformation")[0]);
 				$.ajax({
 					url: name + "Check.do",
 					data: formData,
@@ -105,14 +97,7 @@
 			}
 			
 			function productPost() {
-				var formData = new FormData();
-				formData.append("productName", $("#productName").val());
-				formData.append("categoryId", $("#categoryId").val());
-				formData.append("price", $("#price").val());
-				formData.append("number", $("#number").val());
-				formData.append("image", $("#image").val());
-				formData.append("file", $("#file")[0].files[0]);
-				
+				var formData = new FormData($("#registerInformation")[0]);
 				$.ajax({
 					url: "productPost.do",
 					data: formData,
