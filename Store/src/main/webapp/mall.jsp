@@ -25,7 +25,7 @@
 					</div>
 					<div class="wrap">
 						<button onclick="">修改</button>&nbsp;&nbsp;
-						<button onclick="">刪除</button>
+						<button id="${product.id}" onclick="productDelete(this)">刪除</button>
 					</div>
 				</div>
 			</c:forEach>
@@ -35,6 +35,20 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
+			function productDelete(tag) {
+				if (confirm("確定要刪除?")) {
+					$.ajax({
+						url: "productDelete.do",
+						data: "id=" + tag.id,
+						type: "get",
+						dataType: "json",
+						success: function(obj){
+							alert(obj.message);
+							location.href = "mallPage.do";
+						}
+					});
+				}
+			}
 			
 		</script>
 	</body>

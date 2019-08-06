@@ -41,4 +41,11 @@ public interface ProductServiceInterface {
 	 * @return 受影響的行數
 	 */
 	Integer productPost(Product product);
+	
+	/**
+	 * 刪除商品
+	 * @param id 商品id
+	 * @return 受影響的行數
+	 */
+	Integer productDelete(Integer id);
 }

@@ -239,4 +239,10 @@ public class ProductController {
 		return responseResult = new ResponseResult<Void>(1, "商品新增成功");
 	}
 	
+	@RequestMapping("/productDelete.do")
+	@ResponseBody
+	public ResponseResult<Void> productDelete(Integer id) {
+		Integer result = productService.productDelete(id);
+		return new ResponseResult<Void>(result, "您的商品已刪除");
+	}
 }

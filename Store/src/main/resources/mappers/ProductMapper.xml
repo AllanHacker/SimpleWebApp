@@ -85,6 +85,14 @@
 			#{userId}
 		);
 	</insert>
+	
+	<!-- 刪除商品 Integer productDelete(Integer id) -->
+	<delete id="productDelete">
+		DELETE FROM
+			product
+		WHERE
+			id=#{id}
+	</delete>
 </mapper>
 
 

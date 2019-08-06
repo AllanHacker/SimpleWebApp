@@ -40,4 +40,9 @@ public class ProductServiceImplement implements ProductServiceInterface{
 		return result;
 	}
 
+	public Integer productDelete(Integer id) {
+		Integer result = productMapper.productDelete(id);
+		return result;
+	}
+
 }
