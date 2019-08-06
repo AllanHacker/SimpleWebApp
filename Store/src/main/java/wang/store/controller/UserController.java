@@ -65,12 +65,31 @@ public class UserController {
 	}
 	
 	/**
-	 * 顯示會員中心頁面
-	 * @return 會員中心頁面
+	 * 以id查詢會員，顯示帳號修改頁面及找到的會員資料
+	 * @param session 會員id儲存位置
+	 * @param modelMap 綁定會員資料給前端頁面
+	 * @return 帳號修改頁面
 	 */
 	@RequestMapping("/profilePage.do")
-	public String profilePage() {
+	public String profilePage(HttpSession session, ModelMap modelMap) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		modelMap.addAttribute("user", user);
 		return "profile";
+	}
+	
+	/**
+	 * 以id查詢會員，顯示會員中心頁面及找到的會員資料
+	 * @param session 會員id儲存位置
+	 * @param modelMap 綁定會員資料給前端頁面
+	 * @return 會員中心頁面
+	 */
+	@RequestMapping("/userCenterPage.do")
+	public String userCenterPage(HttpSession session, ModelMap modelMap) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		modelMap.addAttribute("user", user);
+		return "userCenter";
 	}
 	
 	/**

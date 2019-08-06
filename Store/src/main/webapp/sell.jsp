@@ -12,60 +12,62 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<h2>商品拍賣</h2>
-			<form id="registerInformation">
-				<table>
-					<tr>
-						<td class="words">名稱：</td>
-						<td>
-							<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
-							<div id="productNameAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">分類：</td>
-						<td>
-							<input id="categoryId" name="categoryId" type="text" onblur="dataCheck(this)">
-							<div id="categoryIdAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">價格：</td>
-						<td>
-							<input id="price" name="price" type="text" onblur="dataCheck(this)">
-							<div id="priceAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">數量：</td>
-						<td>
-							<input id="number" name="number" type="text" onblur="dataCheck(this)">
-							<div id="numberAlert"></div>
-						</td>
-					</tr>
-  					<tr>
-						<td class="words">圖片：</td>
-						<td>
-							<input id="image" name="image" type="text" onblur="dataCheck(this)">
-							<div id="imageAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words"></td>
-						<td>
-							<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
-							<div id="fileAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input id="submitButton" type="button" value="確定" onclick="productPost()">
-						</td>
-					</tr>
-				</table>
-			</form>
-		
+			<div id="title"><h2>商品拍賣</h2></div>
+			<c:import url="userLeftBar.jsp"></c:import>
+			<div id="rightWrap">
+				<form id="registerInformation">
+					<table>
+						<tr>
+							<td class="words">名稱：</td>
+							<td>
+								<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
+								<div id="productNameAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">分類：</td>
+							<td>
+								<input id="categoryId" name="categoryId" type="text" onblur="dataCheck(this)">
+								<div id="categoryIdAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">價格：</td>
+							<td>
+								<input id="price" name="price" type="text" onblur="dataCheck(this)">
+								<div id="priceAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">數量：</td>
+							<td>
+								<input id="number" name="number" type="text" onblur="dataCheck(this)">
+								<div id="numberAlert"></div>
+							</td>
+						</tr>
+	  					<tr>
+							<td class="words">圖片：</td>
+							<td>
+								<input id="image" name="image" type="text" onblur="dataCheck(this)">
+								<div id="imageAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words"></td>
+							<td>
+								<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
+								<div id="fileAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<input id="submitButton" type="button" value="確定" onclick="productPost()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</div>
 		<footer id="footer"></footer>
 		

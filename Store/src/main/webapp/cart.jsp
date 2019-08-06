@@ -11,7 +11,7 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<h2>購物車</h2>
+			<div id="title"><h2>購物車</h2></div>
 			
 		</div>
 		<footer id="footer"></footer>

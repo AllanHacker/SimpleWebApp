@@ -11,7 +11,7 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<h2>首頁</h2>
+			<div id="title"><h2>首頁</h2></div>
 			<ul id="categoryList"></ul>
 			<div id="categoryListChild"></div>
 			<div id="productList"></div>

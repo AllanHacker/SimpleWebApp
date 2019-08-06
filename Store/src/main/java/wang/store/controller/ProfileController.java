@@ -103,23 +103,6 @@ public class ProfileController {
 	}
 	
 	/**
-	 * 將會員的資料載入到會員中心頁面中
-	 * @param session 會員資料儲存的位置
-	 * @return 帳號、信箱、手機
-	 */
-	@RequestMapping(value = "dataLoad.do", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult<String[]> dataLoad(HttpSession session) {
-		Integer userId = (Integer) session.getAttribute("userId");
-		User user = userService.findUserByUserId(userId);
-		String username = user.getUsername();
-		String email = user.getEmail();
-		String phone = user.getPhone();
-		String[] data = {username, email, phone};
-		return new ResponseResult<String[]>(1, data);
-	}
-	
-	/**
 	 * 會員資料修改功能
 	 * @param oldPassword 會員密碼
 	 * @param password 新密碼

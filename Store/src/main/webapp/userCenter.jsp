@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Login Already</title>
+		<title>User Center</title>
 		<link href="register.css" rel="stylesheet" />
 		
 	</head>
@@ -12,8 +12,11 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<div id="title"><h2>!</h2></div>
-			<div id="loginAlready"><p>您已登入，請勿重複登入</p></div>
+			<div id="title"><h2>會員中心</h2></div>
+			<c:import url="userLeftBar.jsp"></c:import>
+			<div id="rightWrap">
+				<p id="welcome">歡迎&nbsp;&nbsp;${user.username}&nbsp;!</p>
+			</div>
 		</div>
 		<footer id="footer"></footer>
 		

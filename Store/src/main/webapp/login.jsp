@@ -12,7 +12,7 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<h2>登入</h2>
+			<div id="title"><h2>登入</h2></div>
 			<form id="registerInformation">
 				<table>
 					<tr>
@@ -94,7 +94,7 @@
 								alertShow("login", obj.message);
 							}
 							if (obj.state == 1) {
-								location.href = "profilePage.do";
+								location.href = "userCenterPage.do";
 							}
 						}
 					});

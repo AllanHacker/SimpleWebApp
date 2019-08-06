@@ -12,85 +12,72 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<h2>會員中心</h2>
-			歡迎 <span id="usernameShow"></span>
-			<form id="registerInformation">
-				<table>
-					<tr>
-						<td class="words">密碼：</td>
-						<td>
-							<div id=""></div>
-							<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
-							<div id="oldPasswordAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">新密碼：</td>
-						<td>
-							<div id=""></div>
-							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
-							<div id="passwordAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">密碼驗證：</td>
-						<td>
-							<div id=""></div>
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
-							<div id="password2Alert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">電子信箱：</td>
-						<td>
-							<div id="emailShow"></div>
-							<input id="email" name="email" type="text" onblur="dataCheck(this)">
-							<div id="emailAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">手機號碼：</td>
-						<td>
-							<div id="phoneShow"></div>
-							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
-							<div id="phoneAlert"></div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td></td>
-						<td>
-							<input id="submitButton" type="button" value="確定" onclick="userUpdate()">
-						</td>
-					</tr>
-					<tr>
-						<td class="words">刪除帳號：</td>
-						<td>
-							<input id="deleteButton" type="button" value="確定" onclick="userDelete()">
-						</td>
-					</tr>
-				</table>
-			</form>
-			<a href="sellPage.do">我要拍賣</a>
-			<a href="mallPage.do">我的賣場</a>
+			<div id="title"><h2>帳號修改</h2></div>
+			<c:import url="userLeftBar.jsp"></c:import>
+			<div id="rightWrap">
+				<form id="registerInformation">
+					<table>
+						<tr>
+							<td class="words">密碼：</td>
+							<td>
+								<div id=""></div>
+								<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+								<div id="oldPasswordAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">新密碼：</td>
+							<td>
+								<div id=""></div>
+								<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+								<div id="passwordAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">密碼驗證：</td>
+							<td>
+								<div id=""></div>
+								<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
+								<div id="password2Alert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">電子信箱：</td>
+							<td>
+								<div id="emailShow">${user.email}</div>
+								<input id="email" name="email" type="text" onblur="dataCheck(this)">
+								<div id="emailAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">手機號碼：</td>
+							<td>
+								<div id="phoneShow">${user.phone}</div>
+								<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
+								<div id="phoneAlert"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td></td>
+							<td>
+								<input id="submitButton" type="button" value="確定" onclick="userUpdate()">
+							</td>
+						</tr>
+						<tr>
+							<td class="words">刪除帳號：</td>
+							<td>
+								<input id="deleteButton" type="button" value="確定" onclick="userDelete()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</div>
 		<footer id="footer"></footer>
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			$(function(){
-				$.ajax({
-					url: "profile/dataLoad.do",
-					type: "post",
-					dataType: "json",
-					success: function(obj){
-						$("#usernameShow").html(obj.data[0]);
-						$("#emailShow").html(obj.data[1]);
-						$("#phoneShow").html(obj.data[2]);
-					}
-				});
-			})
-			
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
 				$.ajax({

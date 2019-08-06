@@ -1,9 +1,41 @@
 @charset "BIG5";
 
+
 #header a{
 	font-size: 14px;
 	text-decoration: none;
 	color: blue;
+}
+
+#title{
+	text-align: center;
+}
+
+#userLeftBar{
+	padding: 30px 0 0 0;
+	float: left;
+	width: 15%;
+}
+
+#userLeftBar a{
+	font-size: 30px;
+	text-decoration: none;
+	color: blue;
+	display: block;
+	margin: 0 0 15px 0;
+}
+
+#rightWrap{
+	float: left;
+	width: 85%;
+}
+
+#content #loginAlready{
+	text-align: center;
+}
+
+#content #welcome{
+	margin: 50px 0 0 30px;
 }
 
 #content #categoryList{
@@ -36,6 +68,11 @@
 
 #productList span, b{
 	font-size: 20px;
+}
+
+#registerInformation{
+	display: flex;
+	justify-content: center;
 }
 
 #registerInformation .words{
