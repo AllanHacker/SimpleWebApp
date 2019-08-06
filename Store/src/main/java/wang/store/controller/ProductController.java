@@ -49,6 +49,58 @@ public class ProductController {
 		return "mall";
 	}
 	
+	@RequestMapping("/productEditPage.do")
+	public String productEditPage(Integer id, ModelMap modelMap) {
+		Product product = productService.findProductById(id);
+		modelMap.addAttribute("product", product);
+		return "productEdit";
+	}
+	
+	@RequestMapping("/productEdit.do")
+	@ResponseBody
+	public ResponseResult<Void> productEdit(Integer id, String productName, String categoryId, String price, String number, String image, MultipartFile file, Integer state, HttpServletRequest request, HttpSession session) {
+		ResponseResult<Void> responseResult;
+		boolean flag = true;
+		responseResult = productNameCheck(productName);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = categoryIdCheck(categoryId);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = priceCheck(price);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = numberCheck(number);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = imageCheck(image);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = fileCheck(file);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		if (flag == false) {
+			return responseResult = new ResponseResult<Void>(0, "商品資料有誤");
+		}
+		Product product = new Product();
+		product.setId(id);
+		product.setName(productName);
+		product.setCategoryId(Integer.valueOf(categoryId));
+		product.setPrice(Integer.valueOf(price));
+		product.setNumber(Integer.valueOf(number));
+		product.setImage(image);
+		product.setState(state);
+		productService.productUpdate(product);
+		
+		return responseResult = new ResponseResult<Void>(1, "商品更新完成");
+	}
+	
 	/**
 	 * 顯示某個商品詳細資料的頁面
 	 * @param id 該商品的id

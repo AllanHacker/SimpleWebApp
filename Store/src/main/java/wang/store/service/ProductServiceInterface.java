@@ -43,9 +43,16 @@ public interface ProductServiceInterface {
 	Integer productPost(Product product);
 	
 	/**
-	 * 刪除商品
+	 * 刪除某個商品
 	 * @param id 商品id
 	 * @return 受影響的行數
 	 */
 	Integer productDelete(Integer id);
+	
+	/**
+	 * 修改某個商品
+	 * @param product 新的商品資料
+	 * @return 受影響的行數
+	 */
+	Integer productUpdate(Product product);
 }

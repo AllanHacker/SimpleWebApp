@@ -24,8 +24,8 @@
 						價格：${product.price}
 					</div>
 					<div class="wrap">
-						<button onclick="">修改</button>&nbsp;&nbsp;
-						<button id="${product.id}" onclick="productDelete(this)">刪除</button>
+						<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
+						<button name="${product.id}" onclick="productDelete(this)">刪除</button>
 					</div>
 				</div>
 			</c:forEach>
@@ -35,11 +35,15 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
+			function productEditPage(tag) {
+				location.href = "productEditPage.do?id=" + tag.name;
+			}
+			
 			function productDelete(tag) {
 				if (confirm("確定要刪除?")) {
 					$.ajax({
 						url: "productDelete.do",
-						data: "id=" + tag.id,
+						data: "id=" + tag.name,
 						type: "get",
 						dataType: "json",
 						success: function(obj){

@@ -45,4 +45,9 @@ public class ProductServiceImplement implements ProductServiceInterface{
 		return result;
 	}
 
+	public Integer productUpdate(Product product) {
+		Integer result = productMapper.productUpdate(product);
+		return result;
+	}
+
 }

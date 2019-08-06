@@ -93,6 +93,21 @@
 		WHERE
 			id=#{id}
 	</delete>
+	
+	<!-- 修改商品 Integer productUpdate(Product product) -->
+	<update id="productUpdate" parameterType="wang.store.bean.Product">
+		UPDATE
+			product
+		SET
+			name=#{name},
+			category_id=#{categoryId},
+			price=#{price},
+			number=#{number},
+			image=#{image},
+			state=#{state}
+		WHERE
+			id=#{id}
+	</update>
 </mapper>
 
 
