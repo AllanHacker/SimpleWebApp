@@ -63,4 +63,19 @@ public class CartController {
 		}
 		return new ResponseResult<Void>(1, "已將商品加入購物車");
 	}
+	
+	/**
+	 * 將商品從購物車中刪除
+	 * @param id 商品id
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/cartDelete.do")
+	@ResponseBody
+	public ResponseResult<Void> cartDelete(Integer id) {
+		Integer result = cartService.cartDelete(id);
+		if (result == 0) {
+			return new ResponseResult<Void>(0, "刪除失敗");
+		}
+		return new ResponseResult<Void>(1, "刪除成功");
+	}
 }

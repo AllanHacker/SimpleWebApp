@@ -17,4 +17,11 @@ public interface CartMapper {
 	 * @return 購物車列表
 	 */
 	List<Cart> findCartByUserId(Integer userId);
+	
+	/**
+	 * 刪除購物車
+	 * @param id 購物車id
+	 * @return 受影響的行數
+	 */
+	Integer cartDelete(Integer id);
 }

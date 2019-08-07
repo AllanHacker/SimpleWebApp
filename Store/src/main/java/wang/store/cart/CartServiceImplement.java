@@ -22,4 +22,9 @@ public class CartServiceImplement implements CartServiceInterface{
 		return carts;
 	}
 
+	public Integer cartDelete(Integer id) {
+		Integer result = cartMapper.cartDelete(id);
+		return result;
+	}
+
 }

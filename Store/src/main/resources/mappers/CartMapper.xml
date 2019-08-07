@@ -41,6 +41,14 @@
 		WHERE
 			user_id=#{userId}
 	</select>
+	
+	<!-- 刪除購物車 Integer cartDelete(Integer id) -->
+	<delete id="cartDelete">
+		DELETE FROM
+			cart
+		WHERE
+			id=#{id}
+	</delete>
 </mapper>
 
 

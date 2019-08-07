@@ -26,7 +26,7 @@
 						<input type="button" value="-" onclick="">&nbsp;
 						<span id="amount">1</span>&nbsp;
 						<input type="button" value="+" onclick="">&nbsp;&nbsp;
-						<button name="${cart.id}" onclick="">刪除</button>
+						<button name="${cart.id}" onclick="cartDelete(this)">刪除</button>
 					</div>
 				</div>
 			</c:forEach>
@@ -36,7 +36,18 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			
+			function cartDelete(tag) {
+				$.ajax({
+					url: "cartDelete.do",
+					data: "id=" + $(tag).attr("name"),
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						alert(obj.message);
+						location.href = "cartPage.do";
+					}
+				});
+			}
 		</script>
 	</body>
 </html>
