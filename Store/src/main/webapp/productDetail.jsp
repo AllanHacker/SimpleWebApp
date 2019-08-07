@@ -20,7 +20,7 @@
 			<span id="amount">1</span>
 			<input type="button" value="+" onclick="addAmount()">
 			<input type="button" value="立即購買" onclick="cartPageShow()">
-			<input type="button" value="加入購物車" onclick="cartPageShow()">
+			<input type="button" value="加入購物車" onclick="cartAdd()">
 		</div>
 		<footer id="footer"></footer>
 		
@@ -47,8 +47,24 @@
 			}
 			
 			function cartPageShow() {
-				var userId = ${sessionScope.userId};
-				location.href = "cartPage.do?userId=" + userId;
+				location.href = "cartPage.do";
+			}
+			
+			function cartAdd() {
+				$.ajax({
+					url: "cartAdd.do",
+					data: "productId=${product.id}&" +
+						"productName=${product.name}&" +
+						"productCategoryId=${product.categoryId}&" +
+						"productPrice=${product.price}&" +
+						"productNumber=${product.number}&" +
+						"productImage=${product.image}",
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						alert(obj.message);
+					}
+				});
 			}
 		</script>
 	</body>

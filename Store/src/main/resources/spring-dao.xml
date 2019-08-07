@@ -21,6 +21,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 	
 	<context:component-scan base-package="wang.store.mapper"/>
+	<context:component-scan base-package="wang.store.cart"/>
 	
 	<util:properties id="dbConfig" location="classpath:db.properties"/>
 	
@@ -34,7 +35,7 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="wang.store.mapper" />
+		<property name="basePackage" value="wang.store.*" />
 	</bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">

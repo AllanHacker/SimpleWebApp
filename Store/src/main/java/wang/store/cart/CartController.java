@@ -1,0 +1,50 @@
+package wang.store.cart;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import wang.store.bean.ResponseResult;
+
+@Controller("cartController")
+public class CartController {
+	
+	@Resource(name = "cartServiceImplement")
+	private CartServiceInterface cartService;
+	
+	/**
+	 * 將商品加入購物車
+	 * @param productId 商品id
+	 * @param productName 商品名稱
+	 * @param productCategoryId 商品分類
+	 * @param productPrice 商品價格
+	 * @param productNumber 商品數量
+	 * @param productImage 商品圖片
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping(value = "/cartAdd.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<Void> cartAdd(Integer productId, String productName, 
+			Integer productCategoryId, Integer productPrice, 
+			Integer productNumber, String productImage, HttpSession session) {
+		
+		Cart cart = new Cart();
+		cart.setProductId(productId);
+		cart.setProductName(productName);
+		cart.setProductCategoryId(productCategoryId);
+		cart.setProductPrice(productPrice);
+		cart.setProductNumber(productNumber);
+		cart.setProductImage(productImage);
+		cart.setUserId((Integer)session.getAttribute("userId"));
+		Integer result = cartService.insert(cart);
+		if (result == 0) {
+			return new ResponseResult<Void>(0, "加入購物車失敗");
+		}
+		return new ResponseResult<Void>(1, "已將商品加入購物車");
+	}
+}
