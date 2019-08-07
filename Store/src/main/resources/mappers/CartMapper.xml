@@ -25,6 +25,22 @@
 		);
 	</insert>
 	
+	<!-- 以會員id查詢購物車 List<Cart> findCartByUserId(Integer userId) -->
+	<select id="findCartByUserId" resultType="wang.store.cart.Cart">
+		SELECT
+			id,
+			user_id AS userId,
+			product_id AS productId,
+			product_name AS productName,
+			product_category_id AS productCategoryId,
+			product_price AS productPrice,
+			product_number AS productNumber,
+			product_image AS productImage
+		FROM
+			cart
+		WHERE
+			user_id=#{userId}
+	</select>
 </mapper>
 
 

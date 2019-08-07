@@ -1,5 +1,7 @@
 package wang.store.cart;
 
+import java.util.List;
+
 public interface CartServiceInterface {
 	
 	/**
@@ -9,4 +11,10 @@ public interface CartServiceInterface {
 	 */
 	Integer insert(Cart cart);
 	
+	/**
+	 * 以會員id查詢購物車
+	 * @param userId 會員id
+	 * @return 購物車列表
+	 */
+	List<Cart> findCartByUserId(Integer userId);
 }

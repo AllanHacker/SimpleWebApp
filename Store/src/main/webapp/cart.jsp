@@ -13,6 +13,24 @@
 		<div id="content">
 			<div id="title"><h2>購物車</h2></div>
 			
+			<c:forEach items="${carts}" var="cart">
+				<div id="product">
+					<div class="wrap">
+						<img src="${pageContext.request.contextPath}${cart.productImage}">
+					</div>
+					<div class="wrap">
+						${cart.productName}</br></br>
+						價格：${cart.productPrice}
+					</div>
+					<div class="wrap">
+						<input type="button" value="-" onclick="">&nbsp;
+						<span id="amount">1</span>&nbsp;
+						<input type="button" value="+" onclick="">&nbsp;&nbsp;
+						<button name="${cart.id}" onclick="">刪除</button>
+					</div>
+				</div>
+			</c:forEach>
+			
 		</div>
 		<footer id="footer"></footer>
 		

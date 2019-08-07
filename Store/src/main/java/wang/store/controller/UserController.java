@@ -32,16 +32,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 顯示購物車頁面
-	 * @return 購物車頁面
-	 */
-	@RequestMapping("/cartPage.do")
-	public String cartPage(Integer userId, ModelMap modelMap) {
-		//modelMap.addAttribute("cart", cartList);
-		return "cart";
-	}
-	
-	/**
 	 * 顯示註冊頁面
 	 * @return 註冊頁面
 	 */

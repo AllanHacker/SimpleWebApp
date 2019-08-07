@@ -1,9 +1,12 @@
 package wang.store.cart;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +18,19 @@ public class CartController {
 	
 	@Resource(name = "cartServiceImplement")
 	private CartServiceInterface cartService;
+	
+	/**
+	 * 顯示購物車頁面，並將該會員放入的商品皆顯示出來
+	 * @param session 會員id儲存位置
+	 * @param modelMap 購物車封裝位置
+	 * @return 購物車頁面
+	 */
+	@RequestMapping("/cartPage.do")
+	public String cartPage(HttpSession session, ModelMap modelMap) {
+		List<Cart> carts = cartService.findCartByUserId((Integer)session.getAttribute("userId"));
+		modelMap.addAttribute("carts", carts);
+		return "cart";
+	}
 	
 	/**
 	 * 將商品加入購物車
