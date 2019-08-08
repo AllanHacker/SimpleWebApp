@@ -26,10 +26,18 @@ public class CartController {
 	 * @return 購物車頁面
 	 */
 	@RequestMapping("/cartPage.do")
-	public String cartPage(HttpSession session, ModelMap modelMap) {
-		List<Cart> carts = cartService.findCartByUserId((Integer)session.getAttribute("userId"));
-		modelMap.addAttribute("carts", carts);
+	public String cartPage() {
 		return "cart";
+	}
+	
+	@RequestMapping("/cartList.do")
+	@ResponseBody
+	public ResponseResult<List<Cart>> cartList(HttpSession session) {
+		List<Cart> carts = cartService.findCartByUserId((Integer)session.getAttribute("userId"));
+		if (carts.isEmpty()) {
+			return new ResponseResult<List<Cart>>(0, "空空如也，趕快去購物吧");
+		}
+		return new ResponseResult<List<Cart>>(1, carts);
 	}
 	
 	/**

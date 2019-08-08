@@ -140,3 +140,24 @@
 #product img{
 	height: 100%;
 }
+
+.cart{
+	font-size: 20px;
+	height: 260px;
+	border: grey 1px solid;
+	margin: 0 0 3px 0;
+	
+}
+
+.cart .wrap{
+	height: 100%;
+	width: 33.3%;
+	float: left;
+	display:  flex;
+    align-items: center;
+    justify-content:  center;
+}
+
+.cart img{
+	height: 100%;
+}

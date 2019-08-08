@@ -37,6 +37,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/profilePage.do" />
 			<mvc:mapping path="/cartPage.do" />
+			<mvc:mapping path="/cartAdd.do" />
 			<mvc:mapping path="/sellPage.do" />
 			<mvc:mapping path="/mallPage.do" />
 			<mvc:mapping path="/userCenterPage.do" />
