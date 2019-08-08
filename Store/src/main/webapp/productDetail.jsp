@@ -16,9 +16,9 @@
 			<p>售價： ${product.price }</p>
 			<p>庫存： ${product.number }</p>
 			數量：
-			<input type="button" value="-" onclick="minusAmount()">
+			<input type="button" value="-" onclick="amountMinus()">
 			<span id="amount">1</span>
-			<input type="button" value="+" onclick="addAmount()">
+			<input type="button" value="+" onclick="amountAdd()">
 			<input type="button" value="立即購買" onclick="cartPageShow()">
 			<input type="button" value="加入購物車" onclick="cartAdd()">
 		</div>
@@ -26,7 +26,7 @@
 		
 		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
-			function addAmount() {
+			function amountAdd() {
 				var amount = $("#amount").text();
 				if (amount < ${product.number}) {
 					amount ++;
@@ -36,7 +36,7 @@
 				}
 			}
 			
-			function minusAmount() {
+			function amountMinus() {
 				var amount = $("#amount").text();
 				if (amount > 1) {
 					amount --;
@@ -54,7 +54,7 @@
 				$.ajax({
 					url: "cartAdd.do",
 					data: "productId=${product.id}" +
-					"&amount=" + $("#amount").text() +
+						"&amount=" + $("#amount").text() +
 						"&productPrice=${product.price}",
 					type: "post",
 					dataType: "json",

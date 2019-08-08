@@ -90,4 +90,31 @@ public class CartController {
 		}
 		return new ResponseResult<Void>(1, "刪除成功");
 	}
+	
+	/**
+	 * 對購物車中某商品的增減
+	 * @param productId 商品id
+	 * @param amount 購物車中商品的數量
+	 * @param productPrice 商品價格
+	 * @param session 會員id儲存的位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping(value = "/cartUpdate.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<Void> cartUpdate(Integer productId, Integer amount, Integer productPrice,HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		Integer total = productPrice * amount;
+		if (productPrice < 0) {
+			total = -total;
+		}
+		Cart cart = cartService.findCartByUserIdAndProductId(userId, productId);
+		if (cart == null) {
+			//不會發生
+		}
+		Integer result = cartService.cartUpdate(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
+		if (result == 0) {
+			return new ResponseResult<Void>(0, "更新失敗");
+		}
+		return new ResponseResult<Void>(1, "購物車已更新");
+	}
 }
