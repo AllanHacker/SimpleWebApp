@@ -8,38 +8,61 @@
 		INSERT INTO cart(
 			user_id,
 			product_id,
-			product_name,
-			product_category_id,
-			product_price,
-			product_number,
-			product_image
+			amount,
+			total
 		) 
 		VALUES(
 			#{userId},
 			#{productId},
-			#{productName},
-			#{productCategoryId},
-			#{productPrice},
-			#{productNumber},
-			#{productImage}
+			#{amount},
+			#{total}
 		);
 	</insert>
 	
 	<!-- 以會員id查詢購物車 List<Cart> findCartByUserId(Integer userId) -->
 	<select id="findCartByUserId" resultType="wang.store.cart.Cart">
 		SELECT
-			id,
-			user_id AS userId,
-			product_id AS productId,
-			product_name AS productName,
-			product_category_id AS productCategoryId,
-			product_price AS productPrice,
-			product_number AS productNumber,
-			product_image AS productImage
+			c.id,
+			c.user_id AS userId,
+			c.product_id AS productId,
+			p.name AS productName,
+			p.category_id AS productCategoryId,
+			p.price AS productPrice,
+			p.number AS productNumber,
+			p.image AS productImage,
+			c.amount,
+			c.total
 		FROM
-			cart
+			cart c
+		INNER JOIN
+			product p
+		ON
+			c.product_id=p.id
 		WHERE
-			user_id=#{userId}
+			c.user_id=#{userId}
+	</select>
+	
+	<!-- 以會員id及商品id查詢購物車 List<Cart> findCartByUserIdAndProductId(Integer userId, Integer productId) -->
+	<select id="findCartByUserIdAndProductId" resultType="wang.store.cart.Cart">
+		SELECT
+			c.id,
+			c.user_id AS userId,
+			c.product_id AS productId,
+			p.name AS productName,
+			p.category_id AS productCategoryId,
+			p.price AS productPrice,
+			p.number AS productNumber,
+			p.image AS productImage,
+			c.amount,
+			c.total
+		FROM
+			cart c
+		INNER JOIN
+			product p
+		ON
+			c.product_id=p.id
+		WHERE
+			c.user_id=#{userId} AND c.product_id=#{productId}
 	</select>
 	
 	<!-- 刪除購物車 Integer cartDelete(Integer id) -->
@@ -49,6 +72,16 @@
 		WHERE
 			id=#{id}
 	</delete>
+	
+	<!-- 修改購物車 Integer cartUpdate(Integer productId, Integer amount, Integer total) -->
+	<update id="cartUpdate">
+		UPDATE
+			cart
+		SET
+			amount=#{amount}, total=#{total}
+		WHERE
+			user_id=#{userId} AND product_id=#{productId};
+	</update>
 </mapper>
 
 

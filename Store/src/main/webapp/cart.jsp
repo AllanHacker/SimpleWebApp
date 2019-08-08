@@ -42,10 +42,10 @@
 								$("#"+i+" div:last").append(cart.productName + "</br>價格： " + cart.productPrice);
 								$("#"+i+"").append("<div class='wrap'></div>");
 								$("#"+i+" div:last").append("<input type='button' value='-' onclick=''>&nbsp;");
-								$("#"+i+" div:last").append("<span id='amount'>1</span>&nbsp;");
+								$("#"+i+" div:last").append("<span id='amount'>" + cart.amount + "</span>&nbsp;");
 								$("#"+i+" div:last").append("<input type='button' value='+' onclick=''>&nbsp;&nbsp;");
 								$("#"+i+" div:last").append("<button name='" + cart.id + "' onclick='cartDelete(this)'>刪除</button>");
-								total += cart.productPrice;
+								total += cart.total;
 							}
 							$("#content").append("一共<span id='numCount'>" + obj.data.length + "</span>樣商品，");
 							$("#content").append("總金額為：<span id='priceCount'>" + total + "</span>元&nbsp;&nbsp;");

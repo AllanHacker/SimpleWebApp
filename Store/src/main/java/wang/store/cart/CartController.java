@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +19,7 @@ public class CartController {
 	private CartServiceInterface cartService;
 	
 	/**
-	 * 顯示購物車頁面，並將該會員放入的商品皆顯示出來
-	 * @param session 會員id儲存位置
-	 * @param modelMap 購物車封裝位置
+	 * 顯示購物車頁面
 	 * @return 購物車頁面
 	 */
 	@RequestMapping("/cartPage.do")
@@ -30,6 +27,11 @@ public class CartController {
 		return "cart";
 	}
 	
+	/**
+	 * 顯示購物車中的商品列表
+	 * @param session 會員id儲存位置
+	 * @return 沒有商品返回提示字樣，有商品返回商品列表
+	 */
 	@RequestMapping("/cartList.do")
 	@ResponseBody
 	public ResponseResult<List<Cart>> cartList(HttpSession session) {
@@ -41,31 +43,33 @@ public class CartController {
 	}
 	
 	/**
-	 * 將商品加入購物車
+	 * 將商品加入購物車，如果已經存在該種商品，則增加數量
 	 * @param productId 商品id
-	 * @param productName 商品名稱
-	 * @param productCategoryId 商品分類
+	 * @param amount 商品數量
 	 * @param productPrice 商品價格
-	 * @param productNumber 商品數量
-	 * @param productImage 商品圖片
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
 	@RequestMapping(value = "/cartAdd.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> cartAdd(Integer productId, String productName, 
-			Integer productCategoryId, Integer productPrice, 
-			Integer productNumber, String productImage, HttpSession session) {
+	public ResponseResult<Void> cartAdd(Integer productId, Integer amount, Integer productPrice,HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		Integer total = productPrice * amount;
+		Cart cart = cartService.findCartByUserIdAndProductId(userId, productId);
+		if (cart == null) {
+			cart = new Cart();
+			cart.setUserId(userId);
+			cart.setProductId(productId);
+			cart.setAmount(amount);
+			cart.setTotal(total);
+			Integer result = cartService.insert(cart);
+			if (result == 0) {
+				return new ResponseResult<Void>(0, "加入購物車失敗");
+			}
+			return new ResponseResult<Void>(1, "已將商品加入購物車");
+		}
 		
-		Cart cart = new Cart();
-		cart.setProductId(productId);
-		cart.setProductName(productName);
-		cart.setProductCategoryId(productCategoryId);
-		cart.setProductPrice(productPrice);
-		cart.setProductNumber(productNumber);
-		cart.setProductImage(productImage);
-		cart.setUserId((Integer)session.getAttribute("userId"));
-		Integer result = cartService.insert(cart);
+		Integer result = cartService.cartUpdate(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
 		if (result == 0) {
 			return new ResponseResult<Void>(0, "加入購物車失敗");
 		}

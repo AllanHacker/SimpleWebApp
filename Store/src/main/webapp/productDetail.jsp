@@ -53,12 +53,9 @@
 			function cartAdd() {
 				$.ajax({
 					url: "cartAdd.do",
-					data: "productId=${product.id}&" +
-						"productName=${product.name}&" +
-						"productCategoryId=${product.categoryId}&" +
-						"productPrice=${product.price}&" +
-						"productNumber=${product.number}&" +
-						"productImage=${product.image}",
+					data: "productId=${product.id}" +
+					"&amount=" + $("#amount").text() +
+						"&productPrice=${product.price}",
 					type: "post",
 					dataType: "json",
 					success: function(obj){
