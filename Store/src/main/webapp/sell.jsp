@@ -91,6 +91,9 @@
 							$("#" + name).css("border-color", "initial");
 							$("#" + name).css("border-width", "2px");
 							$("#" + name).css("border-style", "inset");
+							if (name == "file") {
+								$("#file").css("border", "white 0px none");
+							}
 						} else {
 							$("#" + name + "Alert").css("color", "red");
 							$("#" + name).css("border", "red 2px solid");
@@ -111,6 +114,13 @@
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
+							$('#registerInformation')[0].reset();
+							$("#productNameAlert").html("");
+							$("#categoryIdAlert").html("");
+							$("#priceAlert").html("");
+							$("#numberAlert").html("");
+							$("#imageAlert").html("");
+							$("#fileAlert").html("");
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
