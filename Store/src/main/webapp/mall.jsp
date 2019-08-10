@@ -49,7 +49,6 @@
 						type: "get",
 						dataType: "json",
 						success: function(obj){
-							alert(obj.message);
 							location.href = "mallPage.do";
 						}
 					});

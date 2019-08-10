@@ -5,6 +5,7 @@
 	<head>
 		<title>Cart</title>
 		<link href="register.css" rel="stylesheet" />
+		<link href="alertAPI.css" rel="stylesheet" />
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
@@ -17,6 +18,7 @@
 		<footer id="footer"></footer>
 		
 		<script src="jquery-3.1.1.min.js"></script>
+		<script src="alertAPI.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				cartList();
@@ -83,7 +85,7 @@
 						}
 					});
 				} else {
-					alert("已超過庫存!");
+					alertAPI("已超過庫存!", "alertFailure");
 				}
 			}
 			
@@ -119,8 +121,11 @@
 					type: "get",
 					dataType: "json",
 					success: function(obj){
-						alert(obj.message);
-						location.href = "cartPage.do";
+						if (obj.state == 1) {
+							location.href = "cartPage.do";
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
 					}
 				});
 			}

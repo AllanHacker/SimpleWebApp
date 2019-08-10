@@ -5,7 +5,7 @@
 	<head>
 		<title>Sell Product</title>
 		<link href="register.css" rel="stylesheet" />
-		
+		<link href="alertAPI.css" rel="stylesheet" />
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
@@ -72,6 +72,7 @@
 		<footer id="footer"></footer>
 		
 		<script src="jquery-3.1.1.min.js"></script>
+		<script src="alertAPI.js"></script>
 		<script type="text/javascript">
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
@@ -108,7 +109,11 @@
 					contentType: false,
 					processData: false,
 					success: function(obj){
-						alert(obj.message);
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
 					}
 				});
 			}
