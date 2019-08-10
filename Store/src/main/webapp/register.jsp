@@ -106,7 +106,7 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
-							location.href = "loginPage.do";
+							location.href = "logout.do";
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
