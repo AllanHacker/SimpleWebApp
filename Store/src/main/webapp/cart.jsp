@@ -26,18 +26,22 @@
 			});
 			
 			function cartList() {
+				$("#cart").empty();
 				$.ajax({
 					url: "cartList.do",
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
-							$("#content").append(obj.message);
+							$("#content").append("<div id='cart'></div>");
+							$("#cart").append(obj.message);
 						} else {
-							var total = 0;
+							var amountCount = 0;
+							var totalCount = 0;
 							for (var i = 0; i < obj.data.length; i++) {
 								var cart = obj.data[i];
-								$("#content").append("<div id='" + i + "' class='cart'></div>");
+								$("#content").append("<div id='cart'></div>");
+								$("#cart").append("<div id='" + i + "' class='cart'></div>");
 								$("#"+i+"").append("<div class='wrap'></div>");
 								$("#"+i+" div:last").append("<img src='${pageContext.request.contextPath}" + cart.productImage + "'>");
 								$("#"+i+"").append("<div class='wrap'></div>");
@@ -51,11 +55,12 @@
 								$("#"+i+" div:last").append("<button name='" + cart.id + "' onclick='cartDelete(this)'>刪除</button>");
 								$("#"+i+" div:last").append("<input type='hidden' value='" + cart.productId + "'/>");
 								$("#"+i+" div:last").append("<input type='hidden' value='" + cart.productNumber + "'/>");
-								total += cart.total;
+								amountCount += cart.amount;
+								totalCount += cart.total;
 							}
-							$("#content").append("一共<span id='numCount'>" + obj.data.length + "</span>樣商品，");
-							$("#content").append("總金額為：<span id='priceTotal'>" + total + "</span>元&nbsp;&nbsp;");
-							$("#content").append("<a href='#'>結帳</a>");
+							$("#cart").append("一共<span id='amountCount'>" + amountCount + "</span>樣商品，");
+							$("#cart").append("總金額為：<span id='totalCount'>" + totalCount + "</span>元&nbsp;&nbsp;");
+							$("#cart").append("<a href='#'>結帳</a>");
 						}
 					}
 				});
@@ -79,9 +84,13 @@
 						type: "post",
 						dataType: "json",
 						success: function(obj){
-							var total = parseInt($("#priceTotal").text());
+							var total = parseInt($("#totalCount").text());
 							total += parseInt(productPrice);
-							$("#priceTotal").text(total);
+							$("#totalCount").text(total);
+							
+							var total = parseInt($("#amountCount").text());
+							total ++;
+							$("#amountCount").text(total);
 						}
 					});
 				} else {
@@ -106,9 +115,13 @@
 						type: "post",
 						dataType: "json",
 						success: function(obj){
-							var total = parseInt($("#priceTotal").text());
+							var total = parseInt($("#totalCount").text());
 							total += parseInt(productPrice);
-							$("#priceTotal").text(total);
+							$("#totalCount").text(total);
+							
+							var total = parseInt($("#amountCount").text());
+							total --;
+							$("#amountCount").text(total);
 						}
 					});
 				}
@@ -122,7 +135,7 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
-							location.href = "cartPage.do";
+							cartList();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
