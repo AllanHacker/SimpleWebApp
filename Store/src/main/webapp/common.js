@@ -19,3 +19,22 @@ var alertAPI = function (message, style, time) {
 		.delay(time)
 		.fadeOut();
 };
+
+/*
+ * 檢查是否已經登入
+ * 已登入: 顯示警告
+ * 未登入: 跳轉至登入頁面
+ */
+$("#loginCheck").click(function(){
+	$.ajax({
+		url: "loginCheck.do",
+		type: "get",
+		dataType: "json",
+		success: function(obj) {
+			if (obj.state == 1) {
+				location.href = "loginPage.do";
+			} 
+			alertAPI(obj.message, "alertFailure");
+		}
+	});
+});

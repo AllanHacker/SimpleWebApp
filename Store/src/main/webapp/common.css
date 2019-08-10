@@ -1,16 +1,18 @@
 @charset "BIG5";
 
-
+/* header 超連結*/
 #header a{
 	font-size: 14px;
 	text-decoration: none;
 	color: blue;
 }
 
+/* 每個頁面的標題*/
 #title{
 	text-align: center;
 }
 
+/* 會員中心側邊欄 */
 #userLeftBar{
 	padding: 30px 0 0 0;
 	float: left;
@@ -25,19 +27,18 @@
 	margin: 0 0 15px 0;
 }
 
+/* 會員中心右邊欄 */
 #rightWrap{
 	float: left;
 	width: 85%;
 }
 
-#content #loginAlready{
-	text-align: center;
-}
-
+/* 會員中心 歡迎詞 */
 #content #welcome{
 	margin: 50px 0 0 30px;
 }
 
+/* 商品目錄列表 */
 #content #categoryList{
 	float: left;
 }
@@ -51,6 +52,7 @@
 	width: 100px;
 }
 
+/* 商品列表 */
 #productList {
 	float: left;
 	width: 100%;
@@ -70,6 +72,7 @@
 	font-size: 20px;
 }
 
+/* 註冊表單 */
 #registerInformation{
 	display: flex;
 	justify-content: center;
@@ -98,6 +101,7 @@
 	font-size: 18px;
 }
 
+/* 表單內的刷新超連結 */
 #registerInformation a{
 	font-size: 12px;
 	text-decoration: none;
@@ -116,10 +120,12 @@
 	font-size: 18px;
 }
 
+/* 登入頁面的提示訊息框 */
 #registerInformation #loginAlert{
 	margin: 7px 0 0 0;
 }
 
+/* 我的賣場 商品列表 */
 #product{
 	font-size: 20px;
 	height: 260px;
@@ -141,6 +147,7 @@
 	height: 100%;
 }
 
+/* 購物車頁面 商品列表 */
 #cart{
 	font-size: 26px;
 }
@@ -176,4 +183,37 @@
 
 .cart img{
 	height: 100%;
+}
+
+/* alertAPI的樣式 */
+.alertAPI {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 300px;
+	max-width: 600px;
+	transform: translate(-50%,-50%);
+	z-index: 99999;
+	text-align: center;
+	padding: 15px;
+	border-radius: 3px;
+}
+
+.alertSuccess {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alertFailure {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alertInfo {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<title>User Center</title>
-		<link href="register.css" rel="stylesheet" />
+		<link href="common.css" rel="stylesheet" />
 		
 	</head>
 	<body style="font-size:30px;">
@@ -21,6 +21,7 @@
 		<footer id="footer"></footer>
 		
 		<script src="jquery-3.1.1.min.js"></script>
+		<script src="common.js"></script>
 		<script type="text/javascript">
 			
 		</script>

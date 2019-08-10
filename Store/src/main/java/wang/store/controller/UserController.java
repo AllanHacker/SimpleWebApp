@@ -41,16 +41,26 @@ public class UserController {
 	}
 	
 	/**
-	 * 根據會員id判斷，顯示登入頁面或已登入頁面
-	 * @param session 會員id儲存的位置
-	 * @return 登入頁面或已登入頁面
+	 * 顯示登入頁面
+	 * @return 登入頁面
 	 */
 	@RequestMapping("/loginPage.do")
-	public String loginPage(HttpSession session) {
+	public String loginPage() {
+		return "login";
+	}
+	
+	/**
+	 * 檢查是否已經登入
+	 * @param session 用戶id儲存位置
+	 * @return 未登入返回1，已登入返回0
+	 */
+	@RequestMapping("/loginCheck.do")
+	@ResponseBody
+	public ResponseResult<Void> loginCheck(HttpSession session) {
 		if (session.getAttribute("userId") == null) {
-			return "login";
+			return new ResponseResult<Void>(1);
 		} else {
-			return "loginAlready";
+			return new ResponseResult<Void>(0, "您已登入，請勿重複登入");
 		}
 	}
 	
