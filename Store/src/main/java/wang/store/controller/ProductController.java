@@ -50,6 +50,12 @@ public class ProductController {
 		return "mall";
 	}
 	
+	/**
+	 * 以商品id查詢商品後，顯示商品修改頁面及商品資料
+	 * @param id 商品id
+	 * @param modelMap 商品封裝的位置
+	 * @return 商品修改頁面
+	 */
 	@RequestMapping("/productEditPage.do")
 	public String productEditPage(Integer id, ModelMap modelMap) {
 		Product product = productService.findProductById(id);
@@ -57,9 +63,22 @@ public class ProductController {
 		return "productEdit";
 	}
 	
-	@RequestMapping("/productEdit.do")
+	/**
+	 * 商品修改功能。根據id查詢出該商品，並以新的資料重新對屬性賦值。
+	 * @param id 商品id
+	 * @param productName 新的商品名稱
+	 * @param categoryId 新的商品分類
+	 * @param price 新的商品價格
+	 * @param number 新的商品數量
+	 * @param file 新的圖片檔案
+	 * @param state 新的狀態，上架或下架
+	 * @return 成功返回1，失敗返回0
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/productEdit.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> productEdit(Integer id, String productName, String categoryId, String price, String number, String image, MultipartFile file, Integer state, HttpServletRequest request, HttpSession session) {
+	public ResponseResult<Void> productEdit(Integer id, String productName, String categoryId, String price, String number, MultipartFile file, Integer state) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -78,23 +97,30 @@ public class ProductController {
 		if (responseResult.getState() == 0) {
 			flag = false;
 		}
-		responseResult = fileCheck(file);
-		if (responseResult.getState() == 0) {
-			flag = false;
-		}
 		if (flag == false) {
 			return responseResult = new ResponseResult<Void>(0, "商品資料有誤");
 		}
-		Product product = new Product();
-		product.setId(id);
+		Product product = productService.findProductById(id);
 		product.setName(productName);
 		product.setCategoryId(Integer.valueOf(categoryId));
 		product.setPrice(Integer.valueOf(price));
 		product.setNumber(Integer.valueOf(number));
-		product.setImage(image);
+		
+		if (!file.isEmpty()) {
+			if (!file.getOriginalFilename().endsWith(".png")) {
+				return responseResult = new ResponseResult<Void>(0, "圖片檔案有誤");
+			}
+			//若有選擇新圖片，且格式正確，刪除舊圖片
+			String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + product.getImage();
+			new File(path).delete();
+			//上傳新圖片
+			String fileName = UUID.randomUUID().toString() + ".png";
+			product.setImage(fileName);
+			path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + fileName;
+			file.transferTo(new File(path));
+		}
 		product.setState(state);
 		productService.productUpdate(product);
-		
 		return responseResult = new ResponseResult<Void>(1, "商品更新完成");
 	}
 	
@@ -203,7 +229,7 @@ public class ProductController {
 	@RequestMapping(value = "fileCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult<Void> fileCheck(MultipartFile file) {
-		if (file == null) {
+		if (file.isEmpty()) {
 			return new ResponseResult<Void>(0, "找不到檔案");
 		}
 		if (!file.getOriginalFilename().endsWith(".png")) {
@@ -218,16 +244,15 @@ public class ProductController {
 	 * @param categoryId 商品id
 	 * @param price 商品價格
 	 * @param number 商品數量
-	 * @param image 商品圖片路徑
-	 * @param file 商品圖
-	 * @param request 
+	 * @param file 圖片檔案
+	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, MultipartFile file, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, MultipartFile file, HttpSession session) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -269,6 +294,11 @@ public class ProductController {
 		return responseResult = new ResponseResult<Void>(1, "商品新增成功");
 	}
 	
+	/**
+	 * 商品刪除功能。根據商品id將指定的商品刪除
+	 * @param id 商品id
+	 * @return 提示字樣
+	 */
 	@RequestMapping("/productDelete.do")
 	@ResponseBody
 	public ResponseResult<Void> productDelete(Integer id) {

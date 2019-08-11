@@ -120,6 +120,17 @@
 	font-size: 18px;
 }
 
+/* 商品修改頁面的選項按鈕 */
+#registerInformation #state1, #registerInformation #state0{
+	width: auto;
+	height: auto;
+}
+
+/* 商品修改頁面的選項按鈕的文字 */
+#registerInformation #state1 + span, #registerInformation #state0 + span{
+	font-size: 18px;
+}
+
 /* 登入頁面的提示訊息框 */
 #registerInformation #loginAlert{
 	margin: 7px 0 0 0;

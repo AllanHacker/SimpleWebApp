@@ -12,67 +12,62 @@
 		</header>
 		<div id="content">
 			<div id="title"><h2>商品修改</h2></div>
-			<form id="registerInformation">
-				<table>
-					<tr>
-						<td class="words">名稱：</td>
-						<td>
-							<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
-							<div id="productNameAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">分類：</td>
-						<td>
-							<input id="categoryId" name="categoryId" type="text" onblur="dataCheck(this)">
-							<div id="categoryIdAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">價格：</td>
-						<td>
-							<input id="price" name="price" type="text" onblur="dataCheck(this)">
-							<div id="priceAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">數量：</td>
-						<td>
-							<input id="number" name="number" type="text" onblur="dataCheck(this)">
-							<div id="numberAlert"></div>
-						</td>
-					</tr>
-  					<tr>
-						<td class="words">圖片：</td>
-						<td>
-							<input id="image" name="image" type="text" onblur="dataCheck(this)">
-							<div id="imageAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words"></td>
-						<td>
-							<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
-							<div id="fileAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words"></td>
-						<td>
-							<input id="state1" type="radio" name="state" value="1">上架<br>
-							<input id="state0" type="radio" name="state" value="0">下架<br>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type=hidden name=id value="${product.id }">
-							<input id="submitButton" type="button" value="確定" onclick="productEdit()">
-						</td>
-					</tr>
-				</table>
-			</form>
-		
+			<c:import url="userLeftBar.jsp"></c:import>
+			<div id="rightWrap">
+				<form id="registerInformation">
+					<table>
+						<tr>
+							<td class="words">名稱：</td>
+							<td>
+								<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
+								<div id="productNameAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">分類：</td>
+							<td>
+								<input id="categoryId" name="categoryId" type="text" onblur="dataCheck(this)">
+								<div id="categoryIdAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">價格：</td>
+							<td>
+								<input id="price" name="price" type="text" onblur="dataCheck(this)">
+								<div id="priceAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">數量：</td>
+							<td>
+								<input id="number" name="number" type="text" onblur="dataCheck(this)">
+								<div id="numberAlert"></div>
+							</td>
+						</tr>
+	  					<tr>
+							<td class="words">圖片：</td>
+							<td>
+								<input id="file" name="file" type="file" accept=".png">
+								<div id="fileAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words"></td>
+							<td>
+								<input id="state1" type="radio" name="state" value="1"><span>上架</span><br>
+								<input id="state0" type="radio" name="state" value="0"><span>下架</span><br>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<input type=hidden name=id value="${product.id }">
+								<input id="submitButton" type="button" value="確定" onclick="productEdit()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</div>
 		<footer id="footer"></footer>
 		
@@ -84,7 +79,6 @@
 				$("#categoryId").val("${product.categoryId}");
 				$("#price").val("${product.price}");
 				$("#number").val("${product.number}");
-				$("#image").val("${product.image}");
 				$("#state${product.state}").attr("checked", "true");
 			
 			});
