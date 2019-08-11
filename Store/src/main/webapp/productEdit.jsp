@@ -49,6 +49,7 @@
 							<td>
 								<input id="file" name="file" type="file" accept=".png">
 								<div id="fileAlert"></div>
+								<div id="imagePreview"></div>
 							</td>
 						</tr>
 						<tr>
@@ -126,6 +127,14 @@
 					}
 				});
 			}
+			
+			$("#file").change(function(){
+				$("#imagePreview").empty();
+				var file = this.files[0];
+				var url = window.URL.createObjectURL(file);
+				var img = $("<img>").attr("src", url);
+				$("#imagePreview").append(img);
+			});
 			
 		</script>
 	</body>

@@ -42,7 +42,7 @@
 								$("#content").append("<div id='cart'></div>");
 								$("#cart").append("<div id='" + i + "' class='cart'></div>");
 								$("#"+i+"").append("<div class='wrap'></div>");
-								$("#"+i+" div:last").append("<img src='${pageContext.request.contextPath}" + cart.productImage + "'>");
+								$("#"+i+" div:last").append("<img src=http://localhost:8080/img/" + cart.productImage + ">");
 								$("#"+i+"").append("<div class='wrap'></div>");
 								$("#"+i+" div:last").append("<div class='wrap2'></div>");
 								$("#"+i+" .wrap2:last").append("<p>" + cart.productName + "</p>");

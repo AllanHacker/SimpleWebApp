@@ -108,6 +108,15 @@
 	color: blue;
 }
 
+/* ¹Ï¤ù¹wÄý */
+#registerInformation #imagePreview{
+	height: auto;
+}
+
+#imagePreview img{
+	height: 150px;
+}
+
 #registerInformation #submitButton{
 	height: 25px;
 	width: 50px;
