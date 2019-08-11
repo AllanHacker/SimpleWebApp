@@ -70,7 +70,8 @@
 						obj.data.forEach(function(product){
 							$("#productList").append("<div></div>");
 							$("#productList div:last").append("<a href='productDetailPage.do?id=" + product.id + "'></a>");
-							$("#productList div:last a").append("<img src=${pageContext.request.contextPath}" + product.image + "></img></br>");
+							//$("#productList div:last a").append("<img src=${pageContext.request.contextPath}" + product.image + "></img></br>");
+							$("#productList div:last a").append("<img src=http://localhost:8080/img/" + product.image + "></img></br>");
 							$("#productList div:last").append("<span>" + product.name + "</span></br>");
 							$("#productList div:last").append("<b>" + product.price + "</b>");
 						});

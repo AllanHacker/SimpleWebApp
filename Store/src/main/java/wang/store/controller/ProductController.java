@@ -3,6 +3,7 @@ package wang.store.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -74,10 +75,6 @@ public class ProductController {
 			flag = false;
 		}
 		responseResult = numberCheck(number);
-		if (responseResult.getState() == 0) {
-			flag = false;
-		}
-		responseResult = imageCheck(image);
 		if (responseResult.getState() == 0) {
 			flag = false;
 		}
@@ -200,21 +197,6 @@ public class ProductController {
 	
 	/**
 	 * 資料驗證
-	 * @param image 商品圖片位址
-	 * @return 正確返回1，錯誤返回0
-	 */
-	@RequestMapping(value = "imageCheck.do", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult<Void> imageCheck(String image) {
-		String regex = "\\w{1,30}";
-		if (!image.matches(regex)) {
-			return new ResponseResult<Void>(0, "error");
-		} 
-		return new ResponseResult<Void>(1, "ok");
-	}
-	
-	/**
-	 * 資料驗證
 	 * @param file 所選擇要上傳的圖片檔案，限定png格式
 	 * @return 正確返回1，錯誤返回0
 	 */
@@ -245,7 +227,7 @@ public class ProductController {
 	 */
 	@RequestMapping("/productPost.do")
 	@ResponseBody
-	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, String image, MultipartFile file, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, MultipartFile file, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -264,10 +246,6 @@ public class ProductController {
 		if (responseResult.getState() == 0) {
 			flag = false;
 		}
-		responseResult = imageCheck(image);
-		if (responseResult.getState() == 0) {
-			flag = false;
-		}
 		responseResult = fileCheck(file);
 		if (responseResult.getState() == 0) {
 			flag = false;
@@ -280,14 +258,14 @@ public class ProductController {
 		product.setCategoryId(Integer.valueOf(categoryId));
 		product.setPrice(Integer.valueOf(price));
 		product.setNumber(Integer.valueOf(number));
-		image = "/img/" + image + ".png";
-		product.setImage(image);
+		String fileName = UUID.randomUUID().toString() + ".png";
+		product.setImage(fileName);
+		//上傳圖片
+		//path = request.getServletContext().getRealPath(image);
+		String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + fileName;
+		file.transferTo(new File(path));
 		product.setUserId((Integer)session.getAttribute("userId"));
 		productService.productPost(product);
-		
-		//上傳圖片
-		image = request.getServletContext().getRealPath(image);
-		file.transferTo(new File(image));
 		return responseResult = new ResponseResult<Void>(1, "商品新增成功");
 	}
 	

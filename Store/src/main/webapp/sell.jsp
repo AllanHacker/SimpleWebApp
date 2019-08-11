@@ -47,13 +47,6 @@
 	  					<tr>
 							<td class="words">圖片：</td>
 							<td>
-								<input id="image" name="image" type="text" onblur="dataCheck(this)">
-								<div id="imageAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words"></td>
-							<td>
 								<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
 								<div id="fileAlert"></div>
 							</td>
@@ -118,7 +111,6 @@
 							$("#categoryIdAlert").html("");
 							$("#priceAlert").html("");
 							$("#numberAlert").html("");
-							$("#imageAlert").html("");
 							$("#fileAlert").html("");
 						} else {
 							alertAPI(obj.message, "alertFailure");
