@@ -37,4 +37,12 @@ public class AddressServiceImplement implements AddressServiceInterface{
 		return addressMapper.addressDelete(id);
 	}
 
+	public Integer addressDefaultClear(Integer userId) {
+		return addressMapper.addressDefaultClear(userId);
+	}
+
+	public Integer addressDefaultSet(Integer userId, Integer id) {
+		return addressMapper.addressDefaultSet(userId, id);
+	}
+
 }

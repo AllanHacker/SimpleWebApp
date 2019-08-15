@@ -119,4 +119,16 @@ public class AddressController {
 		}
 		return new ResponseResult<Void>(0, "地址刪除失敗");
 	}
+	
+	@RequestMapping("/addressDefault.do")
+	@ResponseBody
+	public ResponseResult<Void> addressDefault(Integer id, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer result = addressService.addressDefaultClear(userId);
+		result = addressService.addressDefaultSet(userId, id);
+		if (result == 1) {
+			return new ResponseResult<Void>(1, "設置完畢");
+		}
+		return new ResponseResult<Void>(0, "設置失敗");
+	}
 }

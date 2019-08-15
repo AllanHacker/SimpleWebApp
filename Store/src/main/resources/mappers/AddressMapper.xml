@@ -54,6 +54,8 @@
 			address
 		WHERE
 			user_id=#{userId}
+		ORDER BY
+			a_default DESC
 	</select>
 	
 	<!-- 根據地址id刪除地址資料 Integer addressDelete(Integer id) -->
@@ -63,6 +65,26 @@
 		WHERE
 			id=#{id}
 	</delete>
+	
+	<!-- 將會員所有地址的預設清除 Integer addressDefaultClear(Integer userId) -->
+	<update id="addressDefaultClear">
+		UPDATE
+			address
+		SET
+			a_default=0
+		WHERE
+			user_id=#{userId}
+	</update>
+	
+	<!-- 設定預設收貨地址 Integer addressDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<update id="addressDefaultSet">
+		UPDATE
+			address
+		SET
+			a_default=1
+		WHERE
+			user_id=#{userId} AND id=#{id}
+	</update>
 </mapper>
 
 

@@ -47,4 +47,19 @@ public interface AddressServiceInterface {
 	 * @return 受影響的行數
 	 */
 	Integer addressDelete(Integer id);
+	
+	/**
+	 * 將會員所有地址的預設清除
+	 * @param userId 會員id
+	 * @return 受影響的行數
+	 */
+	Integer addressDefaultClear(Integer userId);
+	
+	/**
+	 * 設定預設收貨地址
+	 * @param userId 會員id
+	 * @param id 地址id
+	 * @return 受影響的行數
+	 */
+	Integer addressDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id);
 }

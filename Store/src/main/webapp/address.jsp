@@ -46,7 +46,7 @@
 					'<div class="wrap">' +
 						'<div class="left">%ADDRESS%</div>' +
 						'<div class="right">' +
-							'<button id="%ID%" onclick="">預設</button>' +
+							'<button onclick="addressDefault(%ID%)">預設</button>' +
 							'<button id="%ID%" onclick="">修改</button>' +
 							'<button onclick="addressDelete(%ID%)">刪除</button>' +
 						'</div>' +
@@ -68,6 +68,8 @@
 								htmlString = htmlString.replace(/%ID%/g, address.id);
 							}
 							$("#addressList").html(htmlString);
+							$("#addressList div:first").css("border", "#48D1CC 3px solid");
+							$("#addressList div:first").css("background-color", "#E0FFFF");
 						}
 					}
 				});
@@ -162,6 +164,23 @@
 			function addressDelete(id) {
 				$.ajax({
 					url: "addressDelete.do",
+					data: "id=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+							addressList();
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
+			}
+			
+			function addressDefault(id) {
+				$.ajax({
+					url: "addressDefault.do",
 					data: "id=" + id,
 					type: "get",
 					dataType: "json",
