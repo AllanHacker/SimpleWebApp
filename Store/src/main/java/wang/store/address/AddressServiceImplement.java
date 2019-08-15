@@ -1,5 +1,7 @@
 package wang.store.address;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +27,10 @@ public class AddressServiceImplement implements AddressServiceInterface{
 	public Integer insert(Address address) {
 		Integer result = addressMapper.insert(address);
 		return result;
+	}
+
+	public List<Address> addressFindByUserId(Integer userId) {
+		return addressMapper.addressFindByUserId(userId);
 	}
 
 }

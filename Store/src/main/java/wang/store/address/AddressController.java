@@ -1,5 +1,7 @@
 package wang.store.address;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -77,7 +79,7 @@ public class AddressController {
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		Address address = new Address();
-		address.setAddress(addr);
+		address.setAddress(addr + addr2);
 		address.setUserId(userId);
 		Integer result = addressService.insert(address);
 		if (result == 1) {
@@ -85,5 +87,21 @@ public class AddressController {
 		} else {
 			return new ResponseResult<Void>(0, "地址新增失敗");
 		}
+	}
+	
+	/**
+	 * 地址列表
+	 * @param session 會員id儲存位置
+	 * @return 有資料返回1，沒資料返回0
+	 */
+	@RequestMapping("/addressList.do")
+	@ResponseBody
+	public ResponseResult<List<Address>> addressList(HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		List<Address> addresses = addressService.addressFindByUserId(userId);
+		if (addresses.size() < 1) {
+			return new ResponseResult<List<Address>>(0, "趕快新增第一個地址");
+		}
+		return new ResponseResult<List<Address>>(1, addresses);
 	}
 }

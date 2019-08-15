@@ -1,5 +1,7 @@
 package wang.store.address;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AddressMapper {
@@ -31,4 +33,11 @@ public interface AddressMapper {
 	 * @return 受影響的行數
 	 */
 	Integer insert(Address address);
+	
+	/**
+	 * 以會員id查詢地址
+	 * @param userId 會員id
+	 * @return 地址列表
+	 */
+	List<Address> addressFindByUserId(Integer userId);
 }

@@ -31,7 +31,7 @@
 			city=#{city} AND country=#{country}
 	</select>
 	
-	
+	<!-- 新增地址 Integer insert(Address address) -->
 	<insert id="insert" parameterType="wang.store.address.Address">
 		INSERT INTO address(
 			user_id,
@@ -42,6 +42,19 @@
 			#{address}
 		)
 	</insert>
+	
+	<!-- 以會員id查詢地址 List<Address> addressFindByUserId(Integer userId) -->
+	<select id="addressFindByUserId" resultType="wang.store.address.Address">
+		SELECT
+			id,
+			user_id AS userId,
+			address,
+			a_default AS aDefault
+		FROM
+			address
+		WHERE
+			user_id=#{userId}
+	</select>
 </mapper>
 
 

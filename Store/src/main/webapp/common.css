@@ -242,9 +242,40 @@
 /* 地址管理 下拉選單 */
 #wrap select, #wrap input{
 	font-size: 20px;
-	width: 200px;
+	width: 250px;
     margin: 0 0 15px 0;
     text-align-last: center;
+}
+
+/* 地址列表 */
+#addressList .wrap{
+	font-size: 22px;
+	height: 120px;
+	border: grey 1px solid;
+	margin: 3px 0 0 0;
+}
+
+.wrap .left{
+	width: 80%;
+	height: 100%;
+	float: left;
+	display:  flex;
+    align-items: center;
+    justify-content:  center;
+}
+
+.wrap .right{
+	width: 20%;
+	height: 100%;
+	display:  flex;
+    align-items: center;
+    justify-content:  center;
+    flex-direction: column;
+}
+
+.wrap .right button{
+	margin: 7px 0 0 0;
+	font-size: 16px;
 }
 
 /* alertAPI的樣式 */

@@ -28,6 +28,7 @@
 						</div>
 					</div>
 				</div>
+				<div id="addressList"></div>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -35,6 +36,43 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
+			$(function(){
+				addressList();
+			});
+			
+			function addressList() {
+				$("#addressList").empty();
+				var template = 
+					'<div class="wrap">' +
+						'<div class="left">%ADDRESS%</div>' +
+						'<div class="right">' +
+							'<button id="%ID%" onclick="">預設</button>' +
+							'<button id="%ID%" onclick="">修改</button>' +
+							'<button id="%ID%" onclick="">刪除</button>' +
+						'</div>' +
+					'</div>';
+				
+				$.ajax({
+					url: "addressList.do",
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 0) {
+							$("#addressList").append("<div>" + obj.message + "</div>");
+						} else {
+							var htmlString = "";
+							for (var i = 0; i < obj.data.length; i++) {
+								htmlString += template;
+								var address = obj.data[i];
+								htmlString = htmlString.replace("%ADDRESS%", address.address);
+								htmlString = htmlString.replace(/%ID%/g, address.id);
+							}
+							$("#addressList").html(htmlString);
+						}
+					}
+				});
+			}
+			
 			function popup() {
 				$("#city").empty();
 				$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
@@ -112,6 +150,8 @@
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
+							addressList();
+							popup();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
