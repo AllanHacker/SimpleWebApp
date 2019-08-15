@@ -68,7 +68,13 @@ public class AddressController {
 	 */
 	@RequestMapping("/addressAdd.do")
 	@ResponseBody
-	public ResponseResult<Void> addressAdd(String addr, HttpSession session) {
+	public ResponseResult<Void> addressAdd(String addr, String addr2, HttpSession session) {
+		if (addr.contains("-")) {
+			return new ResponseResult<Void>(0, "資料有誤");
+		}
+		if ("".equals(addr2)) {
+			return new ResponseResult<Void>(0, "資料有誤");
+		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		Address address = new Address();
 		address.setAddress(addr);

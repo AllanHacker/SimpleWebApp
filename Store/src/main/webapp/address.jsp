@@ -18,22 +18,15 @@
 				<div id="mask"></div>
 				<div id="addressForm">
 					<div id="wrap">
-						<select id="city" onchange="countryOption()">
-							<option>---縣市---</option>
-						</select>
-						<select id="country" onchange="roadOption()">
-							<option>---鄉鎮區---</option>
-						</select>
-						<select id="road">
-							<option>---路名---</option>
-						</select>
+						<select id="city" onchange="countryOption()"></select>
+						<select id="country" onchange="roadOption()"></select>
+						<select id="road"></select>
 						<input id="address" type="text" placeholder="巷弄號樓">
 						<div>
 							<button onclick="addressAdd()">確定</button>
 							<button onclick="closepopup()">取消</button>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -42,7 +35,14 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
-			$(function() {
+			function popup() {
+				$("#city").empty();
+				$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
+				$("#country").empty();
+				$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
+				$("#road").empty();
+				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+				$("#address").val("");
 				$.ajax({
 					url: "cityOption.do",
 					type: "get",
@@ -54,9 +54,6 @@
 						}
 					}
 				});
-			});
-			
-			function popup() {
 				$("#mask").show();
 				$("#addressForm").show();
 			}
@@ -68,9 +65,9 @@
 			
 			function countryOption() {
 				$("#country").empty();
+				$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
 				$("#road").empty();
-				$("#country").append("<option>---鄉鎮區---</option>");
-				$("#road").append("<option>---路名---</option>");
+				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 				$.ajax({
 					url: "countryOption.do",
 					data: "city=" + $("#city option:selected").text(),
@@ -87,7 +84,7 @@
 			
 			function roadOption() {
 				$("#road").empty();
-				$("#road").append("<option>---路名---</option>");
+				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 				$.ajax({
 					url: "roadOption.do",
 					data: "city=" + $("#city option:selected").text() + 
@@ -109,7 +106,7 @@
 					data: "addr=" + $("#city option:selected").text() + 
 						  $("#country option:selected").text() + 
 						  $("#road option:selected").text() + 
-						  $("#address").val(),
+						  "&addr2=" + $("#address").val(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
