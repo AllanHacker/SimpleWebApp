@@ -40,4 +40,11 @@ public interface AddressServiceInterface {
 	 * @return 地址列表
 	 */
 	List<Address> addressFindByUserId(Integer userId);
+	
+	/**
+	 * 根據地址id刪除地址資料
+	 * @param id 地址id
+	 * @return 受影響的行數
+	 */
+	Integer addressDelete(Integer id);
 }

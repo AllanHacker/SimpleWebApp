@@ -104,4 +104,19 @@ public class AddressController {
 		}
 		return new ResponseResult<List<Address>>(1, addresses);
 	}
+	
+	/**
+	 * 刪除地址
+	 * @param id 地址id
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/addressDelete.do")
+	@ResponseBody
+	public ResponseResult<Void> addressDelete(Integer id) {
+		Integer result = addressService.addressDelete(id);
+		if (result == 1) {
+			return new ResponseResult<Void>(1, "地址刪除成功");
+		}
+		return new ResponseResult<Void>(0, "地址刪除失敗");
+	}
 }

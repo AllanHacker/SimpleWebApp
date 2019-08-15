@@ -33,4 +33,8 @@ public class AddressServiceImplement implements AddressServiceInterface{
 		return addressMapper.addressFindByUserId(userId);
 	}
 
+	public Integer addressDelete(Integer id) {
+		return addressMapper.addressDelete(id);
+	}
+
 }

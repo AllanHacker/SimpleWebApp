@@ -48,7 +48,7 @@
 						'<div class="right">' +
 							'<button id="%ID%" onclick="">預設</button>' +
 							'<button id="%ID%" onclick="">修改</button>' +
-							'<button id="%ID%" onclick="">刪除</button>' +
+							'<button onclick="addressDelete(%ID%)">刪除</button>' +
 						'</div>' +
 					'</div>';
 				
@@ -152,6 +152,23 @@
 							alertAPI(obj.message);
 							addressList();
 							popup();
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
+			}
+			
+			function addressDelete(id) {
+				$.ajax({
+					url: "addressDelete.do",
+					data: "id=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+							addressList();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}

@@ -55,6 +55,14 @@
 		WHERE
 			user_id=#{userId}
 	</select>
+	
+	<!-- 根據地址id刪除地址資料 Integer addressDelete(Integer id) -->
+	<delete id="addressDelete">
+		DELETE FROM
+			address
+		WHERE
+			id=#{id}
+	</delete>
 </mapper>
 
 
