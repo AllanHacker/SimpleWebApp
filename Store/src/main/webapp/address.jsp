@@ -14,10 +14,10 @@
 			<div id="title"><h2>地址管理</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				<select id="city">
+				<select id="city" onchange="countryOption()">
 					<option>---縣市---</option>
 				</select>
-				<select id="district">
+				<select id="country" onchange="roadOption()">
 					<option>---鄉鎮區---</option>
 				</select>
 				<select id="road">
@@ -45,7 +45,42 @@
 				});
 			});
 			
+			function countryOption() {
+				$("#country").empty();
+				$("#road").empty();
+				$("#country").append("<option>---鄉鎮區---</option>");
+				$("#road").append("<option>---路名---</option>");
+				$.ajax({
+					url: "countryOption.do",
+					data: "city=" + $("#city option:selected").text(),
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						for (var i = 0; i < obj.data.length; i++) {
+							var country = obj.data[i];
+							$("#country").append("<option>" + country + "</option>");
+						}
+					}
+				});
+			}
 			
+			function roadOption() {
+				$("#road").empty();
+				$("#road").append("<option>---路名---</option>");
+				$.ajax({
+					url: "roadOption.do",
+					data: "city=" + $("#city option:selected").text() + 
+						  "&country=" + $("#country option:selected").text(),
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						for (var i = 0; i < obj.data.length; i++) {
+							var road = obj.data[i];
+							$("#road").append("<option>" + road + "</option>");
+						}
+					}
+				});
+			}
 		</script>
 	</body>
 </html>
