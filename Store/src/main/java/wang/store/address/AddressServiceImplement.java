@@ -22,4 +22,9 @@ public class AddressServiceImplement implements AddressServiceInterface{
 		return addressMapper.roadOption(city, country);
 	}
 
+	public Integer insert(Address address) {
+		Integer result = addressMapper.insert(address);
+		return result;
+	}
+
 }

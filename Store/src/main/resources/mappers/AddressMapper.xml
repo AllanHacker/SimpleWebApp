@@ -31,6 +31,17 @@
 			city=#{city} AND country=#{country}
 	</select>
 	
+	
+	<insert id="insert" parameterType="wang.store.address.Address">
+		INSERT INTO address(
+			user_id,
+			address
+		)
+		VALUES(
+			#{userId},
+			#{address}
+		)
+	</insert>
 </mapper>
 
 

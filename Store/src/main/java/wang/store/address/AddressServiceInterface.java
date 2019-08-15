@@ -25,4 +25,10 @@ public interface AddressServiceInterface {
 	 */
 	String[] roadOption(@Param("city") String city, @Param("country") String country);
 	
+	/**
+	 * 新增地址
+	 * @param address 地址資料
+	 * @return 受影響的行數
+	 */
+	Integer insert(Address address);
 }

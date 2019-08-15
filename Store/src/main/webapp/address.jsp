@@ -23,6 +23,8 @@
 				<select id="road">
 					<option>---路名---</option>
 				</select>
+				<input id="address" type="text">
+				<input type="submit" value="確定" onclick="addressAdd()">
 				
 			</div>
 		</div>
@@ -77,6 +79,25 @@
 						for (var i = 0; i < obj.data.length; i++) {
 							var road = obj.data[i];
 							$("#road").append("<option>" + road + "</option>");
+						}
+					}
+				});
+			}
+			
+			function addressAdd() {
+				$.ajax({
+					url: "addressAdd.do",
+					data: "addr=" + $("#city option:selected").text() + 
+						  $("#country option:selected").text() + 
+						  $("#road option:selected").text() + 
+						  $("#address").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+						} else {
+							alertAPI(obj.message, "alertFailure");
 						}
 					}
 				});

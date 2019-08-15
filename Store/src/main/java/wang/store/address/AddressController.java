@@ -1,6 +1,7 @@
 package wang.store.address;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +49,26 @@ public class AddressController {
 	public ResponseResult<String[]> roadOption(String city, String country) {
 		String[] roads = addressService.roadOption(city, country);
 		return new ResponseResult<String[]>(roads);
+	}
+	
+	/**
+	 * 新增收貨地址
+	 * @param addr 地址
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/addressAdd.do")
+	@ResponseBody
+	public ResponseResult<Void> addressAdd(String addr, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Address address = new Address();
+		address.setAddress(addr);
+		address.setUserId(userId);
+		Integer result = addressService.insert(address);
+		if (result == 1) {
+			return new ResponseResult<Void>(1, "地址新增成功");
+		} else {
+			return new ResponseResult<Void>(0, "地址新增失敗");
+		}
 	}
 }
