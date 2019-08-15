@@ -16,6 +16,15 @@ public class AddressController {
 	private AddressServiceInterface addressService;
 	
 	/**
+	 * 顯示地址管理頁面
+	 * @return 地址管理頁面
+	 */
+	@RequestMapping("/addressPage.do")
+	public String addressPage() {
+		return "address";
+	}
+	
+	/**
 	 * 查詢縣市選項
 	 * @return 縣市選項
 	 */

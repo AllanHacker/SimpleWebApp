@@ -41,6 +41,7 @@
 			<mvc:mapping path="/sellPage.do" />
 			<mvc:mapping path="/mallPage.do" />
 			<mvc:mapping path="/userCenterPage.do" />
+			<mvc:mapping path="/addressPage.do" />
 			<mvc:exclude-mapping path="" />
 			<bean class="wang.store.interceptor.LoginInterceptor" />
 		</mvc:interceptor>

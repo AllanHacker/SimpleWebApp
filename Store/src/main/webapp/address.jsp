@@ -14,18 +14,27 @@
 			<div id="title"><h2>地址管理</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				<select id="city" onchange="countryOption()">
-					<option>---縣市---</option>
-				</select>
-				<select id="country" onchange="roadOption()">
-					<option>---鄉鎮區---</option>
-				</select>
-				<select id="road">
-					<option>---路名---</option>
-				</select>
-				<input id="address" type="text">
-				<input type="submit" value="確定" onclick="addressAdd()">
-				
+				<button onclick="popup()">新增地址</button>
+				<div id="mask"></div>
+				<div id="addressForm">
+					<div id="wrap">
+						<select id="city" onchange="countryOption()">
+							<option>---縣市---</option>
+						</select>
+						<select id="country" onchange="roadOption()">
+							<option>---鄉鎮區---</option>
+						</select>
+						<select id="road">
+							<option>---路名---</option>
+						</select>
+						<input id="address" type="text" placeholder="巷弄號樓">
+						<div>
+							<button onclick="addressAdd()">確定</button>
+							<button onclick="closepopup()">取消</button>
+						</div>
+					</div>
+					
+				</div>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -46,6 +55,16 @@
 					}
 				});
 			});
+			
+			function popup() {
+				$("#mask").show();
+				$("#addressForm").show();
+			}
+			
+			function closepopup() {
+				$("#mask").hide();
+				$("#addressForm").hide();
+			}
 			
 			function countryOption() {
 				$("#country").empty();
