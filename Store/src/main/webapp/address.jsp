@@ -14,14 +14,15 @@
 			<div id="title"><h2>地址管理</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				<button onclick="popup()">新增地址</button>
+				<button onclick="popup(0)">新增地址</button>
 				<div id="mask"></div>
 				<div id="addressForm">
 					<div id="wrap">
+						<div id="postalCode"></div>
 						<select id="city" onchange="countryOption()"></select>
 						<select id="country" onchange="roadOption()"></select>
-						<select id="road"></select>
-						<input id="address" type="text" placeholder="巷弄號樓">
+						<select id="road" onchange="postalCode()"></select>
+						<input id="other" type="text" placeholder="巷弄號樓">
 						<div>
 							<button onclick="addressAdd()">確定</button>
 							<button onclick="closepopup()">取消</button>
@@ -47,7 +48,7 @@
 						'<div class="left">%ADDRESS%</div>' +
 						'<div class="right">' +
 							'<button onclick="addressDefault(%ID%)">預設</button>' +
-							'<button id="%ID%" onclick="">修改</button>' +
+							'<button onclick="popup(%ID%)">修改</button>' +
 							'<button onclick="addressDelete(%ID%)">刪除</button>' +
 						'</div>' +
 					'</div>';
@@ -64,7 +65,8 @@
 							for (var i = 0; i < obj.data.length; i++) {
 								htmlString += template;
 								var address = obj.data[i];
-								htmlString = htmlString.replace("%ADDRESS%", address.address);
+								var addrStr = address.postalCode + address.city + address.district + address.road + address.other;
+								htmlString = htmlString.replace("%ADDRESS%", addrStr);
 								htmlString = htmlString.replace(/%ID%/g, address.id);
 							}
 							$("#addressList").html(htmlString);
@@ -75,27 +77,33 @@
 				});
 			}
 			
-			function popup() {
-				$("#city").empty();
-				$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
-				$("#country").empty();
-				$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
-				$("#road").empty();
-				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
-				$("#address").val("");
-				$.ajax({
-					url: "cityOption.do",
-					type: "get",
-					dataType: "json",
-					success: function(obj){
-						for (var i = 0; i < obj.data.length; i++) {
-							var city = obj.data[i];
-							$("#city").append("<option>" + city + "</option>");
-						}
-					}
-				});
+			function popup(id) {
 				$("#mask").show();
 				$("#addressForm").show();
+				if (id == 0) {
+					cityOption();
+					$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
+					$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
+					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+				} else {
+					cityOption();
+					$.ajax({
+						url: "addressLoad.do",
+						data: "id=" + id,
+						type: "get",
+						dataType: "json",
+						success: function(obj){
+							var address = obj.data;
+							$("#city option:contains(" + address.city + ")").attr("selected", true);
+							countryOption(address.city);
+							$("#country option:contains(" + address.district + ")").attr("selected", true);
+							roadOption(address.city, address.district);
+							$("#road option:contains(" + address.road + ")").attr("selected", true);
+							$("#postalCode").text(address.postalCode);
+							$("#other").val(address.other);
+						}
+					});
+				}
 			}
 			
 			function closepopup() {
@@ -103,16 +111,41 @@
 				$("#addressForm").hide();
 			}
 			
-			function countryOption() {
+			function cityOption() {
+				$("#postalCode").empty();
+				$("#city").empty();
 				$("#country").empty();
-				$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
 				$("#road").empty();
-				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+				$("#other").val("");
 				$.ajax({
-					url: "countryOption.do",
-					data: "city=" + $("#city option:selected").text(),
+					url: "cityOption.do",
 					type: "get",
 					dataType: "json",
+					async: false,
+					success: function(obj){
+						for (var i = 0; i < obj.data.length; i++) {
+							var city = obj.data[i];
+							$("#city").append("<option>" + city + "</option>");
+						}
+					}
+				});
+			}
+			
+			function countryOption(city) {
+				$("#postalCode").empty();
+				$("#country").empty();
+				$("#road").empty();
+				if (city === undefined) {
+					city = $("#city option:selected").text();
+					$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
+					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+				}
+				$.ajax({
+					url: "countryOption.do",
+					data: "city=" + city,
+					type: "get",
+					dataType: "json",
+					async: false,
 					success: function(obj){
 						for (var i = 0; i < obj.data.length; i++) {
 							var country = obj.data[i];
@@ -122,15 +155,21 @@
 				});
 			}
 			
-			function roadOption() {
+			function roadOption(city, country) {
+				$("#postalCode").empty();
 				$("#road").empty();
-				$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+				if (city === undefined || country === undefined) {
+					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
+					city = $("#city option:selected").text();
+					country = $("#country option:selected").text();
+				}
 				$.ajax({
 					url: "roadOption.do",
-					data: "city=" + $("#city option:selected").text() + 
-						  "&country=" + $("#country option:selected").text(),
+					data: "city=" + city + 
+						  "&country=" + country,
 					type: "get",
 					dataType: "json",
+					async: false,
 					success: function(obj){
 						for (var i = 0; i < obj.data.length; i++) {
 							var road = obj.data[i];
@@ -140,20 +179,35 @@
 				});
 			}
 			
+			function postalCode(){
+				$.ajax({
+					url: "postalCode.do",
+					data: "city=" + $("#city option:selected").text() + 
+						  "&country=" + $("#country option:selected").text() + 
+						  "&road=" + $("#road option:selected").text(),
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						$("#postalCode").text(obj.data);
+					}
+				});
+			}
+			
 			function addressAdd() {
 				$.ajax({
 					url: "addressAdd.do",
-					data: "addr=" + $("#city option:selected").text() + 
-						  $("#country option:selected").text() + 
-						  $("#road option:selected").text() + 
-						  "&addr2=" + $("#address").val(),
+					data: "postalCode=" + $("#postalCode").text() + 
+						  "&city=" + $("#city option:selected").text() + 
+						  "&district=" + $("#country option:selected").text() + 
+						  "&road=" + $("#road option:selected").text() + 
+						  "&other=" + $("#other").val(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
 							addressList();
-							popup();
+							popup(0);
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}

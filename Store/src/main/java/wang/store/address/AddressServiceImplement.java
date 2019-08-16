@@ -23,6 +23,10 @@ public class AddressServiceImplement implements AddressServiceInterface{
 	public String[] roadOption(String city, String country) {
 		return addressMapper.roadOption(city, country);
 	}
+	
+	public Integer postalCode(String city, String country, String road) {
+		return addressMapper.postalCode(city, country, road);
+	}
 
 	public Integer insert(Address address) {
 		Integer result = addressMapper.insert(address);
@@ -31,6 +35,10 @@ public class AddressServiceImplement implements AddressServiceInterface{
 
 	public List<Address> addressFindByUserId(Integer userId) {
 		return addressMapper.addressFindByUserId(userId);
+	}
+	
+	public Address addressFindByUserIdAndId(Integer userId, Integer id) {
+		return addressMapper.addressFindByUserIdAndId(userId, id);
 	}
 
 	public Integer addressDelete(Integer id) {

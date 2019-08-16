@@ -225,8 +225,8 @@
 	background-color: #FFF;
 	border: #5599FF 5px solid;
 	border-radius: 10px;
-	width: 40%;
-	height:  40%;
+	width: 370px;
+	height:  340px;
 }
 
 /* 置中效果 */
@@ -240,8 +240,9 @@
 }
 
 /* 地址管理 下拉選單 */
-#wrap select, #wrap input{
+#wrap select, #wrap input, #postalCode, #other{
 	font-size: 20px;
+	height: 30px;
 	width: 250px;
     margin: 0 0 15px 0;
     text-align-last: center;

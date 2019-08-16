@@ -23,7 +23,7 @@
 	
 	<!-- 查詢出某縣市中的某鄉鎮區中的所有路名 String[] roadOption(@Param("city") String city, @Param("country") String country) -->
 	<select id="roadOption" resultType="java.lang.String">
-		SELECT DISTINCT
+		SELECT
 			road
 		FROM
 			streetname
@@ -31,15 +31,33 @@
 			city=#{city} AND country=#{country}
 	</select>
 	
+	<!-- 查詢出某個區域的郵遞區號 Integer postalCode(@Param("city") String city, @Param("country") String country, @Param("road") String road) -->
+	<select id="postalCode" resultType="java.lang.Integer">
+		SELECT DISTINCT
+			mailcode
+		FROM
+			streetname
+		WHERE
+			city=#{city} AND country=#{country} AND road=#{road}
+	</select>
+	
 	<!-- 新增地址 Integer insert(Address address) -->
 	<insert id="insert" parameterType="wang.store.address.Address">
 		INSERT INTO address(
 			user_id,
-			address
+			postal_code,
+			city,
+			district,
+			road,
+			other
 		)
 		VALUES(
 			#{userId},
-			#{address}
+			#{postalCode},
+			#{city},
+			#{district},
+			#{road},
+			#{other}
 		)
 	</insert>
 	
@@ -48,14 +66,35 @@
 		SELECT
 			id,
 			user_id AS userId,
-			address,
-			a_default AS aDefault
+			a_default AS aDefault,
+			postal_code AS postalCode,
+			city,
+			district,
+			road,
+			other
 		FROM
 			address
 		WHERE
 			user_id=#{userId}
 		ORDER BY
 			a_default DESC
+	</select>
+	
+	<!-- 以會員id及地址id查詢地址 Address addressFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<select id="addressFindByUserIdAndId" resultType="wang.store.address.Address">
+		SELECT
+			id,
+			user_id AS userId,
+			a_default AS aDefault,
+			postal_code AS postalCode,
+			city,
+			district,
+			road,
+			other
+		FROM
+			address
+		WHERE
+			user_id=#{userId} AND id=#{id}
 	</select>
 	
 	<!-- 根據地址id刪除地址資料 Integer addressDelete(Integer id) -->

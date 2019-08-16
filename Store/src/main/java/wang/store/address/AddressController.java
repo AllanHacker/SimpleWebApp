@@ -63,6 +63,20 @@ public class AddressController {
 	}
 	
 	/**
+	 * 根據縣市及鄉鎮區查詢郵遞區號
+	 * @param city 縣市
+	 * @param country 鄉鎮區
+	 * @param road 道路
+	 * @return 郵遞區號
+	 */
+	@RequestMapping("/postalCode.do")
+	@ResponseBody
+	public ResponseResult<Integer> postalCode(String city, String country, String road) {
+		Integer postalCode = addressService.postalCode(city, country, road);
+		return new ResponseResult<Integer>(1, postalCode);
+	}
+	
+	/**
 	 * 新增收貨地址
 	 * @param addr 地址
 	 * @param session 會員id儲存位置
@@ -70,17 +84,25 @@ public class AddressController {
 	 */
 	@RequestMapping("/addressAdd.do")
 	@ResponseBody
-	public ResponseResult<Void> addressAdd(String addr, String addr2, HttpSession session) {
-		if (addr.contains("-")) {
-			return new ResponseResult<Void>(0, "資料有誤");
-		}
-		if ("".equals(addr2)) {
+	public ResponseResult<Void> addressAdd(Integer postalCode, String city, 
+			String district, String road, String other, HttpSession session) {
+		
+		String regex = "[0-9\\u4e00-\\u9fcc]+";
+		if (!other.matches(regex) || (city+district+road).contains("-")) {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
+		List<Address> addresses = addressService.addressFindByUserId(userId);
+		if (addresses.size() > 9) {
+			return new ResponseResult<Void>(0, "只能設定10個地址");
+		}
 		Address address = new Address();
-		address.setAddress(addr + addr2);
 		address.setUserId(userId);
+		address.setPostalCode(postalCode);
+		address.setCity(city);
+		address.setDistrict(district);
+		address.setRoad(road);
+		address.setOther(other);
 		Integer result = addressService.insert(address);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "地址新增成功");
@@ -120,6 +142,12 @@ public class AddressController {
 		return new ResponseResult<Void>(0, "地址刪除失敗");
 	}
 	
+	/**
+	 * 將地址設為預設
+	 * @param id 地址id
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
 	@RequestMapping("/addressDefault.do")
 	@ResponseBody
 	public ResponseResult<Void> addressDefault(Integer id, HttpSession session) {
@@ -130,5 +158,22 @@ public class AddressController {
 			return new ResponseResult<Void>(1, "設置完畢");
 		}
 		return new ResponseResult<Void>(0, "設置失敗");
+	}
+	
+	/**
+	 * 查詢地址資料並返回
+	 * @param id 地址id
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/addressLoad.do")
+	@ResponseBody
+	public ResponseResult<Address> addressLoad(Integer id, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Address address = addressService.addressFindByUserIdAndId(userId, id);
+		if (address != null) {
+			return new ResponseResult<Address>(1, address);
+		}
+		return new ResponseResult<Address>(0, "地址不存在");
 	}
 }
