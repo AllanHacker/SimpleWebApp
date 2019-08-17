@@ -6,4 +6,5 @@
 				<a href="sellPage.do">我要拍賣</a>
 				<a href="mallPage.do">我的賣場</a>
 				<a href="addressPage.do">地址管理</a>
+				<a href="orderPage.do">我的訂單</a>
 			</div>	

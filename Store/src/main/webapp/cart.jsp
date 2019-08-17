@@ -59,7 +59,7 @@
 							}
 							$("#cart").append("一共<span id='amountCount'>" + amountCount + "</span>樣商品，");
 							$("#cart").append("總金額為：<span id='totalCount'>" + totalCount + "</span>元&nbsp;&nbsp;");
-							$("#cart").append("<a href='#'>結帳</a>");
+							$("#cart").append("<a href='orderDetailPage.do'>結帳</a>");
 						}
 					}
 				});
