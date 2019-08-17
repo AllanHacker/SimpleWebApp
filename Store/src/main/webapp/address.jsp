@@ -19,8 +19,8 @@
 				<div id="addressForm">
 					<div id="wrap">
 						<div id="postalCode"></div>
-						<select id="city" onchange="countryOption()"></select>
-						<select id="country" onchange="roadOption()"></select>
+						<select id="city" onchange="districtOption()"></select>
+						<select id="district" onchange="roadOption()"></select>
 						<select id="road" onchange="postalCode()"></select>
 						<input id="other" type="text" placeholder="巷弄號樓">
 						<input id="addressId" type="hidden">
@@ -86,7 +86,7 @@
 				if (id == 0) {
 					cityOption();
 					$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
-					$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
+					$("#district").append("<option disabled selected hidden>---鄉鎮區---</option>");
 					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 				} else {
 					cityOption();
@@ -98,8 +98,8 @@
 						success: function(obj){
 							var address = obj.data;
 							$("#city option:contains(" + address.city + ")").attr("selected", true);
-							countryOption(address.city);
-							$("#country option:contains(" + address.district + ")").attr("selected", true);
+							districtOption(address.city);
+							$("#district option:contains(" + address.district + ")").attr("selected", true);
 							roadOption(address.city, address.district);
 							$("#road option:contains(" + address.road + ")").attr("selected", true);
 							$("#postalCode").text(address.postalCode);
@@ -117,7 +117,7 @@
 			function cityOption() {
 				$("#postalCode").empty();
 				$("#city").empty();
-				$("#country").empty();
+				$("#district").empty();
 				$("#road").empty();
 				$("#other").val("");
 				$.ajax({
@@ -134,42 +134,42 @@
 				});
 			}
 			
-			function countryOption(city) {
+			function districtOption(city) {
 				$("#postalCode").empty();
-				$("#country").empty();
+				$("#district").empty();
 				$("#road").empty();
 				if (city === undefined) {
 					city = $("#city option:selected").text();
-					$("#country").append("<option disabled selected hidden>---鄉鎮區---</option>");
+					$("#district").append("<option disabled selected hidden>---鄉鎮區---</option>");
 					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 				}
 				$.ajax({
-					url: "countryOption.do",
+					url: "districtOption.do",
 					data: "city=" + city,
 					type: "get",
 					dataType: "json",
 					async: false,
 					success: function(obj){
 						for (var i = 0; i < obj.data.length; i++) {
-							var country = obj.data[i];
-							$("#country").append("<option>" + country + "</option>");
+							var district = obj.data[i];
+							$("#district").append("<option>" + district + "</option>");
 						}
 					}
 				});
 			}
 			
-			function roadOption(city, country) {
+			function roadOption(city, district) {
 				$("#postalCode").empty();
 				$("#road").empty();
-				if (city === undefined || country === undefined) {
+				if (city === undefined || district === undefined) {
 					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 					city = $("#city option:selected").text();
-					country = $("#country option:selected").text();
+					district = $("#district option:selected").text();
 				}
 				$.ajax({
 					url: "roadOption.do",
 					data: "city=" + city + 
-						  "&country=" + country,
+						  "&district=" + district,
 					type: "get",
 					dataType: "json",
 					async: false,
@@ -186,7 +186,7 @@
 				$.ajax({
 					url: "postalCode.do",
 					data: "city=" + $("#city option:selected").text() + 
-						  "&country=" + $("#country option:selected").text() + 
+						  "&district=" + $("#district option:selected").text() + 
 						  "&road=" + $("#road option:selected").text(),
 					type: "get",
 					dataType: "json",
@@ -208,7 +208,7 @@
 					data: "id=" + id + 
 						  "&postalCode=" + $("#postalCode").text() + 
 						  "&city=" + $("#city option:selected").text() + 
-						  "&district=" + $("#country option:selected").text() + 
+						  "&district=" + $("#district option:selected").text() + 
 						  "&road=" + $("#road option:selected").text() + 
 						  "&other=" + $("#other").val(),
 					type: "post",

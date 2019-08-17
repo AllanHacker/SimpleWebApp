@@ -11,34 +11,34 @@
 			streetname
 	</select>
 	
-	<!-- 查詢出某個縣市的鄉鎮區 String[] countryOption(String city) -->
-	<select id="countryOption" resultType="java.lang.String">
+	<!-- 查詢出某個縣市的鄉鎮區 String[] districtOption(String city) -->
+	<select id="districtOption" resultType="java.lang.String">
 		SELECT DISTINCT
-			country
+			district
 		FROM
 			streetname
 		WHERE
 			city=#{city}
 	</select>
 	
-	<!-- 查詢出某縣市中的某鄉鎮區中的所有路名 String[] roadOption(@Param("city") String city, @Param("country") String country) -->
+	<!-- 查詢出某縣市中的某鄉鎮區中的所有路名 String[] roadOption(@Param("city") String city, @Param("district") String district) -->
 	<select id="roadOption" resultType="java.lang.String">
 		SELECT
 			road
 		FROM
 			streetname
 		WHERE
-			city=#{city} AND country=#{country}
+			city=#{city} AND district=#{district}
 	</select>
 	
-	<!-- 查詢出某個區域的郵遞區號 Integer postalCode(@Param("city") String city, @Param("country") String country, @Param("road") String road) -->
+	<!-- 查詢出某個區域的郵遞區號 Integer postalCode(@Param("city") String city, @Param("district") String district, @Param("road") String road) -->
 	<select id="postalCode" resultType="java.lang.Integer">
 		SELECT DISTINCT
-			mailcode
+			postal_code
 		FROM
 			streetname
 		WHERE
-			city=#{city} AND country=#{country} AND road=#{road}
+			city=#{city} AND district=#{district} AND road=#{road}
 	</select>
 	
 	<!-- 新增地址 Integer insert(Address address) -->

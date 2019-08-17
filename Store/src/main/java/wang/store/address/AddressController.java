@@ -42,37 +42,37 @@ public class AddressController {
 	 * @param city 縣市
 	 * @return 鄉鎮區選項
 	 */
-	@RequestMapping("/countryOption.do")
+	@RequestMapping("/districtOption.do")
 	@ResponseBody
-	public ResponseResult<String[]> countryOption(String city) {
-		String[] countries = addressService.countryOption(city);
-		return new ResponseResult<String[]>(countries);
+	public ResponseResult<String[]> districtOption(String city) {
+		String[] districts = addressService.districtOption(city);
+		return new ResponseResult<String[]>(districts);
 	}
 	
 	/**
 	 * 根據縣市及鄉鎮區查詢路名選項
 	 * @param city 縣市
-	 * @param country 鄉鎮區
+	 * @param district 鄉鎮區
 	 * @return 路名選項
 	 */
 	@RequestMapping("/roadOption.do")
 	@ResponseBody
-	public ResponseResult<String[]> roadOption(String city, String country) {
-		String[] roads = addressService.roadOption(city, country);
+	public ResponseResult<String[]> roadOption(String city, String district) {
+		String[] roads = addressService.roadOption(city, district);
 		return new ResponseResult<String[]>(roads);
 	}
 	
 	/**
 	 * 根據縣市及鄉鎮區查詢郵遞區號
 	 * @param city 縣市
-	 * @param country 鄉鎮區
+	 * @param district 鄉鎮區
 	 * @param road 路名
 	 * @return 郵遞區號
 	 */
 	@RequestMapping("/postalCode.do")
 	@ResponseBody
-	public ResponseResult<Integer> postalCode(String city, String country, String road) {
-		Integer postalCode = addressService.postalCode(city, country, road);
+	public ResponseResult<Integer> postalCode(String city, String district, String road) {
+		Integer postalCode = addressService.postalCode(city, district, road);
 		return new ResponseResult<Integer>(1, postalCode);
 	}
 	

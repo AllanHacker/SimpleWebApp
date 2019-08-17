@@ -16,16 +16,16 @@ public class AddressServiceImplement implements AddressServiceInterface{
 		return addressMapper.cityOption();
 	}
 
-	public String[] countryOption(String city) {
-		return addressMapper.countryOption(city);
+	public String[] districtOption(String city) {
+		return addressMapper.districtOption(city);
 	}
 
-	public String[] roadOption(String city, String country) {
-		return addressMapper.roadOption(city, country);
+	public String[] roadOption(String city, String district) {
+		return addressMapper.roadOption(city, district);
 	}
 	
-	public Integer postalCode(String city, String country, String road) {
-		return addressMapper.postalCode(city, country, road);
+	public Integer postalCode(String city, String district, String road) {
+		return addressMapper.postalCode(city, district, road);
 	}
 
 	public Integer insert(Address address) {

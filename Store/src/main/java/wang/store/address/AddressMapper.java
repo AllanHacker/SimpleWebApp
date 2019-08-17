@@ -17,24 +17,24 @@ public interface AddressMapper {
 	 * @param city 縣市
 	 * @return 該縣市的鄉鎮區
 	 */
-	String[] countryOption(String city);
+	String[] districtOption(String city);
 	
 	/**
 	 * 查詢出某縣市中的某鄉鎮區中的所有路名
 	 * @param city 縣市
-	 * @param country 鄉鎮區
+	 * @param district 鄉鎮區
 	 * @return 某縣市中的某鄉鎮區中的所有路名
 	 */
-	String[] roadOption(@Param("city") String city, @Param("country") String country);
+	String[] roadOption(@Param("city") String city, @Param("district") String district);
 	
 	/**
 	 * 查詢出某個區域的郵遞區號
 	 * @param city 縣市
-	 * @param country 鄉鎮區
+	 * @param district 鄉鎮區
 	 * @param road 道路
 	 * @return 郵遞區號
 	 */
-	Integer postalCode(@Param("city") String city, @Param("country") String country, @Param("road") String road);
+	Integer postalCode(@Param("city") String city, @Param("district") String district, @Param("road") String road);
 	
 	/**
 	 * 新增地址
