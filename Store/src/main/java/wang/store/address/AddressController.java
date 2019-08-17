@@ -66,7 +66,7 @@ public class AddressController {
 	 * 根據縣市及鄉鎮區查詢郵遞區號
 	 * @param city 縣市
 	 * @param country 鄉鎮區
-	 * @param road 道路
+	 * @param road 路名
 	 * @return 郵遞區號
 	 */
 	@RequestMapping("/postalCode.do")
@@ -78,7 +78,11 @@ public class AddressController {
 	
 	/**
 	 * 新增收貨地址
-	 * @param addr 地址
+	 * @param postalCode 郵遞區號
+	 * @param city 縣市
+	 * @param district 鄉鎮區
+	 * @param road 路名
+	 * @param other 詳細地址
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
@@ -175,5 +179,39 @@ public class AddressController {
 			return new ResponseResult<Address>(1, address);
 		}
 		return new ResponseResult<Address>(0, "地址不存在");
+	}
+	
+	/**
+	 * 修改地址。查詢出該筆地址，並將新的資料寫入
+	 * @param id 地址id
+	 * @param postalCode 新的郵遞區號
+	 * @param city 新的縣市
+	 * @param district 新的鄉鎮區
+	 * @param road 新的路名
+	 * @param other 新的詳細地址
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/addressChange.do")
+	@ResponseBody
+	public ResponseResult<Void> addressChange(Integer id, Integer postalCode, String city, 
+			String district, String road, String other, HttpSession session) {
+		
+		String regex = "[0-9\\u4e00-\\u9fcc]+";
+		if (!other.matches(regex) || (city+district+road).contains("-")) {
+			return new ResponseResult<Void>(0, "資料有誤");
+		}
+		Integer userId = (Integer) session.getAttribute("userId");
+		Address address = addressService.addressFindByUserIdAndId(userId, id);
+		if (address != null) {
+			address.setPostalCode(postalCode);
+			address.setCity(city);
+			address.setDistrict(district);
+			address.setRoad(road);
+			address.setOther(other);
+			addressService.addressUpdate(address);
+			return new ResponseResult<Void>(1, "已更新地址");
+		}
+		return new ResponseResult<Void>(0, "地址不存在");
 	}
 }

@@ -124,6 +124,20 @@
 		WHERE
 			user_id=#{userId} AND id=#{id}
 	</update>
+	
+	<!-- 修改收貨地址 Integer addressUpdate(Address address) -->
+	<update id="addressUpdate" parameterType="wang.store.address.Address">
+		UPDATE
+			address
+		SET
+			postal_code = #{postalCode},
+			city = #{city},
+			district = #{district},
+			road = #{road},
+			other = #{other}
+		WHERE
+			user_id=#{userId} AND id=#{id}
+	</update>
 </mapper>
 
 

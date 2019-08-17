@@ -79,4 +79,11 @@ public interface AddressServiceInterface {
 	 * @return 受影響的行數
 	 */
 	Integer addressDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id);
+	
+	/**
+	 * 修改收貨地址
+	 * @param address 新的地址資料
+	 * @return 受影響的行數
+	 */
+	Integer addressUpdate(Address address);
 }

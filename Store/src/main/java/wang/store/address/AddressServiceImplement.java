@@ -53,4 +53,8 @@ public class AddressServiceImplement implements AddressServiceInterface{
 		return addressMapper.addressDefaultSet(userId, id);
 	}
 
+	public Integer addressUpdate(Address address) {
+		return addressMapper.addressUpdate(address);
+	}
+
 }

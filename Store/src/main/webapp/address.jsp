@@ -23,8 +23,9 @@
 						<select id="country" onchange="roadOption()"></select>
 						<select id="road" onchange="postalCode()"></select>
 						<input id="other" type="text" placeholder="巷弄號樓">
+						<input id="addressId" type="hidden">
 						<div>
-							<button onclick="addressAdd()">確定</button>
+							<button onclick="addressSubmit()">確定</button>
 							<button onclick="closepopup()">取消</button>
 						</div>
 					</div>
@@ -72,6 +73,7 @@
 							$("#addressList").html(htmlString);
 							$("#addressList div:first").css("border", "#48D1CC 3px solid");
 							$("#addressList div:first").css("background-color", "#E0FFFF");
+							$("#addressList div:first div button:first").attr("disabled", "disabled");
 						}
 					}
 				});
@@ -80,6 +82,7 @@
 			function popup(id) {
 				$("#mask").show();
 				$("#addressForm").show();
+				$("#addressId").val(id);
 				if (id == 0) {
 					cityOption();
 					$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
@@ -193,10 +196,17 @@
 				});
 			}
 			
-			function addressAdd() {
+			function addressSubmit() {
+				var id = $("#addressId").val();
+				if (id == 0) {
+					var url = "addressAdd.do"
+				} else {
+					var url = "addressChange.do"
+				}
 				$.ajax({
-					url: "addressAdd.do",
-					data: "postalCode=" + $("#postalCode").text() + 
+					url: url,
+					data: "id=" + id + 
+						  "&postalCode=" + $("#postalCode").text() + 
 						  "&city=" + $("#city option:selected").text() + 
 						  "&district=" + $("#country option:selected").text() + 
 						  "&road=" + $("#road option:selected").text() + 
@@ -207,7 +217,11 @@
 						if (obj.state == 1) {
 							alertAPI(obj.message);
 							addressList();
-							popup(0);
+							if (id == 0) {
+								popup(0);
+							} else {
+								closepopup();
+							}
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
