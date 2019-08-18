@@ -14,8 +14,14 @@
 			<div id="title"><h2>訂單內容</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				
-				
+				<p>金額：</p>
+				<span id="totalCount">&nbsp;&nbsp;</span></br>
+				<p>收件人</p>
+				<div id="addressSection"></div>
+				<p>商品</p>
+				<div id="cart"></div>
+				<button id="">下訂單</button>
+				<button id="">取消</button>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -23,7 +29,79 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
+			var addressTemplate = '' +
+			'<button id="">更改</button>' +
+			'<div class="wrap">' +
+			'	<p>姓名：%ADDRESS_NAME%</p>' +
+			'	<p>電話：%ADDRESS_PRICE%</p>' +
+			'	<p>地址：%ADDRESS_ADDR%</p>' +
+			'</div>';
+		
+			var productTemplate = '' +
+			'<div id="%PRODUCT_ID%" class="cart">' +
+			'	<div class="wrap">' +
+			'		<img src="http://localhost:8080/img/%PRODUCT_IMAGE%">' +
+			'	</div>' +
+			'	<div class="wrap">' +
+			'		<div class="wrap2">' + 
+			'			<p>名稱：%PRODUCT_NAME%</p>' +
+			'			<p>售價：%PRODUCT_PRICE%</p>' +
+			'			<p>數量：%PRODUCT_AMOUNT%</p>' +
+			'		</div>' + 
+			'	</div>' +
+			'	<div class="wrap">' +
+			'		<p>總額：%PRODUCT_TOTAL%</p>' +
+			'	</div>' +
+			'</div>';
 			
+			$(function(){
+				addressList();
+				cartList();
+			});	
+		
+			function addressList() {
+				$.ajax({
+					url: "addressList.do",
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 0) {
+							$("#addressSection").append("<div>" + obj.message + "</div>");
+						} else {
+							var html = addressTemplate;
+							var address = obj.data[0];
+							var addrStr = address.postalCode + address.city + address.district + address.road + address.other;
+							html = html.replace("%ADDRESS_ADDR%", addrStr);
+							$("#addressSection").append(html);
+						}
+					}
+				});
+			}
+			
+			function cartList() {
+				$.ajax({
+					url: "cartList.do",
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						var html = "";
+						var totalCount = 0;
+						for (var i = 0; i < obj.data.length; i++) {
+							var cart = obj.data[i];
+							html += productTemplate;
+							html = html.replace("%PRODUCT_ID%", cart.id);
+							html = html.replace("%PRODUCT_IMAGE%", cart.productImage);
+							html = html.replace("%PRODUCT_NAME%", cart.productName);
+							html = html.replace("%PRODUCT_PRICE%", cart.productPrice);
+							html = html.replace("%PRODUCT_AMOUNT%", cart.amount);
+							html = html.replace("%PRODUCT_TOTAL%", cart.total);
+							totalCount += cart.total;
+						}
+						$("#cart").append(html);
+						$("#totalCount").append(totalCount);
+					}
+				});
+			}
 		</script>
 	</body>
 </html>

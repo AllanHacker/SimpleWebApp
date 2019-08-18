@@ -159,8 +159,8 @@
 	width: 33.3%;
 	float: left;
 	display:  flex;
-    align-items: center;
-    justify-content:  center;
+	align-items: center;
+	justify-content:  center;
 }
 
 #product img{
@@ -190,15 +190,15 @@
 	width: 33.3%;
 	float: left;
 	display:  flex;
-    align-items: center;
-    justify-content:  center;
+	align-items: center;
+	justify-content:  center;
 }
 
 .cart .wrap2{
 	display:  flex;
-    align-items: center;
-    justify-content:  center;
-    flex-direction: column;
+	align-items: center;
+	justify-content:  center;
+	flex-direction: column;
 }
 
 .cart img{
@@ -232,11 +232,11 @@
 /* 置中效果 */
 #addressForm #wrap{
 	width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 /* 地址管理 下拉選單 */
@@ -244,8 +244,8 @@
 	font-size: 20px;
 	height: 30px;
 	width: 250px;
-    margin: 0 0 15px 0;
-    text-align-last: center;
+	margin: 0 0 15px 0;
+	text-align-last: center;
 }
 
 /* 地址列表 */
@@ -261,22 +261,42 @@
 	height: 100%;
 	float: left;
 	display:  flex;
-    align-items: center;
-    justify-content:  center;
+	align-items: center;
+	justify-content:  center;
 }
 
 .wrap .right{
 	width: 20%;
 	height: 100%;
 	display:  flex;
-    align-items: center;
-    justify-content:  center;
-    flex-direction: column;
+	align-items: center;
+	justify-content:  center;
+	flex-direction: column;
 }
 
 .wrap .right button{
 	margin: 7px 0 0 0;
 	font-size: 16px;
+}
+
+/* 結帳頁面 */
+#rightWrap > p {
+	margin: 15px 0 15px 0px;
+	font-weight: bold;
+}
+
+#rightWrap > p:first-child {
+	display: inline-block;
+}
+
+#addressSection .wrap{
+	margin: 5px 0 10px 0;
+	font-size: 18px;
+	border: grey 1px solid;
+}
+
+#addressSection p{
+	margin: 10px 0 10px 20px;
 }
 
 /* alertAPI的樣式 */
@@ -295,19 +315,19 @@
 }
 
 .alertSuccess {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
+	color: #3c763d;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
 }
 
 .alertFailure {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
 }
 
 .alertInfo {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
 }
