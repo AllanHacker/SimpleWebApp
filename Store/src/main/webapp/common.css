@@ -218,7 +218,7 @@
 }
 
 /* 地址管理 彈出窗 */
-#addressForm{
+#recipientForm{
 	display: none;
 	position: absolute;
 	z-index: 9001;
@@ -230,7 +230,7 @@
 }
 
 /* 置中效果 */
-#addressForm #wrap{
+#recipientForm #wrap{
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -249,7 +249,7 @@
 }
 
 /* 地址列表 */
-#addressList .wrap{
+#recipientList .wrap{
 	font-size: 22px;
 	height: 120px;
 	border: grey 1px solid;

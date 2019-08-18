@@ -1,10 +1,10 @@
-package wang.store.address;
+package wang.store.recipient;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-public interface AddressServiceInterface {
+public interface RecipientServiceInterface {
 	
 	/**
 	 * 查詢出全台灣的縣市
@@ -37,53 +37,54 @@ public interface AddressServiceInterface {
 	Integer postalCode(@Param("city") String city, @Param("district") String district, @Param("road") String road);
 	
 	/**
-	 * 新增地址
-	 * @param address 地址資料
+	 * 新增收件人
+	 * @param recipient 收件人資料
 	 * @return 受影響的行數
 	 */
-	Integer insert(Address address);
+	Integer insert(Recipient recipient);
 	
 	/**
-	 * 以會員id查詢地址
+	 * 以會員id查詢收件人
 	 * @param userId 會員id
-	 * @return 地址列表
+	 * @return 收件人列表
 	 */
-	List<Address> addressFindByUserId(Integer userId);
-	
+	List<Recipient> recipientFindByUserId(Integer userId);
+
 	/**
-	 * 以會員id及地址id查詢地址
+	 * 以會員id及收件人id查詢收件人
 	 * @param userId 會員id
-	 * @param id 地址id
-	 * @return 符合的該項地址
+	 * @param id 收件人id
+	 * @return 符合的該項收件人資料
 	 */
-	Address addressFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id);
-	
+	Recipient recipientFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id);
+
 	/**
-	 * 根據地址id刪除地址資料
-	 * @param id 地址id
+	 * 根據收件人id刪除收件人資料
+	 * @param id 收件人id
 	 * @return 受影響的行數
 	 */
-	Integer addressDelete(Integer id);
+	Integer recipientDelete(Integer id);
 	
 	/**
-	 * 將會員所有地址的預設清除
+	 * 將所有收件人的預設清除
 	 * @param userId 會員id
 	 * @return 受影響的行數
 	 */
-	Integer addressDefaultClear(Integer userId);
+	Integer recipientDefaultClear(Integer userId);
 	
 	/**
-	 * 設定預設收貨地址
+	 * 設定預設收件人
 	 * @param userId 會員id
-	 * @param id 地址id
+	 * @param id 收件人id
 	 * @return 受影響的行數
 	 */
-	Integer addressDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id);
+	Integer recipientDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id);
 	
 	/**
-	 * 修改收貨地址
-	 * @param address 新的地址資料
+	 * 修改收件人
+	 * @param recipient 新的收件人資料
 	 * @return 受影響的行數
 	 */
-	Integer addressUpdate(Address address);
+	Integer recipientUpdate(Recipient recipient);
+	
 }

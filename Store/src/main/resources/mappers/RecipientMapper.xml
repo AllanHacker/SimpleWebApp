@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="wang.store.address.AddressMapper">
+<mapper namespace="wang.store.recipient.RecipientMapper">
 	
 	<!-- 查詢出全台灣的縣市 String[] cityOption() -->
 	<select id="cityOption" resultType="java.lang.String">
@@ -41,15 +41,17 @@
 			city=#{city} AND district=#{district} AND road=#{road}
 	</select>
 	
-	<!-- 新增地址 Integer insert(Address address) -->
-	<insert id="insert" parameterType="wang.store.address.Address">
-		INSERT INTO address(
+	<!-- 新增收件人 Integer insert(Recipient recipient) -->
+	<insert id="insert" parameterType="wang.store.recipient.Recipient">
+		INSERT INTO recipient(
 			user_id,
 			postal_code,
 			city,
 			district,
 			road,
-			other
+			other,
+			recipient_name,
+			recipient_phone
 		)
 		VALUES(
 			#{userId},
@@ -57,92 +59,93 @@
 			#{city},
 			#{district},
 			#{road},
-			#{other}
+			#{other},
+			#{recipientName},
+			#{recipientPhone}
 		)
 	</insert>
 	
-	<!-- 以會員id查詢地址 List<Address> addressFindByUserId(Integer userId) -->
-	<select id="addressFindByUserId" resultType="wang.store.address.Address">
+	<!-- 以會員id查詢收件人 List<Recipient> recipientFindByUserId(Integer userId) -->
+	<select id="recipientFindByUserId" resultType="wang.store.recipient.Recipient">
 		SELECT
 			id,
 			user_id AS userId,
-			a_default AS aDefault,
+			recipient_default AS recipientDefault,
 			postal_code AS postalCode,
 			city,
 			district,
 			road,
-			other
+			other,
+			recipient_name AS recipientName,
+			recipient_phone AS recipientPhone
 		FROM
-			address
+			recipient
 		WHERE
 			user_id=#{userId}
 		ORDER BY
-			a_default DESC
+			recipient_default DESC
 	</select>
 	
-	<!-- 以會員id及地址id查詢地址 Address addressFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id) -->
-	<select id="addressFindByUserIdAndId" resultType="wang.store.address.Address">
+	<!-- 以會員id及收件人id查詢收件人 Recipient recipientFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<select id="recipientFindByUserIdAndId" resultType="wang.store.recipient.Recipient">
 		SELECT
 			id,
 			user_id AS userId,
-			a_default AS aDefault,
+			recipient_default AS recipientDefault,
 			postal_code AS postalCode,
 			city,
 			district,
 			road,
-			other
+			other,
+			recipient_name AS recipientName,
+			recipient_phone AS recipientPhone
 		FROM
-			address
+			recipient
 		WHERE
 			user_id=#{userId} AND id=#{id}
 	</select>
 	
-	<!-- 根據地址id刪除地址資料 Integer addressDelete(Integer id) -->
-	<delete id="addressDelete">
+	<!-- 根據收件人id刪除收件人資料 Integer recipientDelete(Integer id) -->
+	<delete id="recipientDelete">
 		DELETE FROM
-			address
+			recipient
 		WHERE
 			id=#{id}
 	</delete>
 	
-	<!-- 將會員所有地址的預設清除 Integer addressDefaultClear(Integer userId) -->
-	<update id="addressDefaultClear">
+	<!-- 將所有收件人的預設清除 Integer recipientDefaultClear(Integer userId) -->
+	<update id="recipientDefaultClear">
 		UPDATE
-			address
+			recipient
 		SET
-			a_default=0
+			recipient_default=0
 		WHERE
 			user_id=#{userId}
 	</update>
 	
-	<!-- 設定預設收貨地址 Integer addressDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id) -->
-	<update id="addressDefaultSet">
+	<!-- 設定預設收件人 Integer recipientDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<update id="recipientDefaultSet">
 		UPDATE
-			address
+			recipient
 		SET
-			a_default=1
+			recipient_default=1
 		WHERE
 			user_id=#{userId} AND id=#{id}
 	</update>
 	
-	<!-- 修改收貨地址 Integer addressUpdate(Address address) -->
-	<update id="addressUpdate" parameterType="wang.store.address.Address">
+	<!-- 修改收件人 Integer recipientUpdate(Recipient recipient) -->
+	<update id="recipientUpdate" parameterType="wang.store.recipient.Recipient">
 		UPDATE
-			address
+			recipient
 		SET
 			postal_code = #{postalCode},
 			city = #{city},
 			district = #{district},
 			road = #{road},
-			other = #{other}
+			other = #{other},
+			recipient_name = #{recipientName},
+			recipient_phone = #{recipientPhone}
 		WHERE
 			user_id=#{userId} AND id=#{id}
 	</update>
 </mapper>
-
-
-
-
-
-
-

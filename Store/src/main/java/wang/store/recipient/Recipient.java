@@ -1,33 +1,37 @@
-package wang.store.address;
+package wang.store.recipient;
 
 import java.io.Serializable;
 
-public class Address implements Serializable{
+public class Recipient implements Serializable{
 	
-	private static final long serialVersionUID = 4764731669170725702L;
+	private static final long serialVersionUID = 5060493625917674300L;
 	private Integer id;
 	private Integer userId;
-	private Integer aDefault;
+	private Integer recipientDefault;
 	private Integer postalCode;
 	private String city;
 	private String district;
 	private String road;
 	private String other;
+	private String recipientName;
+	private Integer recipientPhone;
 	
-	public Address() {
+	public Recipient() {
 		super();
 	}
-	public Address(Integer id, Integer userId, Integer aDefault, Integer postalCode, String city, String district,
-			String road, String other) {
+	public Recipient(Integer id, Integer userId, Integer recipientDefault, Integer postalCode, String city,
+			String district, String road, String other, String recipientName, Integer recipientPhone) {
 		super();
 		this.id = id;
 		this.userId = userId;
-		this.aDefault = aDefault;
+		this.recipientDefault = recipientDefault;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.district = district;
 		this.road = road;
 		this.other = other;
+		this.recipientName = recipientName;
+		this.recipientPhone = recipientPhone;
 	}
 	public Integer getId() {
 		return id;
@@ -41,11 +45,11 @@ public class Address implements Serializable{
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public Integer getaDefault() {
-		return aDefault;
+	public Integer getRecipientDefault() {
+		return recipientDefault;
 	}
-	public void setaDefault(Integer aDefault) {
-		this.aDefault = aDefault;
+	public void setRecipientDefault(Integer recipientDefault) {
+		this.recipientDefault = recipientDefault;
 	}
 	public Integer getPostalCode() {
 		return postalCode;
@@ -77,16 +81,30 @@ public class Address implements Serializable{
 	public void setOther(String other) {
 		this.other = other;
 	}
+	public String getRecipientName() {
+		return recipientName;
+	}
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+	public Integer getRecipientPhone() {
+		return recipientPhone;
+	}
+	public void setRecipientPhone(Integer recipientPhone) {
+		this.recipientPhone = recipientPhone;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aDefault == null) ? 0 : aDefault.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((district == null) ? 0 : district.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((other == null) ? 0 : other.hashCode());
 		result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
+		result = prime * result + ((recipientDefault == null) ? 0 : recipientDefault.hashCode());
+		result = prime * result + ((recipientName == null) ? 0 : recipientName.hashCode());
+		result = prime * result + ((recipientPhone == null) ? 0 : recipientPhone.hashCode());
 		result = prime * result + ((road == null) ? 0 : road.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
@@ -99,12 +117,7 @@ public class Address implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Address other = (Address) obj;
-		if (aDefault == null) {
-			if (other.aDefault != null)
-				return false;
-		} else if (!aDefault.equals(other.aDefault))
-			return false;
+		Recipient other = (Recipient) obj;
 		if (city == null) {
 			if (other.city != null)
 				return false;
@@ -130,6 +143,21 @@ public class Address implements Serializable{
 				return false;
 		} else if (!postalCode.equals(other.postalCode))
 			return false;
+		if (recipientDefault == null) {
+			if (other.recipientDefault != null)
+				return false;
+		} else if (!recipientDefault.equals(other.recipientDefault))
+			return false;
+		if (recipientName == null) {
+			if (other.recipientName != null)
+				return false;
+		} else if (!recipientName.equals(other.recipientName))
+			return false;
+		if (recipientPhone == null) {
+			if (other.recipientPhone != null)
+				return false;
+		} else if (!recipientPhone.equals(other.recipientPhone))
+			return false;
 		if (road == null) {
 			if (other.road != null)
 				return false;
@@ -144,8 +172,9 @@ public class Address implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", userId=" + userId + ", aDefault=" + aDefault + ", postalCode=" + postalCode
-				+ ", city=" + city + ", district=" + district + ", road=" + road + ", other=" + other + "]";
+		return "Recipient [id=" + id + ", userId=" + userId + ", recipientDefault=" + recipientDefault + ", postalCode="
+				+ postalCode + ", city=" + city + ", district=" + district + ", road=" + road + ", other=" + other
+				+ ", recipientName=" + recipientName + ", recipientPhone=" + recipientPhone + "]";
 	}
 	
 }

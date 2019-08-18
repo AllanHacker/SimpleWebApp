@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Address</title>
+		<title>Recipient</title>
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body style="font-size:30px;">
@@ -11,26 +11,26 @@
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<div id="title"><h2>地址管理</h2></div>
+			<div id="title"><h2>收件人管理</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				<button onclick="popup(0)">新增地址</button>
+				<button onclick="popup(0)">新增收件人</button>
 				<div id="mask"></div>
-				<div id="addressForm">
+				<div id="recipientForm">
 					<div id="wrap">
 						<div id="postalCode"></div>
 						<select id="city" onchange="districtOption()"></select>
 						<select id="district" onchange="roadOption()"></select>
 						<select id="road" onchange="postalCode()"></select>
 						<input id="other" type="text" placeholder="巷弄號樓">
-						<input id="addressId" type="hidden">
+						<input id="recipientId" type="hidden">
 						<div>
-							<button onclick="addressSubmit()">確定</button>
+							<button onclick="recipientSubmit()">確定</button>
 							<button onclick="closepopup()">取消</button>
 						</div>
 					</div>
 				</div>
-				<div id="addressList"></div>
+				<div id="recipientList"></div>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -39,41 +39,41 @@
 		<script src="common.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				addressList();
+				recipientList();
 			});
 			
-			function addressList() {
-				$("#addressList").empty();
+			function recipientList() {
+				$("#recipientList").empty();
 				var template = 
 					'<div class="wrap">' +
 						'<div class="left">%ADDRESS%</div>' +
 						'<div class="right">' +
-							'<button onclick="addressDefault(%ID%)">預設</button>' +
+							'<button onclick="recipientDefault(%ID%)">預設</button>' +
 							'<button onclick="popup(%ID%)">修改</button>' +
-							'<button onclick="addressDelete(%ID%)">刪除</button>' +
+							'<button onclick="recipientDelete(%ID%)">刪除</button>' +
 						'</div>' +
 					'</div>';
 				
 				$.ajax({
-					url: "addressList.do",
+					url: "recipientList.do",
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
-							$("#addressList").append("<div>" + obj.message + "</div>");
+							$("#recipientList").append("<div>" + obj.message + "</div>");
 						} else {
 							var htmlString = "";
 							for (var i = 0; i < obj.data.length; i++) {
 								htmlString += template;
-								var address = obj.data[i];
-								var addrStr = address.postalCode + address.city + address.district + address.road + address.other;
-								htmlString = htmlString.replace("%ADDRESS%", addrStr);
-								htmlString = htmlString.replace(/%ID%/g, address.id);
+								var recipient = obj.data[i];
+								var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
+								htmlString = htmlString.replace("%ADDRESS%", address);
+								htmlString = htmlString.replace(/%ID%/g, recipient.id);
 							}
-							$("#addressList").html(htmlString);
-							$("#addressList div:first").css("border", "#48D1CC 3px solid");
-							$("#addressList div:first").css("background-color", "#E0FFFF");
-							$("#addressList div:first div button:first").attr("disabled", "disabled");
+							$("#recipientList").html(htmlString);
+							$("#recipientList div:first").css("border", "#48D1CC 3px solid");
+							$("#recipientList div:first").css("background-color", "#E0FFFF");
+							$("#recipientList div:first div button:first").attr("disabled", "disabled");
 						}
 					}
 				});
@@ -81,8 +81,8 @@
 			
 			function popup(id) {
 				$("#mask").show();
-				$("#addressForm").show();
-				$("#addressId").val(id);
+				$("#recipientForm").show();
+				$("#recipientId").val(id);
 				if (id == 0) {
 					cityOption();
 					$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
@@ -91,19 +91,19 @@
 				} else {
 					cityOption();
 					$.ajax({
-						url: "addressLoad.do",
+						url: "recipientLoad.do",
 						data: "id=" + id,
 						type: "get",
 						dataType: "json",
 						success: function(obj){
-							var address = obj.data;
-							$("#city option:contains(" + address.city + ")").attr("selected", true);
-							districtOption(address.city);
-							$("#district option:contains(" + address.district + ")").attr("selected", true);
-							roadOption(address.city, address.district);
-							$("#road option:contains(" + address.road + ")").attr("selected", true);
-							$("#postalCode").text(address.postalCode);
-							$("#other").val(address.other);
+							var recipient = obj.data;
+							$("#city option:contains(" + recipient.city + ")").attr("selected", true);
+							districtOption(recipient.city);
+							$("#district option:contains(" + recipient.district + ")").attr("selected", true);
+							roadOption(recipient.city, recipient.district);
+							$("#road option:contains(" + recipient.road + ")").attr("selected", true);
+							$("#postalCode").text(recipient.postalCode);
+							$("#other").val(recipient.other);
 						}
 					});
 				}
@@ -111,7 +111,7 @@
 			
 			function closepopup() {
 				$("#mask").hide();
-				$("#addressForm").hide();
+				$("#recipientForm").hide();
 			}
 			
 			function cityOption() {
@@ -196,12 +196,12 @@
 				});
 			}
 			
-			function addressSubmit() {
-				var id = $("#addressId").val();
+			function recipientSubmit() {
+				var id = $("#recipientId").val();
 				if (id == 0) {
-					var url = "addressAdd.do"
+					var url = "recipientAdd.do"
 				} else {
-					var url = "addressChange.do"
+					var url = "recipientChange.do"
 				}
 				$.ajax({
 					url: url,
@@ -216,7 +216,7 @@
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
-							addressList();
+							recipientList();
 							if (id == 0) {
 								popup(0);
 							} else {
@@ -229,16 +229,16 @@
 				});
 			}
 			
-			function addressDelete(id) {
+			function recipientDelete(id) {
 				$.ajax({
-					url: "addressDelete.do",
+					url: "recipientDelete.do",
 					data: "id=" + id,
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
-							addressList();
+							recipientList();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
@@ -246,16 +246,16 @@
 				});
 			}
 			
-			function addressDefault(id) {
+			function recipientDefault(id) {
 				$.ajax({
-					url: "addressDefault.do",
+					url: "recipientDefault.do",
 					data: "id=" + id,
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
-							addressList();
+							recipientList();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}

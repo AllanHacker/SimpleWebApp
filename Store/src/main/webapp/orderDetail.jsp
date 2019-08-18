@@ -17,7 +17,7 @@
 				<p>金額：</p>
 				<span id="totalCount">&nbsp;&nbsp;</span></br>
 				<p>收件人</p>
-				<div id="addressSection"></div>
+				<div id="recipientSection"></div>
 				<p>商品</p>
 				<div id="cart"></div>
 				<button id="">下訂單</button>
@@ -29,12 +29,12 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
-			var addressTemplate = '' +
+			var recipientTemplate = '' +
 			'<button id="">更改</button>' +
 			'<div class="wrap">' +
-			'	<p>姓名：%ADDRESS_NAME%</p>' +
-			'	<p>電話：%ADDRESS_PRICE%</p>' +
-			'	<p>地址：%ADDRESS_ADDR%</p>' +
+			'	<p>姓名：%RECIPIENT_NAME%</p>' +
+			'	<p>電話：%RECIPIENT_PRICE%</p>' +
+			'	<p>地址：%RECIPIENT_ADDRESS%</p>' +
 			'</div>';
 		
 			var productTemplate = '' +
@@ -55,24 +55,24 @@
 			'</div>';
 			
 			$(function(){
-				addressList();
+				recipientList();
 				cartList();
 			});	
 		
-			function addressList() {
+			function recipientList() {
 				$.ajax({
-					url: "addressList.do",
+					url: "recipientList.do",
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
-							$("#addressSection").append("<div>" + obj.message + "</div>");
+							$("#recipientSection").append("<div>" + obj.message + "</div>");
 						} else {
-							var html = addressTemplate;
-							var address = obj.data[0];
-							var addrStr = address.postalCode + address.city + address.district + address.road + address.other;
-							html = html.replace("%ADDRESS_ADDR%", addrStr);
-							$("#addressSection").append(html);
+							var html = recipientTemplate;
+							var recipient = obj.data[0];
+							var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
+							html = html.replace("%RECIPIENT_ADDRESS%", address);
+							$("#recipientSection").append(html);
 						}
 					}
 				});

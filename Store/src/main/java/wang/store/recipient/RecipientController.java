@@ -1,4 +1,4 @@
-package wang.store.address;
+package wang.store.recipient;
 
 import java.util.List;
 
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import wang.store.bean.ResponseResult;
 
-@Controller("addressController")
-public class AddressController {
+@Controller("recipientController")
+public class RecipientController {
 	
-	@Resource(name = "addressServiceImplement")
-	private AddressServiceInterface addressService;
+	@Resource(name = "recipientServiceImplement")
+	private RecipientServiceInterface recipientService;
 	
 	/**
-	 * 顯示地址管理頁面
-	 * @return 地址管理頁面
+	 * 顯示收件人頁面
+	 * @return 收件人頁面
 	 */
-	@RequestMapping("/addressPage.do")
-	public String addressPage() {
-		return "address";
+	@RequestMapping("/recipientPage.do")
+	public String recipientPage() {
+		return "recipient";
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class AddressController {
 	@RequestMapping("/cityOption.do")
 	@ResponseBody
 	public ResponseResult<String[]> cityOption() {
-		String[] cities = addressService.cityOption();
+		String[] cities = recipientService.cityOption();
 		return new ResponseResult<String[]>(cities);
 	}
 	
@@ -45,7 +45,7 @@ public class AddressController {
 	@RequestMapping("/districtOption.do")
 	@ResponseBody
 	public ResponseResult<String[]> districtOption(String city) {
-		String[] districts = addressService.districtOption(city);
+		String[] districts = recipientService.districtOption(city);
 		return new ResponseResult<String[]>(districts);
 	}
 	
@@ -58,7 +58,7 @@ public class AddressController {
 	@RequestMapping("/roadOption.do")
 	@ResponseBody
 	public ResponseResult<String[]> roadOption(String city, String district) {
-		String[] roads = addressService.roadOption(city, district);
+		String[] roads = recipientService.roadOption(city, district);
 		return new ResponseResult<String[]>(roads);
 	}
 	
@@ -72,12 +72,12 @@ public class AddressController {
 	@RequestMapping("/postalCode.do")
 	@ResponseBody
 	public ResponseResult<Integer> postalCode(String city, String district, String road) {
-		Integer postalCode = addressService.postalCode(city, district, road);
+		Integer postalCode = recipientService.postalCode(city, district, road);
 		return new ResponseResult<Integer>(1, postalCode);
 	}
 	
 	/**
-	 * 新增收貨地址
+	 * 新增收件人
 	 * @param postalCode 郵遞區號
 	 * @param city 縣市
 	 * @param district 鄉鎮區
@@ -86,9 +86,9 @@ public class AddressController {
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/addressAdd.do")
+	@RequestMapping("/recipientAdd.do")
 	@ResponseBody
-	public ResponseResult<Void> addressAdd(Integer postalCode, String city, 
+	public ResponseResult<Void> recipientAdd(Integer postalCode, String city, 
 			String district, String road, String other, HttpSession session) {
 		
 		String regex = "[0-9\\u4e00-\\u9fcc]+";
@@ -96,68 +96,68 @@ public class AddressController {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
-		List<Address> addresses = addressService.addressFindByUserId(userId);
-		if (addresses.size() > 9) {
-			return new ResponseResult<Void>(0, "只能設定10個地址");
+		List<Recipient> recipientes = recipientService.recipientFindByUserId(userId);
+		if (recipientes.size() > 9) {
+			return new ResponseResult<Void>(0, "只能設定10個收件人");
 		}
-		Address address = new Address();
-		address.setUserId(userId);
-		address.setPostalCode(postalCode);
-		address.setCity(city);
-		address.setDistrict(district);
-		address.setRoad(road);
-		address.setOther(other);
-		Integer result = addressService.insert(address);
+		Recipient recipient = new Recipient();
+		recipient.setUserId(userId);
+		recipient.setPostalCode(postalCode);
+		recipient.setCity(city);
+		recipient.setDistrict(district);
+		recipient.setRoad(road);
+		recipient.setOther(other);
+		Integer result = recipientService.insert(recipient);
 		if (result == 1) {
-			return new ResponseResult<Void>(1, "地址新增成功");
+			return new ResponseResult<Void>(1, "收件人新增成功");
 		} else {
-			return new ResponseResult<Void>(0, "地址新增失敗");
+			return new ResponseResult<Void>(0, "收件人新增失敗");
 		}
 	}
 	
 	/**
-	 * 地址列表
+	 * 收件人列表
 	 * @param session 會員id儲存位置
 	 * @return 有資料返回1，沒資料返回0
 	 */
-	@RequestMapping("/addressList.do")
+	@RequestMapping("/recipientList.do")
 	@ResponseBody
-	public ResponseResult<List<Address>> addressList(HttpSession session) {
+	public ResponseResult<List<Recipient>> recipientList(HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		List<Address> addresses = addressService.addressFindByUserId(userId);
-		if (addresses.size() < 1) {
-			return new ResponseResult<List<Address>>(0, "趕快新增第一個地址");
+		List<Recipient> recipientes = recipientService.recipientFindByUserId(userId);
+		if (recipientes.size() < 1) {
+			return new ResponseResult<List<Recipient>>(0, "趕快新增收件人");
 		}
-		return new ResponseResult<List<Address>>(1, addresses);
+		return new ResponseResult<List<Recipient>>(1, recipientes);
 	}
 	
 	/**
-	 * 刪除地址
-	 * @param id 地址id
+	 * 刪除收件人
+	 * @param id 收件人id
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/addressDelete.do")
+	@RequestMapping("/recipientDelete.do")
 	@ResponseBody
-	public ResponseResult<Void> addressDelete(Integer id) {
-		Integer result = addressService.addressDelete(id);
+	public ResponseResult<Void> recipientDelete(Integer id) {
+		Integer result = recipientService.recipientDelete(id);
 		if (result == 1) {
-			return new ResponseResult<Void>(1, "地址刪除成功");
+			return new ResponseResult<Void>(1, "收件人刪除成功");
 		}
-		return new ResponseResult<Void>(0, "地址刪除失敗");
+		return new ResponseResult<Void>(0, "收件人刪除失敗");
 	}
 	
 	/**
-	 * 將地址設為預設
-	 * @param id 地址id
+	 * 將收件人設為預設
+	 * @param id 收件人id
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/addressDefault.do")
+	@RequestMapping("/recipientDefault.do")
 	@ResponseBody
-	public ResponseResult<Void> addressDefault(Integer id, HttpSession session) {
+	public ResponseResult<Void> recipientDefault(Integer id, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		Integer result = addressService.addressDefaultClear(userId);
-		result = addressService.addressDefaultSet(userId, id);
+		Integer result = recipientService.recipientDefaultClear(userId);
+		result = recipientService.recipientDefaultSet(userId, id);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "設置完畢");
 		}
@@ -165,25 +165,25 @@ public class AddressController {
 	}
 	
 	/**
-	 * 查詢地址資料並返回
-	 * @param id 地址id
+	 * 查詢收件人資料並返回
+	 * @param id 收件人id
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/addressLoad.do")
+	@RequestMapping("/recipientLoad.do")
 	@ResponseBody
-	public ResponseResult<Address> addressLoad(Integer id, HttpSession session) {
+	public ResponseResult<Recipient> recipientLoad(Integer id, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		Address address = addressService.addressFindByUserIdAndId(userId, id);
-		if (address != null) {
-			return new ResponseResult<Address>(1, address);
+		Recipient recipient = recipientService.recipientFindByUserIdAndId(userId, id);
+		if (recipient != null) {
+			return new ResponseResult<Recipient>(1, recipient);
 		}
-		return new ResponseResult<Address>(0, "地址不存在");
+		return new ResponseResult<Recipient>(0, "收件人不存在");
 	}
 	
 	/**
-	 * 修改地址。查詢出該筆地址，並將新的資料寫入
-	 * @param id 地址id
+	 * 修改收件人。查詢出該筆收件人，並將新的資料寫入
+	 * @param id 收件人id
 	 * @param postalCode 新的郵遞區號
 	 * @param city 新的縣市
 	 * @param district 新的鄉鎮區
@@ -192,9 +192,9 @@ public class AddressController {
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/addressChange.do")
+	@RequestMapping("/recipientChange.do")
 	@ResponseBody
-	public ResponseResult<Void> addressChange(Integer id, Integer postalCode, String city, 
+	public ResponseResult<Void> recipientChange(Integer id, Integer postalCode, String city, 
 			String district, String road, String other, HttpSession session) {
 		
 		String regex = "[0-9\\u4e00-\\u9fcc]+";
@@ -202,16 +202,16 @@ public class AddressController {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
-		Address address = addressService.addressFindByUserIdAndId(userId, id);
-		if (address != null) {
-			address.setPostalCode(postalCode);
-			address.setCity(city);
-			address.setDistrict(district);
-			address.setRoad(road);
-			address.setOther(other);
-			addressService.addressUpdate(address);
-			return new ResponseResult<Void>(1, "已更新地址");
+		Recipient recipient = recipientService.recipientFindByUserIdAndId(userId, id);
+		if (recipient != null) {
+			recipient.setPostalCode(postalCode);
+			recipient.setCity(city);
+			recipient.setDistrict(district);
+			recipient.setRoad(road);
+			recipient.setOther(other);
+			recipientService.recipientUpdate(recipient);
+			return new ResponseResult<Void>(1, "已更新收件人");
 		}
-		return new ResponseResult<Void>(0, "地址不存在");
+		return new ResponseResult<Void>(0, "收件人不存在");
 	}
 }
