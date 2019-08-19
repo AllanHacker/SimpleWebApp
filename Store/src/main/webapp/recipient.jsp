@@ -18,7 +18,9 @@
 				<div id="mask"></div>
 				<div id="recipientForm">
 					<div id="wrap">
-						<div id="postalCode"></div>
+						<input id="recipientName" type="text" placeholder="姓名">
+						<input id="recipientPhone" type="text" placeholder="手機">
+						<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly">
 						<select id="city" onchange="districtOption()"></select>
 						<select id="district" onchange="roadOption()"></select>
 						<select id="road" onchange="postalCode()"></select>
@@ -46,7 +48,11 @@
 				$("#recipientList").empty();
 				var template = 
 					'<div class="wrap">' +
-						'<div class="left">%ADDRESS%</div>' +
+						'<div class="left">' +
+							'<p>姓名：%RECIPIENT_NAME%</p>' +
+							'<p>手機：%RECIPIENT_PHONE%</p>' +
+							'<p>地址：%RECIPIENT_ADDRESS%</p>' +
+						'</div>' +
 						'<div class="right">' +
 							'<button onclick="recipientDefault(%ID%)">預設</button>' +
 							'<button onclick="popup(%ID%)">修改</button>' +
@@ -67,7 +73,9 @@
 								htmlString += template;
 								var recipient = obj.data[i];
 								var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
-								htmlString = htmlString.replace("%ADDRESS%", address);
+								htmlString = htmlString.replace("%RECIPIENT_NAME%", recipient.recipientName);
+								htmlString = htmlString.replace("%RECIPIENT_PHONE%", recipient.recipientPhone);
+								htmlString = htmlString.replace("%RECIPIENT_ADDRESS%", address);
 								htmlString = htmlString.replace(/%ID%/g, recipient.id);
 							}
 							$("#recipientList").html(htmlString);
@@ -81,8 +89,11 @@
 			
 			function popup(id) {
 				$("#mask").show();
+				//$("#recipientForm").css("display", "flex");
 				$("#recipientForm").show();
 				$("#recipientId").val(id);
+				$("#recipientName").val("");
+				$("#recipientPhone").val("");
 				if (id == 0) {
 					cityOption();
 					$("#city").append("<option disabled selected hidden>---縣&nbsp;&nbsp;&nbsp;&nbsp;市---</option>");
@@ -97,12 +108,14 @@
 						dataType: "json",
 						success: function(obj){
 							var recipient = obj.data;
+							$("#recipientName").val(recipient.recipientName);
+							$("#recipientPhone").val(recipient.recipientPhone);
 							$("#city option:contains(" + recipient.city + ")").attr("selected", true);
 							districtOption(recipient.city);
 							$("#district option:contains(" + recipient.district + ")").attr("selected", true);
 							roadOption(recipient.city, recipient.district);
 							$("#road option:contains(" + recipient.road + ")").attr("selected", true);
-							$("#postalCode").text(recipient.postalCode);
+							$("#postalCode").val(recipient.postalCode);
 							$("#other").val(recipient.other);
 						}
 					});
@@ -115,7 +128,7 @@
 			}
 			
 			function cityOption() {
-				$("#postalCode").empty();
+				$("#postalCode").val("");
 				$("#city").empty();
 				$("#district").empty();
 				$("#road").empty();
@@ -135,11 +148,11 @@
 			}
 			
 			function districtOption(city) {
-				$("#postalCode").empty();
+				$("#postalCode").val("");
 				$("#district").empty();
 				$("#road").empty();
 				if (city === undefined) {
-					city = $("#city option:selected").text();
+					city = $("#city option:selected").val();
 					$("#district").append("<option disabled selected hidden>---鄉鎮區---</option>");
 					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
 				}
@@ -159,12 +172,12 @@
 			}
 			
 			function roadOption(city, district) {
-				$("#postalCode").empty();
+				$("#postalCode").val("");
 				$("#road").empty();
 				if (city === undefined || district === undefined) {
 					$("#road").append("<option disabled selected hidden>---路&nbsp;&nbsp;&nbsp;&nbsp;名---</option>");
-					city = $("#city option:selected").text();
-					district = $("#district option:selected").text();
+					city = $("#city option:selected").val();
+					district = $("#district option:selected").val();
 				}
 				$.ajax({
 					url: "roadOption.do",
@@ -185,13 +198,13 @@
 			function postalCode(){
 				$.ajax({
 					url: "postalCode.do",
-					data: "city=" + $("#city option:selected").text() + 
-						  "&district=" + $("#district option:selected").text() + 
-						  "&road=" + $("#road option:selected").text(),
+					data: "city=" + $("#city option:selected").val() + 
+						  "&district=" + $("#district option:selected").val() + 
+						  "&road=" + $("#road option:selected").val(),
 					type: "get",
 					dataType: "json",
 					success: function(obj){
-						$("#postalCode").text(obj.data);
+						$("#postalCode").val(obj.data);
 					}
 				});
 			}
@@ -205,12 +218,14 @@
 				}
 				$.ajax({
 					url: url,
-					data: "id=" + id + 
-						  "&postalCode=" + $("#postalCode").text() + 
-						  "&city=" + $("#city option:selected").text() + 
-						  "&district=" + $("#district option:selected").text() + 
-						  "&road=" + $("#road option:selected").text() + 
-						  "&other=" + $("#other").val(),
+					data:"recipientName=" + $("#recipientName").val() +
+						 "&recipientPhone=" + $("#recipientPhone").val() +
+						 "&postalCode=" + $("#postalCode").val() + 
+						 "&city=" + $("#city option:selected").text() + 
+						 "&district=" + $("#district option:selected").text() + 
+						 "&road=" + $("#road option:selected").text() + 
+						 "&other=" + $("#other").val() +
+						 "&id=" + id,
 					type: "post",
 					dataType: "json",
 					success: function(obj){

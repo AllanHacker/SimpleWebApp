@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import wang.store.bean.ResponseResult;
@@ -86,13 +87,13 @@ public class RecipientController {
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/recipientAdd.do")
+	@RequestMapping(value = "/recipientAdd.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> recipientAdd(Integer postalCode, String city, 
-			String district, String road, String other, HttpSession session) {
+	public ResponseResult<Void> recipientAdd(String recipientName, String recipientPhone, Integer postalCode,
+			String city, String district, String road, String other, HttpSession session) {
 		
-		String regex = "[0-9\\u4e00-\\u9fcc]+";
-		if (!other.matches(regex) || (city+district+road).contains("-")) {
+		Integer checkResult = dataCheck(recipientName, recipientPhone, city, district, road, other);
+		if (checkResult == 0) {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
@@ -101,6 +102,8 @@ public class RecipientController {
 			return new ResponseResult<Void>(0, "只能設定10個收件人");
 		}
 		Recipient recipient = new Recipient();
+		recipient.setRecipientName(recipientName);
+		recipient.setRecipientPhone(recipientPhone);
 		recipient.setUserId(userId);
 		recipient.setPostalCode(postalCode);
 		recipient.setCity(city);
@@ -192,18 +195,20 @@ public class RecipientController {
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping("/recipientChange.do")
+	@RequestMapping(value = "/recipientChange.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> recipientChange(Integer id, Integer postalCode, String city, 
-			String district, String road, String other, HttpSession session) {
+	public ResponseResult<Void> recipientChange(String recipientName, String recipientPhone, Integer postalCode, 
+			String city, String district, String road, String other, Integer id, HttpSession session) {
 		
-		String regex = "[0-9\\u4e00-\\u9fcc]+";
-		if (!other.matches(regex) || (city+district+road).contains("-")) {
+		Integer checkResult = dataCheck(recipientName, recipientPhone, city, district, road, other);
+		if (checkResult == 0) {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		Recipient recipient = recipientService.recipientFindByUserIdAndId(userId, id);
 		if (recipient != null) {
+			recipient.setRecipientName(recipientName);
+			recipient.setRecipientPhone(recipientPhone);
 			recipient.setPostalCode(postalCode);
 			recipient.setCity(city);
 			recipient.setDistrict(district);
@@ -213,5 +218,24 @@ public class RecipientController {
 			return new ResponseResult<Void>(1, "已更新收件人");
 		}
 		return new ResponseResult<Void>(0, "收件人不存在");
+	}
+	
+	private Integer dataCheck(String recipientName, String recipientPhone,
+			String city, String district, String road, String other) {
+		
+		//台灣法律規定，姓名並無字數限制
+		if (!recipientName.matches("^[\\u4E00-\\u9fcc]{1,15}$")) {
+			return 0;
+		}
+		if (!recipientPhone.matches("^09\\d{8}$")) {
+			return 0;
+		}
+		if ((city+district+road).contains("-")) {
+			return 0;
+		}
+		if (!other.matches("[0-9\\u4e00-\\u9fcc]+")) {
+			return 0;
+		}
+		return 1;
 	}
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Recipient implements Serializable{
 	
-	private static final long serialVersionUID = 5060493625917674300L;
+	private static final long serialVersionUID = 3727612922043944924L;
 	private Integer id;
 	private Integer userId;
 	private Integer recipientDefault;
@@ -14,13 +14,14 @@ public class Recipient implements Serializable{
 	private String road;
 	private String other;
 	private String recipientName;
-	private Integer recipientPhone;
+	private String recipientPhone;
 	
 	public Recipient() {
 		super();
 	}
+
 	public Recipient(Integer id, Integer userId, Integer recipientDefault, Integer postalCode, String city,
-			String district, String road, String other, String recipientName, Integer recipientPhone) {
+			String district, String road, String other, String recipientName, String recipientPhone) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -33,66 +34,87 @@ public class Recipient implements Serializable{
 		this.recipientName = recipientName;
 		this.recipientPhone = recipientPhone;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Integer getUserId() {
 		return userId;
 	}
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
 	public Integer getRecipientDefault() {
 		return recipientDefault;
 	}
+
 	public void setRecipientDefault(Integer recipientDefault) {
 		this.recipientDefault = recipientDefault;
 	}
+
 	public Integer getPostalCode() {
 		return postalCode;
 	}
+
 	public void setPostalCode(Integer postalCode) {
 		this.postalCode = postalCode;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getDistrict() {
 		return district;
 	}
+
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+
 	public String getRoad() {
 		return road;
 	}
+
 	public void setRoad(String road) {
 		this.road = road;
 	}
+
 	public String getOther() {
 		return other;
 	}
+
 	public void setOther(String other) {
 		this.other = other;
 	}
+
 	public String getRecipientName() {
 		return recipientName;
 	}
+
 	public void setRecipientName(String recipientName) {
 		this.recipientName = recipientName;
 	}
-	public Integer getRecipientPhone() {
+
+	public String getRecipientPhone() {
 		return recipientPhone;
 	}
-	public void setRecipientPhone(Integer recipientPhone) {
+
+	public void setRecipientPhone(String recipientPhone) {
 		this.recipientPhone = recipientPhone;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,6 +131,7 @@ public class Recipient implements Serializable{
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -170,6 +193,7 @@ public class Recipient implements Serializable{
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Recipient [id=" + id + ", userId=" + userId + ", recipientDefault=" + recipientDefault + ", postalCode="

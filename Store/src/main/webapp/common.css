@@ -226,7 +226,7 @@
 	border: #5599FF 5px solid;
 	border-radius: 10px;
 	width: 370px;
-	height:  340px;
+	height:  450px;
 }
 
 /* 置中效果 */
@@ -240,7 +240,15 @@
 }
 
 /* 地址管理 下拉選單 */
-#wrap select, #wrap input, #postalCode, #other{
+#recipientForm select {
+	font-size: 20px;
+	height: 35.97px;
+	width: 253.98px;
+	margin: 0 0 15px 0;
+	text-align-last: center;
+}
+
+#recipientForm input {
 	font-size: 20px;
 	height: 30px;
 	width: 250px;
@@ -250,7 +258,7 @@
 
 /* 地址列表 */
 #recipientList .wrap{
-	font-size: 22px;
+	font-size: 18px;
 	height: 120px;
 	border: grey 1px solid;
 	margin: 3px 0 0 0;
@@ -261,8 +269,12 @@
 	height: 100%;
 	float: left;
 	display:  flex;
-	align-items: center;
 	justify-content:  center;
+	flex-direction: column;
+}
+
+.wrap .left p{
+	margin: 5px 0 5px 20px;
 }
 
 .wrap .right{
