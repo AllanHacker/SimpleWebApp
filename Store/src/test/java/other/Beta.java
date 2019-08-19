@@ -13,6 +13,8 @@ import wang.store.address.AddressMapper;
 import wang.store.address.AddressServiceImplement;
 import wang.store.cart.Cart;
 import wang.store.cart.CartMapper;
+import wang.store.order.OrderInformation;
+import wang.store.order.OrderMapper;
 import wang.store.service.ProductServiceImplement;
 
 public class Beta {
@@ -20,12 +22,13 @@ public class Beta {
 	@Test
 	public void testMapper() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
-		AddressMapper mapper = ctx.getBean("addressMapper", AddressMapper.class);
-		String[] city = mapper.cityOption();
-		for (String string : city) {
-			System.out.println(string);
-		}
-		
+		OrderMapper mapper = ctx.getBean("orderMapper", OrderMapper.class);
+		OrderInformation orderInformation = new OrderInformation();
+		orderInformation.setTotal(5600);
+		orderInformation.setUserId(99);
+		orderInformation.setRecipientId(56);
+		Integer result = mapper.insert(orderInformation);
+		System.out.println(result);
 	}
 	
 	@Test

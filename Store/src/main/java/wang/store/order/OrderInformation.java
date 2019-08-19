@@ -1,0 +1,123 @@
+package wang.store.order;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+public class OrderInformation implements Serializable{
+	
+	private static final long serialVersionUID = 2970856081007480842L;
+	private Integer id;
+	private Integer state;
+	private Integer total;
+	private Timestamp createdTime;
+	private Integer userId;
+	private Integer recipientId;
+	public OrderInformation() {
+		super();
+	}
+	public OrderInformation(Integer id, Integer state, Integer total, Timestamp createdTime, Integer userId,
+			Integer recipientId) {
+		super();
+		this.id = id;
+		this.state = state;
+		this.total = total;
+		this.createdTime = createdTime;
+		this.userId = userId;
+		this.recipientId = recipientId;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
+	public Integer getTotal() {
+		return total;
+	}
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+	public Timestamp getCreatedTime() {
+		return createdTime;
+	}
+	public void setCreatedTime(Timestamp createdTime) {
+		this.createdTime = createdTime;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public Integer getRecipientId() {
+		return recipientId;
+	}
+	public void setRecipientId(Integer recipientId) {
+		this.recipientId = recipientId;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((recipientId == null) ? 0 : recipientId.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((total == null) ? 0 : total.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderInformation other = (OrderInformation) obj;
+		if (createdTime == null) {
+			if (other.createdTime != null)
+				return false;
+		} else if (!createdTime.equals(other.createdTime))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (recipientId == null) {
+			if (other.recipientId != null)
+				return false;
+		} else if (!recipientId.equals(other.recipientId))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (total == null) {
+			if (other.total != null)
+				return false;
+		} else if (!total.equals(other.total))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "OrderInformation [id=" + id + ", state=" + state + ", total=" + total + ", createdTime=" + createdTime
+				+ ", userId=" + userId + ", recipientId=" + recipientId + "]";
+	}
+	
+}

@@ -16,14 +16,14 @@
 			<div id="rightWrap">
 				<div id="mask"></div>
 				<div id="popupRecipientList"></div>
-				<p>金額：</p>
-				<span id="totalCount">&nbsp;&nbsp;</span></br>
+				<p>金額：&nbsp;&nbsp;</p>
+				<span id="totalCount"></span></br>
 				<p>收件人</p>
 				<div id="recipientSection"></div>
 				<p>商品</p>
 				<div id="cart"></div>
-				<button id="">下訂單</button>
-				<button id="">取消</button>
+				<button onclick="orderAdd()">下訂單</button>
+				<button onclick="cancel()">取消</button>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -36,10 +36,11 @@
 			'	<p>姓名：%RECIPIENT_NAME%</p>' +
 			'	<p>電話：%RECIPIENT_PHONE%</p>' +
 			'	<p>地址：%RECIPIENT_ADDRESS%</p>' +
+			'	<input id="recipientId" type="hidden" value="%RECIPIENT_ID%"/>' +
 			'</div>';
 		
 			var productTemplate = '' +
-			'<div id="%PRODUCT_ID%" class="cart">' +
+			'<div id="%CART_ID%" class="cart">' +
 			'	<div class="wrap">' +
 			'		<img src="http://localhost:8080/img/%PRODUCT_IMAGE%">' +
 			'	</div>' +
@@ -89,6 +90,7 @@
 							html = html.replace("%RECIPIENT_NAME%", recipient.recipientName);
 							html = html.replace("%RECIPIENT_PHONE%", recipient.recipientPhone);
 							html = html.replace("%RECIPIENT_ADDRESS%", address);
+							html = html.replace("%RECIPIENT_ID%", recipient.id);
 							$("#recipientSection").append(html);
 						}
 					}
@@ -106,7 +108,7 @@
 						for (var i = 0; i < obj.data.length; i++) {
 							var cart = obj.data[i];
 							html += productTemplate;
-							html = html.replace("%PRODUCT_ID%", cart.id);
+							html = html.replace("%CART_ID%", cart.id);
 							html = html.replace("%PRODUCT_IMAGE%", cart.productImage);
 							html = html.replace("%PRODUCT_NAME%", cart.productName);
 							html = html.replace("%PRODUCT_PRICE%", cart.productPrice);
@@ -143,6 +145,24 @@
 				});
 			}
 			
+			function orderAdd() {
+				$.ajax({
+					url: "orderAdd.do",
+					data: "total=" + $("#totalCount").text() +
+						  "&recipientId=" + $("#recipientId").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							//清空購物車
+							//location.href = "orderPage.do";
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
+			}
+			
 			function recipientChange(tag) {
 				var index = $(tag).val();
 				recipientList(index);
@@ -158,6 +178,10 @@
 			function popupClose() {
 				$("#mask").hide();
 				$("#popupRecipientList").hide();
+			}
+			
+			function cancel() {
+				history.back();
 			}
 		</script>
 	</body>

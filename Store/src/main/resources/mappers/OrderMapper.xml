@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.order.OrderMapper">
+	
+	<!-- 新增訂單資料 Integer insert(OrderInformation orderInformation) -->
+	<insert id="insert" parameterType="wang.store.order.OrderInformation" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO order_information(
+			total,
+			user_id,
+			recipient_id
+		) 
+		VALUES(
+			#{total},
+			#{userId},
+			#{recipientId}
+		);
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
