@@ -113,6 +113,7 @@
 							$("#priceAlert").html("");
 							$("#numberAlert").html("");
 							$("#fileAlert").html("");
+							$("#imagePreview").empty();
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
