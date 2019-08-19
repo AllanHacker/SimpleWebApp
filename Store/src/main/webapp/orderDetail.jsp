@@ -14,6 +14,8 @@
 			<div id="title"><h2>訂單內容</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
+				<div id="mask"></div>
+				<div id="popupRecipientList"></div>
 				<p>金額：</p>
 				<span id="totalCount">&nbsp;&nbsp;</span></br>
 				<p>收件人</p>
@@ -30,10 +32,9 @@
 		<script src="common.js"></script>
 		<script type="text/javascript">
 			var recipientTemplate = '' +
-			'<button id="">更改</button>' +
 			'<div class="wrap">' +
 			'	<p>姓名：%RECIPIENT_NAME%</p>' +
-			'	<p>電話：%RECIPIENT_PRICE%</p>' +
+			'	<p>電話：%RECIPIENT_PHONE%</p>' +
 			'	<p>地址：%RECIPIENT_ADDRESS%</p>' +
 			'</div>';
 		
@@ -54,12 +55,25 @@
 			'	</div>' +
 			'</div>';
 			
+			var popupRecipientTemplate = '' +
+			'<div class="wrap">' +
+			'	<div class="left">' +
+			'		<p>姓名：%RECIPIENT_NAME%</p>' +
+			'		<p>電話：%RECIPIENT_PHONE%</p>' +
+			'		<p>地址：%RECIPIENT_ADDRESS%</p>' +
+			'	</div>' +
+			'	<div class="right">' +
+			'		<button value="%INDEX%" onclick="recipientChange(this)">選擇</button>' +
+			'	</div>' +
+			'</div>';
+			
 			$(function(){
-				recipientList();
+				recipientList(0);
 				cartList();
 			});	
 		
-			function recipientList() {
+			function recipientList(index) {
+				$("#recipientSection").empty();
 				$.ajax({
 					url: "recipientList.do",
 					type: "get",
@@ -68,9 +82,12 @@
 						if (obj.state == 0) {
 							$("#recipientSection").append("<div>" + obj.message + "</div>");
 						} else {
+							$("#recipientSection").append('<button onclick="popup()">更改</button>');
 							var html = recipientTemplate;
-							var recipient = obj.data[0];
+							var recipient = obj.data[index];
 							var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
+							html = html.replace("%RECIPIENT_NAME%", recipient.recipientName);
+							html = html.replace("%RECIPIENT_PHONE%", recipient.recipientPhone);
 							html = html.replace("%RECIPIENT_ADDRESS%", address);
 							$("#recipientSection").append(html);
 						}
@@ -101,6 +118,46 @@
 						$("#totalCount").append(totalCount);
 					}
 				});
+			}
+			
+			function popupRecipientList() {
+				$("#popupRecipientList").empty();
+				$.ajax({
+					url: "recipientList.do",
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						var html = "";
+						for (var i = 0; i < obj.data.length; i++) {
+							html += popupRecipientTemplate;
+							var recipient = obj.data[i];
+							var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
+							html = html.replace("%RECIPIENT_NAME%", recipient.recipientName);
+							html = html.replace("%RECIPIENT_PHONE%", recipient.recipientPhone);
+							html = html.replace("%RECIPIENT_ADDRESS%", address);
+							html = html.replace("%INDEX%", i);
+						}
+						$("#popupRecipientList").append(html);
+						$("#popupRecipientList").append('<button onclick="popupClose()">取消</button>');
+					}
+				});
+			}
+			
+			function recipientChange(tag) {
+				var index = $(tag).val();
+				recipientList(index);
+				popupClose();
+			}
+			
+			function popup() {
+				$("#mask").show();
+				$("#popupRecipientList").show();
+				popupRecipientList();
+			}
+			
+			function popupClose() {
+				$("#mask").hide();
+				$("#popupRecipientList").hide();
 			}
 		</script>
 	</body>
