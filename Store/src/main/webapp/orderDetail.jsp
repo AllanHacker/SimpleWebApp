@@ -68,6 +68,9 @@
 			'	</div>' +
 			'</div>';
 			
+			var productId = [];
+			var productNumber = [];
+			
 			$(function(){
 				recipientList(0);
 				cartList();
@@ -115,6 +118,8 @@
 							html = html.replace("%PRODUCT_AMOUNT%", cart.amount);
 							html = html.replace("%PRODUCT_TOTAL%", cart.total);
 							totalCount += cart.total;
+							productId.push(cart.productId);
+							productNumber.push(cart.amount);
 						}
 						$("#cart").append(html);
 						$("#totalCount").append(totalCount);
@@ -149,7 +154,9 @@
 				$.ajax({
 					url: "orderAdd.do",
 					data: "total=" + $("#totalCount").text() +
-						  "&recipientId=" + $("#recipientId").val(),
+						  "&recipientId=" + $("#recipientId").val() +
+						  "&productId=" + productId +
+						  "&productNumber=" + productNumber,
 					type: "post",
 					dataType: "json",
 					success: function(obj){

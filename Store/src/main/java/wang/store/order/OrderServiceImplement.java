@@ -10,8 +10,12 @@ public class OrderServiceImplement implements OrderServiceInterface{
 	@Resource(name = "orderMapper")
 	private OrderMapper orderMapper;
 	
-	public Integer insert(OrderInformation orderInformation) {
-		return orderMapper.insert(orderInformation);
+	public Integer insertOrderInformation(OrderInformation orderInformation) {
+		return orderMapper.insertOrderInformation(orderInformation);
+	}
+
+	public Integer insertOrderProduct(OrderProduct orderProduct) {
+		return orderMapper.insertOrderProduct(orderProduct);
 	}
 
 }

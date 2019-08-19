@@ -1,5 +1,7 @@
 package wang.store.order;
 
+import java.util.Iterator;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -34,7 +36,7 @@ public class OrderController {
 	}
 	
 	/**
-	 * 創建訂單
+	 * 創建訂單。同時寫入orderInformation與orderProduct
 	 * @param total 訂單金額
 	 * @param recipientId 收件人
 	 * @param session 會員id儲存位置
@@ -42,16 +44,27 @@ public class OrderController {
 	 */
 	@RequestMapping("/orderAdd.do")
 	@ResponseBody
-	public ResponseResult<Integer> orderAdd(Integer total, Integer recipientId, HttpSession session) {
+	public ResponseResult<Void> orderAdd(Integer total, Integer recipientId, 
+			Integer[] productId, Integer[] productNumber, HttpSession session) {
+		
 		Integer userId = (Integer) session.getAttribute("userId");
 		OrderInformation orderInformation = new OrderInformation();
 		orderInformation.setTotal(total);
 		orderInformation.setUserId(userId);
 		orderInformation.setRecipientId(recipientId);
-		Integer result = orderService.insert(orderInformation);
-		if (result == 1) {
-			return new ResponseResult<Integer>(1, "訂單成立", orderInformation.getId());
+		Integer result = orderService.insertOrderInformation(orderInformation);
+		
+		OrderProduct orderProduct;
+		for (int i = 0; i < productNumber.length; i++) {
+			int pid = productId[i];
+			int pnum = productNumber[i];
+			orderProduct = new OrderProduct(null, orderInformation.getId(), pid, pnum);
+			orderService.insertOrderProduct(orderProduct);
 		}
-		return new ResponseResult<Integer>(0, "訂單出錯");
+		
+		if (result == 1) {
+			return new ResponseResult<Void>(1, "訂單成立");
+		}
+		return new ResponseResult<Void>(0, "訂單出錯");
 	}
 }

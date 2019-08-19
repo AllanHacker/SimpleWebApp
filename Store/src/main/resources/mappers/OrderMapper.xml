@@ -3,8 +3,8 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="wang.store.order.OrderMapper">
 	
-	<!-- 新增訂單資料 Integer insert(OrderInformation orderInformation) -->
-	<insert id="insert" parameterType="wang.store.order.OrderInformation" useGeneratedKeys="true" keyProperty="id">
+	<!-- 新增訂單資料 Integer insertOrderInformation(OrderInformation orderInformation) -->
+	<insert id="insertOrderInformation" parameterType="wang.store.order.OrderInformation" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO order_information(
 			total,
 			user_id,
@@ -17,6 +17,19 @@
 		);
 	</insert>
 	
+	<!--  新增訂單的商品資料 Integer insertOrderProduct(OrderProduct orderProduct) -->
+	<insert id="insertOrderProduct" parameterType="wang.store.order.OrderProduct">
+		INSERT INTO order_product(
+			order_id,
+			product_id,
+			product_number
+		) 
+		VALUES(
+			#{orderId},
+			#{productId},
+			#{productNumber}
+		);
+	</insert>
 </mapper>
 
 
