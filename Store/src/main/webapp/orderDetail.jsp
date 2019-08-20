@@ -70,6 +70,7 @@
 			
 			var productId = [];
 			var productNumber = [];
+			var cartId = [];
 			
 			$(function(){
 				recipientList(0);
@@ -120,6 +121,7 @@
 							totalCount += cart.total;
 							productId.push(cart.productId);
 							productNumber.push(cart.amount);
+							cartId.push(cart.id);
 						}
 						$("#cart").append(html);
 						$("#totalCount").append(totalCount);
@@ -161,11 +163,25 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
-							//清空購物車
-							//location.href = "orderPage.do";
+							for (var i = 0; i < cartId.length; i++) {
+								cartDelete(cartId[i]);
+							}
+							location.href = "orderPage.do";
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
+					}
+				});
+			}
+			
+			function cartDelete(id) {
+				$.ajax({
+					url: "cartDelete.do",
+					data: "id=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						
 					}
 				});
 			}
