@@ -337,6 +337,16 @@
 	/* 其下的樣式重用收件人管理的地址列表 */
 }
 
+/* 我的訂單頁面 */
+.orderList{
+	font-size: 22px;
+}
+
+.orderList p{
+	display: inline-block;
+	margin: 0 25px 20px 0;
+}
+
 /* alertAPI的樣式 */
 .alertAPI {
 	display: none;

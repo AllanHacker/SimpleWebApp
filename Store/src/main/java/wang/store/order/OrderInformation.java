@@ -7,7 +7,7 @@ public class OrderInformation implements Serializable{
 	
 	private static final long serialVersionUID = 2970856081007480842L;
 	private Integer id;
-	private Integer state;
+	private Integer state; //0=待付款 1=待出貨 2=待收貨 3=已完成 4=已取消 5=退貨
 	private Integer total;
 	private Timestamp createdTime;
 	private Integer userId;

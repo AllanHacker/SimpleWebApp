@@ -30,6 +30,23 @@
 			#{productNumber}
 		);
 	</insert>
+	
+	<!-- 以會員id查詢訂單資料 List<OrderInformation> orderInformationsFindByUserId(Integer userId) -->
+	<select id="orderInformationsFindByUserId" resultType="wang.store.order.OrderInformation">
+		SELECT 
+			id,
+			state,
+			total,
+			created_time AS createdTime,
+			user_id AS userId,
+			recipient_id AS recipientId
+		FROM
+			order_information
+		WHERE
+			user_id=#{userId}
+		ORDER BY 
+			created_time
+	</select>
 </mapper>
 
 

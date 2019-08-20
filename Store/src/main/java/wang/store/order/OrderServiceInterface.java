@@ -1,5 +1,7 @@
 package wang.store.order;
 
+import java.util.List;
+
 public interface OrderServiceInterface {
 	
 	/**
@@ -15,4 +17,11 @@ public interface OrderServiceInterface {
 	 * @return 受影響的行數
 	 */
 	Integer insertOrderProduct(OrderProduct orderProduct);
+	
+	/**
+	 * 以會員id查詢訂單資料，並以時間排序
+	 * @param userId 會員id
+	 * @return 訂單資料
+	 */
+	List<OrderInformation> orderInformationsFindByUserId(Integer userId);
 }

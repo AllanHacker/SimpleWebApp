@@ -1,5 +1,7 @@
 package wang.store.order;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +18,10 @@ public class OrderServiceImplement implements OrderServiceInterface{
 
 	public Integer insertOrderProduct(OrderProduct orderProduct) {
 		return orderMapper.insertOrderProduct(orderProduct);
+	}
+
+	public List<OrderInformation> orderInformationsFindByUserId(Integer userId) {
+		return orderMapper.orderInformationsFindByUserId(userId);
 	}
 
 }

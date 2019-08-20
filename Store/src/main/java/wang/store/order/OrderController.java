@@ -1,6 +1,6 @@
 package wang.store.order;
 
-import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -66,5 +66,21 @@ public class OrderController {
 			return new ResponseResult<Void>(1, "訂單成立");
 		}
 		return new ResponseResult<Void>(0, "訂單出錯");
+	}
+	
+	/**
+	 * 查詢會員的所有訂單
+	 * @param session 會員id儲存位置
+	 * @return 訂單列表
+	 */
+	@RequestMapping("/orderList.do")
+	@ResponseBody
+	public ResponseResult<List<OrderInformation>> orderList(HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		List<OrderInformation> orderInformations = orderService.orderInformationsFindByUserId(userId);
+		if (orderInformations.size() > 0) {
+			return new ResponseResult<List<OrderInformation>>(1, orderInformations);
+		}
+		return new ResponseResult<List<OrderInformation>>(0, "尚無任何訂單");
 	}
 }
