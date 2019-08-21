@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import wang.store.bean.ResponseResult;
+import wang.store.common.ResponseResult;
 /**
  * 驗證碼的控制器
  * @author wbx

@@ -1,4 +1,4 @@
-package wang.store.interceptor;
+package wang.store.common;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

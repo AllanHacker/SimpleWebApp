@@ -23,12 +23,11 @@ public class Beta {
 	public void testMapper() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		OrderMapper mapper = ctx.getBean("orderMapper", OrderMapper.class);
-		OrderInformation orderInformation = new OrderInformation();
-		orderInformation.setTotal(5600);
-		orderInformation.setUserId(99);
-		orderInformation.setRecipientId(56);
-		Integer result = mapper.insert(orderInformation);
-		System.out.println(result);
+		List<OrderInformation> orderInformations = mapper.orderInformationsFindByUserId(29);
+		for (OrderInformation orderInformation : orderInformations) {
+			System.out.println(orderInformation.getRecipientId());
+			System.out.println(orderInformation.getTotal());
+		}
 	}
 	
 	@Test

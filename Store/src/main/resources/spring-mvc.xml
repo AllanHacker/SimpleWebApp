@@ -43,7 +43,7 @@
 			<mvc:mapping path="/userCenterPage.do" />
 			<mvc:mapping path="/addressPage.do" />
 			<mvc:exclude-mapping path="" />
-			<bean class="wang.store.interceptor.LoginInterceptor" />
+			<bean class="wang.store.common.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 

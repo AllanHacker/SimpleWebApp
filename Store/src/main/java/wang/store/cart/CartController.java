@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import wang.store.bean.ResponseResult;
+import wang.store.common.ResponseResult;
 
 @Controller("cartController")
 public class CartController {

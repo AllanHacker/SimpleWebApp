@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import wang.store.bean.ResponseResult;
+import wang.store.common.ResponseResult;
 
 @Controller("productController")
 public class ProductController {
