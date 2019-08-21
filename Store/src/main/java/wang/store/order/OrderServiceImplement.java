@@ -32,4 +32,8 @@ public class OrderServiceImplement implements OrderServiceInterface{
 		return orderMapper.orderProductFindById(orderId);
 	}
 
+	public Integer orderStateChange(Integer id, Integer userId, Integer state) {
+		return orderMapper.orderStateChange(id, userId, state);
+	}
+
 }

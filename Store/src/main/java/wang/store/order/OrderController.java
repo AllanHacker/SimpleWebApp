@@ -109,4 +109,22 @@ public class OrderController {
 		List<OrderProduct> orderProducts = orderService.orderProductFindById(orderId);
 		return new ResponseResult<List<OrderProduct>>(1, orderProducts);
 	}
+	
+	/**
+	 * 取消訂單，只有待付款、待出貨的訂單能取消
+	 * @param id 訂單id
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping("/orderCancel.do")
+	@ResponseBody
+	public ResponseResult<Void> orderCancel(Integer id, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		OrderInformation orderInformation = orderService.orderInformationFindByUserIdAndId(userId, id);
+		if (orderInformation.getState() < 2) {
+			orderService.orderStateChange(id, userId, 4);
+			return new ResponseResult<Void>(1, "已取消");
+		}
+		return new ResponseResult<Void>(0, "無法取消");
+	}
 }

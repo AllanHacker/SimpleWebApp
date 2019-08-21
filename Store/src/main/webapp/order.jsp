@@ -41,6 +41,7 @@
 						</div>
 					</div>
 					<button onclick="popupClose()">關閉</button>
+					<button onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
 				</div>
 				<div id="orderListSection"></div>
 			</div>
@@ -66,7 +67,8 @@
 					recipientName: '',
 					recipientPhone: '',
 					recipientAddress: '',
-					products: []
+					products: [],
+					orderId: ''
 				}
 			})
 			
@@ -101,6 +103,7 @@
 			function popup(id) {
 				$("#mask").show();
 				$("#orderDetail").show();
+				$("#cancelButton").attr("disabled", false);
 				$.ajax({
 					url: "orderLoad.do",
 					data: "id=" + id,
@@ -118,6 +121,10 @@
 							orderDetail.createdTime = Y+M+D+h+m+s;
 							orderDetail.state = stateMeaning(obj.data.state);
 							orderDetail.total = obj.data.total;
+							orderDetail.orderId = obj.data.id;
+							if (obj.data.state > 1) {
+								$("#cancelButton").attr("disabled", true);
+							}
 							recipientLoad(obj.data.recipientId);
 							orderProductLoad(obj.data.id);
 						}
@@ -174,6 +181,24 @@
 					}
 				});
 				return result;
+			}
+			
+			function orderCancel(tag) {
+				$.ajax({
+					url: "orderCancel.do",
+					data: "id=" + $(tag).val(),
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+							$("#cancelButton").attr("disabled", true);
+							orderList();
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
 			}
 			
 			function popupClose() {

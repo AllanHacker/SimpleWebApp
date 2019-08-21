@@ -41,4 +41,13 @@ public interface OrderServiceInterface {
 	 * @return 訂單的商品資料
 	 */
 	List<OrderProduct> orderProductFindById(Integer orderId);
+	
+	/**
+	 * 修改訂單的狀態
+	 * @param id 訂單id
+	 * @param userId 會員id
+	 * @param state 訂單的狀態
+	 * @return 受影響的行數
+	 */
+	Integer orderStateChange(@Param("id")Integer id, @Param("userId")Integer userId, @Param("state")Integer state);
 }

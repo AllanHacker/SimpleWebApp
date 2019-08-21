@@ -75,6 +75,16 @@
 		WHERE
 			order_id=#{orderId}
 	</select>
+	
+	<!-- 修改訂單的狀態 Integer orderStateChange(Integer id, Integer userId, Integer state) -->
+	<update id="orderStateChange">
+		UPDATE
+			order_information
+		SET
+			state=#{state}
+		WHERE
+			id=#{id} AND user_id=#{userId}
+	</update>
 </mapper>
 
 
