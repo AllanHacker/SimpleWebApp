@@ -34,4 +34,11 @@ public interface OrderMapper {
 	 * @return 訂單資料
 	 */
 	OrderInformation orderInformationFindByUserIdAndId(@Param("userId")Integer userId, @Param("id")Integer id);
+	
+	/**
+	 * 以訂單id查詢訂單的商品資料
+	 * @param orderId 訂單id
+	 * @return 訂單的商品資料
+	 */
+	List<OrderProduct> orderProductFindById(Integer orderId);
 }

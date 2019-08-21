@@ -24,8 +24,21 @@
 					<p>收件人姓名：{{recipientName}}</p>
 					<p>收件人電話：{{recipientPhone}}</p>
 					<p>收件人地址：{{recipientAddress}}</p>
-					<div>
-						
+					<div id="orderProduct">
+						<div v-for="product in products" class="cart">
+							<div class="wrap">
+								<img :src="product.image">
+							</div>
+							<div class="wrap">
+								<div class="wrap2">
+									<p>商品名稱：{{product.name}}</p>
+									<p>商品價格：{{product.price}}</p>
+								</div>
+							</div>
+							<div class="wrap">
+								購買數量：{{product.number}}
+							</div>
+						</div>
 					</div>
 					<button onclick="popupClose()">關閉</button>
 				</div>
@@ -52,7 +65,8 @@
 					total: '',
 					recipientName: '',
 					recipientPhone: '',
-					recipientAddress: ''
+					recipientAddress: '',
+					products: []
 				}
 			})
 			
@@ -104,7 +118,8 @@
 							orderDetail.createdTime = Y+M+D+h+m+s;
 							orderDetail.state = stateMeaning(obj.data.state);
 							orderDetail.total = obj.data.total;
-							recipientLoad(obj.data.recipientId)
+							recipientLoad(obj.data.recipientId);
+							orderProductLoad(obj.data.id);
 						}
 					}
 				});
@@ -123,6 +138,42 @@
 						orderDetail.recipientAddress = obj.data.postalCode + obj.data.city + obj.data.district + obj.data.road + obj.data.other;
 					}
 				});
+			}
+			
+			function orderProductLoad(orderId) {
+				$("#orderProduct").empty();
+				$.ajax({
+					url: "orderProductLoad.do",
+					data: "orderId=" + orderId,
+					type: "get",
+					dataType: "json",
+					async: false,
+					success: function(obj){
+						for (var i = 0; i < obj.data.length; i++) {
+							var orderProduct = obj.data[i];
+							arr = productLoad(orderProduct.productId);
+							orderDetail.products.push({ number: orderProduct.productNumber,
+														image: "/./img/" + arr[0],
+														name: arr[1],
+														price: arr[2]});
+						}
+					}
+				});
+			}
+			
+			function productLoad(productId) {
+				var result;
+				$.ajax({
+					url: "productLoad.do",
+					data: "id=" + productId,
+					type: "get",
+					dataType: "json",
+					async: false,
+					success: function(obj){
+						result = [obj.data.image, obj.data.name, obj.data.price];
+					}
+				});
+				return result;
 			}
 			
 			function popupClose() {

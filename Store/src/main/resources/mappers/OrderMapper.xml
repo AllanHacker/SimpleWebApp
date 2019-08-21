@@ -62,6 +62,19 @@
 		WHERE
 			user_id=#{userId} AND id=#{id}
 	</select>
+	
+	<!-- 以訂單id查詢訂單的商品資料 List<OrderProduct> orderProductFindById(Integer orderId) -->
+	<select id="orderProductFindById" resultType="wang.store.order.OrderProduct">
+		SELECT 
+			id,
+			order_id AS orderId,
+			product_id AS productId,
+			product_number AS productNumber
+		FROM
+			order_product
+		WHERE
+			order_id=#{orderId}
+	</select>
 </mapper>
 
 

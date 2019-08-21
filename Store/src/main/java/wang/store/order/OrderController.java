@@ -97,4 +97,16 @@ public class OrderController {
 		OrderInformation orderInformation = orderService.orderInformationFindByUserIdAndId(userId, id);
 		return new ResponseResult<OrderInformation>(1, orderInformation);
 	}
+	
+	/**
+	 * 以訂單id查詢訂單的商品資料
+	 * @param orderId 訂單id
+	 * @return 訂單的商品資料
+	 */
+	@RequestMapping("/orderProductLoad.do")
+	@ResponseBody
+	public ResponseResult<List<OrderProduct>> orderProductLoad(Integer orderId) {
+		List<OrderProduct> orderProducts = orderService.orderProductFindById(orderId);
+		return new ResponseResult<List<OrderProduct>>(1, orderProducts);
+	}
 }

@@ -64,6 +64,18 @@ public class ProductController {
 	}
 	
 	/**
+	 * 以商品id查詢商品
+	 * @param id 商品id
+	 * @return 所查詢的商品
+	 */
+	@RequestMapping("/productLoad.do")
+	@ResponseBody
+	public ResponseResult<Product> productLoad(Integer id) {
+		Product product = productService.findProductById(id);
+		return new ResponseResult<Product>(1, product);
+	}
+	
+	/**
 	 * 商品修改功能。根據id查詢出該商品，並以新的資料重新對屬性賦值。
 	 * @param id 商品id
 	 * @param productName 新的商品名稱
