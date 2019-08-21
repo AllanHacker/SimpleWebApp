@@ -1,14 +1,10 @@
-package wang.store.service;
+package wang.store.product;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-
-import wang.store.bean.Product;
-import wang.store.bean.Product_category;
-import wang.store.mapper.ProductMapper;
 
 @Service("productServiceImplement")
 public class ProductServiceImplement implements ProductServiceInterface{

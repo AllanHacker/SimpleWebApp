@@ -1,4 +1,4 @@
-package wang.store.bean;
+package wang.store.product;
 
 import java.io.Serializable;
 

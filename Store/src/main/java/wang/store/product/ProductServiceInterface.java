@@ -1,11 +1,8 @@
-package wang.store.mapper;
+package wang.store.product;
 
 import java.util.List;
 
-import wang.store.bean.Product;
-import wang.store.bean.Product_category;
-
-public interface ProductMapper {
+public interface ProductServiceInterface {
 	
 	/**
 	 * 找出同階層的商品目錄
@@ -40,7 +37,7 @@ public interface ProductMapper {
 	 * @param product 商品資料封裝的實體類
 	 * @return 受影響的行數
 	 */
-	Integer insertProduct(Product product);
+	Integer productPost(Product product);
 	
 	/**
 	 * 刪除某個商品

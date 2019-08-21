@@ -1,4 +1,4 @@
-package wang.store.controller;
+package wang.store.product;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -16,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import wang.store.bean.Product;
-import wang.store.bean.Product_category;
 import wang.store.bean.ResponseResult;
-import wang.store.service.ProductServiceInterface;
 
 @Controller("productController")
 public class ProductController {
