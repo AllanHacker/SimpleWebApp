@@ -83,4 +83,18 @@ public class OrderController {
 		}
 		return new ResponseResult<List<OrderInformation>>(0, "尚無任何訂單");
 	}
+	
+	/**
+	 * 查詢某筆訂單
+	 * @param id 訂單id
+	 * @param session 會員id儲存位置
+	 * @return 該訂單
+	 */
+	@RequestMapping("/orderLoad.do")
+	@ResponseBody
+	public ResponseResult<OrderInformation> orderLoad(Integer id, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		OrderInformation orderInformation = orderService.orderInformationFindByUserIdAndId(userId, id);
+		return new ResponseResult<OrderInformation>(1, orderInformation);
+	}
 }

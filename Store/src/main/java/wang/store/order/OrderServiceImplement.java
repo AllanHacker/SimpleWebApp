@@ -24,4 +24,8 @@ public class OrderServiceImplement implements OrderServiceInterface{
 		return orderMapper.orderInformationsFindByUserId(userId);
 	}
 
+	public OrderInformation orderInformationFindByUserIdAndId(Integer userId, Integer id) {
+		return orderMapper.orderInformationFindByUserIdAndId(userId, id);
+	}
+
 }

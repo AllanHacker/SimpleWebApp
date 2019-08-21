@@ -47,6 +47,21 @@
 		ORDER BY 
 			created_time
 	</select>
+	
+	<!-- 以會員id和訂單id查詢訂單資料 OrderInformation orderInformationFindByUserIdAndId(Integer userId, Integer id) -->
+	<select id="orderInformationFindByUserIdAndId" resultType="wang.store.order.OrderInformation">
+		SELECT 
+			id,
+			state,
+			total,
+			created_time AS createdTime,
+			user_id AS userId,
+			recipient_id AS recipientId
+		FROM
+			order_information
+		WHERE
+			user_id=#{userId} AND id=#{id}
+	</select>
 </mapper>
 
 

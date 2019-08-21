@@ -2,6 +2,8 @@ package wang.store.order;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface OrderMapper {
 	
 	/**
@@ -24,4 +26,12 @@ public interface OrderMapper {
 	 * @return 訂單資料
 	 */
 	List<OrderInformation> orderInformationsFindByUserId(Integer userId);
+	
+	/**
+	 * 以會員id和訂單id查詢訂單資料
+	 * @param userId 會員id
+	 * @param id 訂單id
+	 * @return 訂單資料
+	 */
+	OrderInformation orderInformationFindByUserIdAndId(@Param("userId")Integer userId, @Param("id")Integer id);
 }
