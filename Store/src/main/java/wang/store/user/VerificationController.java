@@ -1,4 +1,4 @@
-package wang.store.controller;
+package wang.store.user;
 
 import java.awt.Color;
 import java.awt.Font;

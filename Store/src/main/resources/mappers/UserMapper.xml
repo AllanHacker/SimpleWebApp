@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="wang.store.mapper.UserMapper">
+<mapper namespace="wang.store.user.UserMapper">
 	
 	<!-- 向資料庫新增用戶 int insert() -->
-	<insert id="insert" parameterType="wang.store.bean.User">
+	<insert id="insert" parameterType="wang.store.user.User">
 		INSERT INTO user_table(
 			username,
 			password,
@@ -20,7 +20,7 @@
 	</insert>
 	
 	<!--  根據會員的id查找會員資料 User findUserByUserId(Integer userId) -->
-	<select id="findUserByUserId" resultType="wang.store.bean.User">
+	<select id="findUserByUserId" resultType="wang.store.user.User">
 		SELECT
 			user_id AS userId,
 			state,
@@ -36,7 +36,7 @@
 	</select>
 	
 	<!-- 根據會員帳號名稱查找會員資料 User findUserByUsername(String username) -->
-	<select id="findUserByUsername" resultType="wang.store.bean.User">
+	<select id="findUserByUsername" resultType="wang.store.user.User">
 		SELECT
 			user_id AS userId,
 			state,
@@ -52,7 +52,7 @@
 	</select>
 	
 	<!-- 修改會員的資料 Integer update(User user) -->
-	<update id="update" parameterType="wang.store.bean.User">
+	<update id="update" parameterType="wang.store.user.User">
 		UPDATE 
 			user_table 
 		SET 

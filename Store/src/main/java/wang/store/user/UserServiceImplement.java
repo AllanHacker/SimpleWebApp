@@ -1,11 +1,8 @@
-package wang.store.service;
+package wang.store.user;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-
-import wang.store.bean.User;
-import wang.store.mapper.UserMapper;
 
 @Service("userServiceImplement")
 public class UserServiceImplement implements UserServiceInterface{

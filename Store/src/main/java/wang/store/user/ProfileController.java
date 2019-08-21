@@ -1,4 +1,4 @@
-package wang.store.controller;
+package wang.store.user;
 
 import java.util.ResourceBundle;
 
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import wang.store.bean.ResponseResult;
-import wang.store.bean.User;
-import wang.store.service.UserServiceInterface;
 
 @Controller("profileController")
 @RequestMapping("/profile")

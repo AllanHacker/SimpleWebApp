@@ -1,14 +1,13 @@
-package wang.store.mapper;
+package wang.store.user;
 
-import wang.store.bean.User;
-
-public interface UserMapper {
+public interface UserServiceInterface {
+	
 	/**
-	 * 向資料庫新增會員
+	 * 新會員註冊
 	 * @param user 新會員的資料
 	 * @return 受影響的行數
 	 */
-	Integer insert(User user);
+	Integer userRegister(User user);
 	
 	/**
 	 * 根據會員的id查找會員資料
@@ -29,5 +28,5 @@ public interface UserMapper {
 	 * @param user 新的會員資料
 	 * @return 受影響的行數
 	 */
-	Integer update(User user);
+	Integer userUpdate(User user);
 }
