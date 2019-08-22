@@ -35,14 +35,17 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/profilePage.do" />
-			<mvc:mapping path="/cartPage.do" />
-			<mvc:mapping path="/cartAdd.do" />
-			<mvc:mapping path="/sellPage.do" />
-			<mvc:mapping path="/mallPage.do" />
-			<mvc:mapping path="/userCenterPage.do" />
-			<mvc:mapping path="/addressPage.do" />
-			<mvc:exclude-mapping path="" />
+			<mvc:mapping path="/*" />
+			<mvc:exclude-mapping path="/indexPage.do" />
+			<mvc:exclude-mapping path="/registerPage.do" />
+			<mvc:exclude-mapping path="/loginPage.do" />
+			<mvc:exclude-mapping path="/productDetailPage.do" />
+			<mvc:exclude-mapping path="/categoryListShow.do" />
+			<mvc:exclude-mapping path="/productListShow.do" />
+			<mvc:exclude-mapping path="/userLogin.do" />
+			<mvc:exclude-mapping path="/loginCheck.do" />
+			<mvc:exclude-mapping path="/verificationCheck.do" />
+			<mvc:exclude-mapping path="/verification.do" />
 			<bean class="wang.store.common.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
