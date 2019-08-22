@@ -21,33 +21,6 @@ public class UserController {
 	private UserServiceInterface userService;
 	
 	/**
-	 * 顯示首頁
-	 * @return 首頁
-	 */
-	@RequestMapping("/indexPage.do")
-	public String indexPage() {
-		return "index";
-	}
-	
-	/**
-	 * 顯示註冊頁面
-	 * @return 註冊頁面
-	 */
-	@RequestMapping("/registerPage.do")
-	public String registerPage() {
-		return "register";
-	}
-	
-	/**
-	 * 顯示登入頁面
-	 * @return 登入頁面
-	 */
-	@RequestMapping("/loginPage.do")
-	public String loginPage() {
-		return "login";
-	}
-	
-	/**
 	 * 檢查是否已經登入
 	 * @param session 用戶id儲存位置
 	 * @return 未登入返回1，已登入返回0
