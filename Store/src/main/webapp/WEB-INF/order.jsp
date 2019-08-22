@@ -6,7 +6,6 @@
 		<title>Order</title>
 		<link href="common.css" rel="stylesheet" />
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
@@ -43,7 +42,13 @@
 					<button onclick="popupClose()">關閉</button>
 					<button onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
 				</div>
-				<div id="orderListSection"></div>
+				<div id="orderListSection">
+					<div class="orderList" v-for="order in orders">
+						<p>{{order.createdTime}}</p>
+						<p>{{order.state}}</p>
+						<button onclick="popup(this)" v-bind:value="order.orderId">訂單內容</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -51,13 +56,6 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
-			var orderListTemplate = ''+
-			'<div class="orderList">' +
-				'<p>%CREATED_TIME%</p>' +
-				'<p>%STATE%</p>' +
-				'<button onclick="popup(%ORDER_ID%)">訂單內容</button>' +
-			'</div>';
-			
 			var orderDetail = new Vue({
 				el: "#orderDetail",
 				data: {
@@ -69,6 +67,13 @@
 					recipientAddress: '',
 					products: [],
 					orderId: ''
+				}
+			})
+			
+			var orderListSection = new Vue({
+				el: "#orderListSection",
+				data: {
+					orders:[]
 				}
 			})
 			
@@ -84,15 +89,12 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 1) {
-							var html = "";
 							for (var i = 0; i < obj.data.length; i++) {
 								var order = obj.data[i];
-								html += orderListTemplate;
-								html = html.replace("%CREATED_TIME%", order.createdTime);
-								html = html.replace("%STATE%", stateMeaning(order.state));
-								html = html.replace("%ORDER_ID%", order.id);
+								orderListSection.orders.push({ createdTime: order.createdTime,
+																state: stateMeaning(order.state),
+																orderId: order.id });
 							}
-							$("#orderListSection").append(html);
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
@@ -100,13 +102,13 @@
 				});
 			}
 			
-			function popup(id) {
+			function popup(tag) {
 				$("#mask").show();
 				$("#orderDetail").show();
 				$("#cancelButton").attr("disabled", false);
 				$.ajax({
 					url: "orderLoad.do",
-					data: "id=" + id,
+					data: "id=" + $(tag).val(),
 					type: "get",
 					dataType: "json",
 					success: function(obj){
