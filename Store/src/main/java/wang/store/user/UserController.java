@@ -194,8 +194,11 @@ public class UserController {
 		if (responseResult.getState() == 0) {
 			flag = false;
 		}
-		
 		if (flag) {
+			User userExist = userService.findUserByUsername(username);
+			if (userExist != null) {
+				return responseResult = new ResponseResult<Void>(0, "帳號已被註冊");
+			}
 			//String salt = "愛的是非對錯已太多";
 			ResourceBundle properties = ResourceBundle.getBundle("db");
 			String salt = properties.getString("salt");

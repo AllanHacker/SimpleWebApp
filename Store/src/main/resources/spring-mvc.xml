@@ -46,6 +46,12 @@
 			<mvc:exclude-mapping path="/loginCheck.do" />
 			<mvc:exclude-mapping path="/verificationCheck.do" />
 			<mvc:exclude-mapping path="/verification.do" />
+			<mvc:exclude-mapping path="/usernameCheck.do" />
+			<mvc:exclude-mapping path="/passwordCheck.do" />
+			<mvc:exclude-mapping path="/password2Check.do" />
+			<mvc:exclude-mapping path="/emailCheck.do" />
+			<mvc:exclude-mapping path="/phoneCheck.do" />
+			<mvc:exclude-mapping path="/userRegister.do" />
 			<bean class="wang.store.common.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
