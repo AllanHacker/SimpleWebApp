@@ -145,6 +145,11 @@
 	margin: 7px 0 0 0;
 }
 
+/* 商品詳細內容頁面的圖片大小 */
+#productDetailImage{
+	height: 500px;
+}
+
 /* 我的賣場 商品列表 */
 #product{
 	font-size: 20px;
