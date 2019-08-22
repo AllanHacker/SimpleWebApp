@@ -29,7 +29,7 @@
 		FROM
 			product
 		WHERE
-			category_id=#{categoryId}
+			category_id=#{categoryId} AND state=1
 	</select>
 	
 	<!-- 根據會員id找出他所刊登的所有商品 List<Product> findProductByUserId(Integer userId) -->

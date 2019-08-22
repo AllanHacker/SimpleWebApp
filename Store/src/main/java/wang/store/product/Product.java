@@ -11,7 +11,7 @@ public class Product implements Serializable{
 	private Integer price;
 	private Integer number;
 	private String image;
-	private Integer state;
+	private Integer state; //1=上架，0=下架
 	private Integer userId;
 	
 	public Product() {
