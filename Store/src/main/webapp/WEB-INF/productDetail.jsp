@@ -66,6 +66,9 @@
 						} else {
 							alertAPI(obj.message, "alertFailure");
 						}
+					},
+					error: function(obj){
+						alertAPI("請先登入", "alertFailure");
 					}
 				});
 			}
