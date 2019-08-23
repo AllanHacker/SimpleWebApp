@@ -5,6 +5,9 @@
 	<head>
 		<title>Cart</title>
 		<link href="common.css" rel="stylesheet" />
+		<script src="common.js"></script>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
@@ -12,131 +15,137 @@
 		</header>
 		<div id="content">
 			<div id="title"><h2>購物車</h2></div>
-			
+			<div id='cart'>
+				<cart v-for="cart in carts" 
+					v-bind:key="cart.id"
+					v-bind:cart="cart"
+					v-on:cart-delete="cartDelete(cart)"
+					v-on:amount-minus="amountMinus(cart)"
+					v-on:amount-add="amountAdd(cart)">
+				</cart>
+				一共<span>{{amountCount}}</span>樣商品，
+				總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
+				<a href='orderDetailPage.do'>結帳</a>
+			</div>
 		</div>
 		<footer id="footer"></footer>
 		
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="common.js"></script>
 		<script type="text/javascript">
+			Vue.component('cart', {
+				props: ['cart'],
+				template: `
+					<div class='cart'>
+						<div class='wrap'>
+							<img :src="cart.productImage">
+						</div>
+						<div class='wrap'>
+							<div class='wrap2'>
+								<p>{{cart.productName}}</p>
+								<p>{{cart.productPrice}}</p>
+							</div>
+						</div>
+						<div class='wrap'>
+							<button v-on:click="$emit('amount-minus')">-</button>&nbsp;
+							<span>{{cart.amount}}</span>&nbsp;
+							<button v-on:click="$emit('amount-add')">+</button>&nbsp;
+							<button v-on:click="$emit('cart-delete')">刪除</button>
+						</div>
+					</div>
+				`
+			});
+			
+			var cartVue = new Vue({
+				el: "#cart",
+				data: {
+					carts: [],
+					amountCount: '',
+					totalCount: ''
+				},
+				methods: {
+					amountMinus: function (cart) {
+						if (cart.amount > 1) {
+							$.ajax({
+								url: "cartUpdate.do",
+								data: "productId=" + cart.productId +
+									"&amount=-1" +
+									"&productPrice=" + cart.productPrice,
+								type: "post",
+								dataType: "json",
+								success: function(obj){
+									cartList();
+								}
+							});
+						}
+					},
+					amountAdd: function (cart) {
+						if (cart.amount < cart.productNumber) {
+							$.ajax({
+								url: "cartUpdate.do",
+								data: "productId=" + cart.productId +
+									"&amount=1" +
+									"&productPrice=" + cart.productPrice,
+								type: "post",
+								dataType: "json",
+								success: function(obj){
+									cartList();
+								}
+							});
+						} else {
+							alertAPI("已超過庫存!", "alertFailure");
+						}
+					},
+					cartDelete: function (cart){
+						$.ajax({
+							url: "cartDelete.do",
+							data: "id=" + cart.id,
+							type: "get",
+							dataType: "json",
+							success: function(obj){
+								if (obj.state == 1) {
+									cartList();
+								} else {
+									alertAPI(obj.message, "alertFailure");
+								}
+							}
+						});
+					}
+				}
+			})
+			
 			$(function(){
 				cartList();
-				
 			});
 			
 			function cartList() {
-				$("#cart").empty();
 				$.ajax({
 					url: "cartList.do",
 					type: "get",
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
-							$("#content").append("<div id='cart'></div>");
+							$("#cart").empty();
 							$("#cart").append(obj.message);
 						} else {
+							cartVue.carts = [];
 							var amountCount = 0;
 							var totalCount = 0;
 							for (var i = 0; i < obj.data.length; i++) {
 								var cart = obj.data[i];
-								$("#content").append("<div id='cart'></div>");
-								$("#cart").append("<div id='" + i + "' class='cart'></div>");
-								$("#"+i+"").append("<div class='wrap'></div>");
-								$("#"+i+" div:last").append("<img src=http://localhost:8080/img/" + cart.productImage + ">");
-								$("#"+i+"").append("<div class='wrap'></div>");
-								$("#"+i+" div:last").append("<div class='wrap2'></div>");
-								$("#"+i+" .wrap2:last").append("<p>" + cart.productName + "</p>");
-								$("#"+i+" .wrap2:last").append("<p>" + cart.productPrice + "</p>");
-								$("#"+i+"").append("<div class='wrap'></div>");
-								$("#"+i+" div:last").append("<input type='button' value='-' onclick='amountMinus(this)'>&nbsp;");
-								$("#"+i+" div:last").append("<span>" + cart.amount + "</span>&nbsp;");
-								$("#"+i+" div:last").append("<input type='button' value='+' onclick='amountAdd(this)'>&nbsp;&nbsp;");
-								$("#"+i+" div:last").append("<button name='" + cart.id + "' onclick='cartDelete(this)'>刪除</button>");
-								$("#"+i+" div:last").append("<input type='hidden' value='" + cart.productId + "'/>");
-								$("#"+i+" div:last").append("<input type='hidden' value='" + cart.productNumber + "'/>");
+								cartVue.carts.push({
+									productImage: "/./img/" + cart.productImage,
+									productName: cart.productName,
+									productPrice: cart.productPrice,
+									amount: cart.amount,
+									total: cart.total,
+									id: cart.id,
+									productId: cart.productId,
+									productNumber: cart.productNumber
+								});
 								amountCount += cart.amount;
 								totalCount += cart.total;
 							}
-							$("#cart").append("一共<span id='amountCount'>" + amountCount + "</span>樣商品，");
-							$("#cart").append("總金額為：<span id='totalCount'>" + totalCount + "</span>元&nbsp;&nbsp;");
-							$("#cart").append("<a href='orderDetailPage.do'>結帳</a>");
-						}
-					}
-				});
-			}
-			
-			function amountAdd(tag) {
-				var amount = parseInt($(tag).prev().text());
-				//庫存數量存在隱藏標籤的value屬性
-				var num = parseInt($(tag).siblings(":last").val());
-				if (amount < num) {
-					amount ++;
-					$(tag).prev().text(amount);
-					
-					var productId = $(tag).siblings(":last").prev().val();
-					var productPrice = $(tag).parent().prev().children().children(":last").text();
-					$.ajax({
-						url: "cartUpdate.do",
-						data: "productId=" + productId +
-							"&amount=1" +
-							"&productPrice=" + productPrice,
-						type: "post",
-						dataType: "json",
-						success: function(obj){
-							var total = parseInt($("#totalCount").text());
-							total += parseInt(productPrice);
-							$("#totalCount").text(total);
-							
-							var total = parseInt($("#amountCount").text());
-							total ++;
-							$("#amountCount").text(total);
-						}
-					});
-				} else {
-					alertAPI("已超過庫存!", "alertFailure");
-				}
-			}
-			
-			function amountMinus(tag) {
-			
-				var amount = parseInt($(tag).next().text());
-				if (amount > 1) {
-					amount --;
-					$(tag).next().text(amount);
-					
-					var productId = $(tag).siblings(":last").prev().val();
-					var productPrice = -$(tag).parent().prev().children().children(":last").text();
-					$.ajax({
-						url: "cartUpdate.do",
-						data: "productId=" + productId +
-							"&amount=-1" +
-							"&productPrice=" + productPrice,
-						type: "post",
-						dataType: "json",
-						success: function(obj){
-							var total = parseInt($("#totalCount").text());
-							total += parseInt(productPrice);
-							$("#totalCount").text(total);
-							
-							var total = parseInt($("#amountCount").text());
-							total --;
-							$("#amountCount").text(total);
-						}
-					});
-				}
-			}
-			
-			function cartDelete(tag) {
-				$.ajax({
-					url: "cartDelete.do",
-					data: "id=" + $(tag).attr("name"),
-					type: "get",
-					dataType: "json",
-					success: function(obj){
-						if (obj.state == 1) {
-							cartList();
-						} else {
-							alertAPI(obj.message, "alertFailure");
+							cartVue.amountCount = amountCount;
+							cartVue.totalCount = totalCount;
 						}
 					}
 				});
