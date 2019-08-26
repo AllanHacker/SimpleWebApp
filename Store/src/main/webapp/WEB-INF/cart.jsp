@@ -28,8 +28,8 @@
 		</div>
 		<footer id="footer"></footer>
 		
-		<script src="common.js"></script>
 		<script src="jquery-3.1.1.min.js"></script>
+		<script src="common.js"></script>
 		<script type="text/javascript">
 			Vue.component('cart', {
 				props: ['cart'],

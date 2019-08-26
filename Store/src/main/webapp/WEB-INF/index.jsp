@@ -71,6 +71,7 @@
 							dataType: "json",
 							success: function(obj){
 								categoryVue.categories2 = [];
+								categoryVue.categories3 = [];
 								for (var i = 0; i < obj.data.length; i++) {
 									var category = obj.data[i];
 									categoryVue.categories2.push({

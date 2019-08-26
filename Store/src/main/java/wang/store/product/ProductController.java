@@ -195,9 +195,8 @@ public class ProductController {
 	@RequestMapping(value = "categoryIdCheck.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult<Void> categoryIdCheck(String categoryId) {
-		String regex = "\\+?[1-9][0-9]*";
-		if (!categoryId.matches(regex)) {
-			return new ResponseResult<Void>(0, "請填入至少為1的數");
+		if ("".equals(categoryId)) {
+			return new ResponseResult<Void>(0, "請選擇分類");
 		}
 		return new ResponseResult<Void>(1, "ok");
 	}

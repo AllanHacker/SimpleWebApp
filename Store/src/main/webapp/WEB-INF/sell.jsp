@@ -5,6 +5,7 @@
 	<head>
 		<title>Sell Product</title>
 		<link href="common.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
@@ -14,20 +15,38 @@
 			<div id="title"><h2>商品拍賣</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
+				<div id="category">
+					<ul>
+						<li v-for="category in categories" 
+							v-bind:id="category.id"
+							v-on:mouseover="categoryList2($event.target)">{{category.name}}</li>
+					</ul>
+					<ul>
+						<li v-for="category in categories2" 
+							v-bind:id="category.id"
+							v-on:mouseover="categoryList3($event.target)">{{category.name}}</li>
+					</ul>
+					<ul>
+						<li v-for="category in categories3" 
+							v-bind:id="category.id"
+							v-on:click="productSelect($event.target)">{{category.name}}</li>
+					</ul>
+				</div>
 				<form id="registerInformation">
 					<table>
+						<tr>
+							<td class="words">分類：</td>
+							<td>
+								<input id="cat" type="text" readonly="readonly">
+								<input id="categoryId" name="categoryId" type="hidden">
+								<div id="categoryIdAlert"></div>
+							</td>
+						</tr>
 						<tr>
 							<td class="words">名稱：</td>
 							<td>
 								<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
 								<div id="productNameAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">分類：</td>
-							<td>
-								<input id="categoryId" name="categoryId" type="text" onblur="dataCheck(this)">
-								<div id="categoryIdAlert"></div>
 							</td>
 						</tr>
 						<tr>
@@ -67,6 +86,30 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
+			
+			$(function(){
+				categoryList1(0);
+			});
+			
+			function categoryList1(id) {
+				$.ajax({
+					url: "categoryListShow.do",
+					data: "parentId=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						for (var i = 0; i < obj.data.length; i++) {
+							var category = obj.data[i];
+							categoryVue.categories.push({
+								id: category.id,
+								name: category.name,
+								parentId: category.parentId
+							});
+						}
+					}
+				});
+			}
+			
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
 				var formData = new FormData($("#registerInformation")[0]);
@@ -129,6 +172,59 @@
 				$("#imagePreview").append(img);
 			});
 			
+			var categoryVue = new Vue({
+				el: "#category",
+				data: {
+					categories: [],
+					categories2: [],
+					categories3: []
+				},
+				methods: {
+					categoryList2: function (t) {
+						$.ajax({
+							url: "categoryListShow.do",
+							data: "parentId=" + t.id,
+							type: "get",
+							dataType: "json",
+							success: function(obj){
+								categoryVue.categories2 = [];
+								categoryVue.categories3 = [];
+								for (var i = 0; i < obj.data.length; i++) {
+									var category = obj.data[i];
+									categoryVue.categories2.push({
+										id: category.id,
+										name: category.name,
+										parentId: category.parentId
+									});
+								}
+							}
+						});
+					},
+					categoryList3: function (t) {
+						$.ajax({
+							url: "categoryListShow.do",
+							data: "parentId=" + t.id,
+							type: "get",
+							dataType: "json",
+							success: function(obj){
+								categoryVue.categories3 = [];
+								for (var i = 0; i < obj.data.length; i++) {
+									var category = obj.data[i];
+									categoryVue.categories3.push({
+										id: category.id,
+										name: category.name,
+										parentId: category.parentId
+									});
+								}
+							}
+						});
+					},
+					productSelect: function (t) {
+						$("#cat").val($(t).text());
+						$("#categoryId").val(t.id);
+					}
+				}
+			})
 		</script>
 	</body>
 </html>
