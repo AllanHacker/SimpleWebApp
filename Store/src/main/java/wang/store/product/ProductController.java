@@ -312,6 +312,9 @@ public class ProductController {
 	@RequestMapping("/productDelete.do")
 	@ResponseBody
 	public ResponseResult<Void> productDelete(Integer id) {
+		Product product = productService.findProductById(id);
+		String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + product.getImage();
+		new File(path).delete();
 		Integer result = productService.productDelete(id);
 		return new ResponseResult<Void>(result, "您的商品已刪除");
 	}
