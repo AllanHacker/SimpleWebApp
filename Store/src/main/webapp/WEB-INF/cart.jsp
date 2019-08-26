@@ -5,8 +5,6 @@
 	<head>
 		<title>Cart</title>
 		<link href="common.css" rel="stylesheet" />
-		<script src="common.js"></script>
-		<script src="jquery-3.1.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body style="font-size:30px;">
@@ -30,13 +28,15 @@
 		</div>
 		<footer id="footer"></footer>
 		
+		<script src="common.js"></script>
+		<script src="jquery-3.1.1.min.js"></script>
 		<script type="text/javascript">
 			Vue.component('cart', {
 				props: ['cart'],
 				template: `
 					<div class='cart'>
 						<div class='wrap'>
-							<img :src="cart.productImage">
+							<img :src="'/./img/' + cart.productImage">
 						</div>
 						<div class='wrap'>
 							<div class='wrap2'>
@@ -132,7 +132,7 @@
 							for (var i = 0; i < obj.data.length; i++) {
 								var cart = obj.data[i];
 								cartVue.carts.push({
-									productImage: "/./img/" + cart.productImage,
+									productImage: cart.productImage,
 									productName: cart.productName,
 									productPrice: cart.productPrice,
 									amount: cart.amount,

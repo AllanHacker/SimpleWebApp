@@ -160,13 +160,16 @@ public class ProductController {
 	/**
 	 * 顯示某分類的所有商品
 	 * @param categoryId 分類id
-	 * @return 商品列表
+	 * @return 商品列表，若查無返回提示字樣
 	 */
 	@RequestMapping("/productListShow.do")
 	@ResponseBody
 	public ResponseResult<List<Product>> productListShow(Integer categoryId) {
 		List<Product> products = productService.findProductByCategoryId(categoryId);
-		return new ResponseResult<List<Product>>(products);
+		if (products.size() == 0) {
+			return new ResponseResult<List<Product>>(0, "此分類暫無商品", products);
+		}
+		return new ResponseResult<List<Product>>(1, products);
 	}
 	
 	/**
