@@ -3,74 +3,123 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Profile</title>
+		<title>User Center</title>
 		<link href="common.css" rel="stylesheet" />
+		
 	</head>
 	<body style="font-size:30px;">
 		<header id="header">
 			<c:import url="header.jsp"></c:import>
 		</header>
 		<div id="content">
-			<div id="title"><h2>帳號修改</h2></div>
+			<div id="title"><h2>會員中心</h2></div>
 			<c:import url="userLeftBar.jsp"></c:import>
 			<div id="rightWrap">
-				<form id="registerInformation">
-					<table>
-						<tr>
-							<td class="words">密碼：</td>
-							<td>
-								<div id=""></div>
-								<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
-								<div id="oldPasswordAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">新密碼：</td>
-							<td>
-								<div id=""></div>
-								<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
-								<div id="passwordAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">密碼驗證：</td>
-							<td>
-								<div id=""></div>
-								<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
-								<div id="password2Alert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">電子信箱：</td>
-							<td>
-								<div id="emailShow">${user.email}</div>
-								<input id="email" name="email" type="text" onblur="dataCheck(this)">
-								<div id="emailAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">手機號碼：</td>
-							<td>
-								<div id="phoneShow">${user.phone}</div>
-								<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
-								<div id="phoneAlert"></div>
-							</td>
-						</tr>
-						
-						<tr>
-							<td></td>
-							<td>
-								<input id="submitButton" type="button" value="確定" onclick="userUpdate()">
-							</td>
-						</tr>
-						<tr>
-							<td class="words">刪除帳號：</td>
-							<td>
-								<input id="deleteButton" type="button" value="確定" onclick="userDelete()">
-							</td>
-						</tr>
-					</table>
-				</form>
+				<button onclick="popupUserChange()">修改個人資料</button>
+				<button onclick="popupPasswordChange()">修改密碼</button>
+				<button onclick="popupUserDelete()">刪除帳號</button>
+				<div id="mask"></div>
+				
+				<div id="userChange">
+					<div class="formFather">
+						<div class="leftForm">電子信箱：</div>
+						<div class="rightForm">
+							<input id="email" name="email" type="text" onblur="dataCheck(this)">
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm"></div>
+						<div class="rightForm">
+							<div id="emailAlert"></div>
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm">手機號碼：</div>
+						<div class="rightForm">
+							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm"></div>
+						<div class="rightForm">
+							<div id="phoneAlert"></div>
+						</div>
+					</div>
+					<div class="formFather">
+						<button onclick="userChange()">確定</button>
+						<button onclick="closepopup()">取消</button>
+					</div>
+				</div>
+				
+				<div id="passwordChange">
+					<div class="formFather">
+						<div class="leftForm">密碼：</div>
+						<div class="rightForm">
+							<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm"></div>
+						<div class="rightForm">
+							<div id="oldPasswordAlert"></div>
+						</div>
+					</div class="formFather">
+					
+					<div class="formFather">
+						<div class="leftForm">新密碼：</div>
+						<div class="rightForm">
+							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm"></div>
+						<div class="rightForm">
+							<div id="passwordAlert"></div>
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm">密碼驗證：</div>
+						<div class="rightForm">
+							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
+						</div>
+					</div>
+					<div class="formFather">
+						<div class="leftForm"></div>
+						<div class="rightForm">
+							<div id="password2Alert"></div>
+						</div>
+					</div>
+					<div class="formFather">
+						<button onclick="passwordChange()">確定</button>
+						<button onclick="closepopup()">取消</button>
+					</div>
+				</div>
+				
+				<div id="userDelete">
+					<div class="formFather">
+						<div class="leftForm">請輸入密碼：</div>
+						<div class="rightForm">
+							<input id="pwd" name="pwd" type="password">
+						</div>
+					</div>
+					<div class="formFather">
+						<button onclick="userDelete()">確定</button>
+						<button onclick="closepopup()">取消</button>
+					</div>
+				</div>
+				
+				<div class="formFather">
+					<div class="leftForm">歡迎</div>
+					<div class="rightForm" id="nameShow"></div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm">電子信箱：</div>
+					<div class="rightForm" id="emailShow"></div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm">手機號碼：</div>
+					<div class="rightForm" id="phoneShow"></div>
+				</div>
 			</div>
 		</div>
 		<footer id="footer"></footer>
@@ -78,11 +127,38 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="common.js"></script>
 		<script type="text/javascript">
+			$(function(){
+				userLoad();
+			});
+			
+			function userLoad() {
+				$.ajax({
+					url: "userFind.do",
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 0) {
+							
+						} else {
+							$("#email").val(obj.data.email);
+							$("#phone").val(obj.data.phone);
+							$("#nameShow").text(obj.data.username);
+							$("#emailShow").text(obj.data.email);
+							$("#phoneShow").text(obj.data.phone);
+						}
+					}
+				});
+			}
+			
 			function dataCheck(tag) {
 				var name = $(tag).attr("name");
 				$.ajax({
-					url: "profile/" + name + "Check.do",
-					data: $("#registerInformation").serialize(),
+					url: name + "Check.do",
+					data: "email=" + $("#email").val() + 
+						  "&phone=" + $("#phone").val() + 
+						  "&oldPassword=" + $("#oldPassword").val() + 
+						  "&password=" + $("#password").val() + 
+						  "&password2=" + $("#password2").val(),
 					type: "post",
 					dataType: "json",
 					success: function(obj){
@@ -100,29 +176,11 @@
 				});
 			}
 			
-			function userUpdate() {
-				if (confirm("確定要修改嗎?")) {
-					$.ajax({
-						url: "profile/userUpdate.do",
-						data: $("#registerInformation").serialize(),
-						type: "post",
-						dataType: "json",
-						success: function(obj){
-							if (obj.state == 1) {
-								window.location.reload();
-							} else {
-								alertAPI(obj.message, "alertFailure");
-							}
-						}
-					});
-				}
-			}
-			
 			function userDelete() {
 				if (confirm("確定要刪除帳號嗎")) {
 					$.ajax({
-						url: "profile/userDelete.do",
-						data: $("#registerInformation").serialize(),
+						url: "userDelete.do",
+						data: $("#pwd").val(),
 						type: "post",
 						dataType: "json",
 						success: function(obj){
@@ -136,6 +194,75 @@
 				}
 			}
 			
+			function userChange() {
+				$.ajax({
+					url: "userChange.do",
+					data: "email=" + $("#email").val() + 
+						  "&phone=" + $("#phone").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+							userLoad();
+							closepopup();
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
+			}
+			
+			function passwordChange() {
+				$.ajax({
+					url: "passwordChange.do",
+					data: "oldPassword=" + $("#oldPassword").val() + 
+						  "&password=" + $("#password").val() + 
+						  "&password2=" + $("#password2").val(),
+					type: "post",
+					dataType: "json",
+					success: function(obj){
+						if (obj.state == 1) {
+							alertAPI(obj.message);
+							closepopup();
+						} else {
+							alertAPI(obj.message, "alertFailure");
+						}
+					}
+				});
+			}
+			
+			function popupUserChange() {
+				$("#mask").show();
+				$("#userChange").show();
+			}
+			
+			function popupPasswordChange() {
+				$("#mask").show();
+				$("#passwordChange").show();
+			}
+			
+			function popupUserDelete() {
+				$("#mask").show();
+				$("#userDelete").show();
+			}
+			
+			function closepopup() {
+				$("#oldPassword").val("");
+				$("#password").val("");
+				$("#password2").val("");
+				$("#pwd").val("");
+				$("#emailAlert").html("");
+				$("#phoneAlert").html("");
+				$("#odlPasswordAlert").html("");
+				$("#passwordAlert").html("");
+				$("#password2Alert").html("");
+				
+				$("#mask").hide();
+				$("#userChange").hide();
+				$("#passwordChange").hide();
+				$("#userDelete").hide();
+			}
 		</script>
 	</body>
 </html>

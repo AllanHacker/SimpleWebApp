@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +18,28 @@ public class UserController {
 	
 	@Resource(name="userServiceImplement")
 	private UserServiceInterface userService;
+	
+	/**
+	 * 顯示帳號資料頁面
+	 * @return 帳號資料頁面
+	 */
+	@RequestMapping("/profilePage.do")
+	public String profilePage() {
+		return "profile";
+	}
+	
+	/**
+	 * 以id查詢會員資料
+	 * @param session 會員id儲存位置
+	 * @return 找到的會員資料
+	 */
+	@RequestMapping(value = "userFind.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<User> userFind(HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		return new ResponseResult<User>(1, user);
+	}
 	
 	/**
 	 * 檢查是否已經登入
@@ -34,35 +55,7 @@ public class UserController {
 			return new ResponseResult<Void>(0, "您已登入，請勿重複登入");
 		}
 	}
-	
-	/**
-	 * 以id查詢會員，顯示帳號修改頁面及找到的會員資料
-	 * @param session 會員id儲存位置
-	 * @param modelMap 綁定會員資料給前端頁面
-	 * @return 帳號修改頁面
-	 */
-	@RequestMapping("/profilePage.do")
-	public String profilePage(HttpSession session, ModelMap modelMap) {
-		Integer userId = (Integer) session.getAttribute("userId");
-		User user = userService.findUserByUserId(userId);
-		modelMap.addAttribute("user", user);
-		return "profile";
-	}
-	
-	/**
-	 * 以id查詢會員，顯示會員中心頁面及找到的會員資料
-	 * @param session 會員id儲存位置
-	 * @param modelMap 綁定會員資料給前端頁面
-	 * @return 會員中心頁面
-	 */
-	@RequestMapping("/userCenterPage.do")
-	public String userCenterPage(HttpSession session, ModelMap modelMap) {
-		Integer userId = (Integer) session.getAttribute("userId");
-		User user = userService.findUserByUserId(userId);
-		modelMap.addAttribute("user", user);
-		return "userCenter";
-	}
-	
+		
 	/**
 	 * 登出功能
 	 * @param session 會員id
@@ -250,5 +243,97 @@ public class UserController {
 			return new ResponseResult<Void>(1, "登入成功");
 		}
 	}
-
+	
+	/**
+	 * 修改會員的帳號資料
+	 * @param email 新的信箱
+	 * @param phone 新的手機號碼
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping(value = "userChange.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<Void> userChange(String email, String phone, HttpSession session) {
+		ResponseResult<Void> responseResult;
+		boolean flag = true;
+		responseResult = emailCheck(email);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = phoneCheck(phone);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		if (flag) {
+			Integer userId = (Integer) session.getAttribute("userId");
+			User user = userService.findUserByUserId(userId);
+			user.setEmail(email);
+			user.setPhone(phone);
+			userService.userUpdate(user);
+			return responseResult = new ResponseResult<Void>(1, "修改成功");
+		} else {
+			return responseResult = new ResponseResult<Void>(0, "資料有誤，無法修改");
+		}
+	}
+	
+	/**
+	 * 修改密碼功能
+	 * @param oldPassword 原本的密碼
+	 * @param password 新的密碼
+	 * @param password2 密碼確認
+	 * @param session 會員id儲存位置
+	 * @return 成功返回1，失敗返回0
+	 */
+	@RequestMapping(value = "passwordChange.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<Void> passwordChange(String oldPassword, String password, String password2,
+			HttpSession session) {
+		ResponseResult<Void> responseResult;
+		boolean flag = true;
+		responseResult = passwordCheck(password);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		responseResult = password2Check(password, password2);
+		if (responseResult.getState() == 0) {
+			flag = false;
+		}
+		if (flag) {
+			Integer userId = (Integer) session.getAttribute("userId");
+			User user = userService.findUserByUserId(userId);
+			ResourceBundle properties = ResourceBundle.getBundle("db");
+			String salt = properties.getString("salt");
+			if (user.getPassword().equals(DigestUtils.md5Hex(oldPassword + salt))) {
+				user.setPassword(DigestUtils.md5Hex(password + salt));
+				userService.userUpdate(user);
+				return responseResult = new ResponseResult<Void>(1, "修改成功");
+			} else {
+				return responseResult = new ResponseResult<Void>(0, "密碼錯誤");
+			}
+		} else {
+			return responseResult = new ResponseResult<Void>(0, "資料有誤，無法修改");
+		}
+	}
+	
+	/**
+	 * 刪除帳號功能，並沒有實際刪除資料庫，只是修改state
+	 * @param password 會員的密碼
+	 * @param session 會員id儲存的位置
+	 * @return 刪除成功返回1，密碼錯誤返回0
+	 */
+	@RequestMapping(value = "userDelete.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult<Void> userDelete(String password, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		User user = userService.findUserByUserId(userId);
+		ResourceBundle properties = ResourceBundle.getBundle("db");
+		String salt = properties.getString("salt");
+		if (user.getPassword().equals(DigestUtils.md5Hex(password + salt))) {
+			user.setState(0);
+			userService.userUpdate(user);
+			return new ResponseResult<Void>(1, "帳號已被刪除");
+		} else {
+			return new ResponseResult<Void>(0, "密碼不正確");
+		}
+	}
 }

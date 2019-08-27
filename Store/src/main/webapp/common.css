@@ -33,9 +33,36 @@
 	width: 85%;
 }
 
-/* 會員中心 歡迎詞 */
-#content #welcome{
-	margin: 50px 0 0 30px;
+/* 會員中心表單 */
+.formFather{
+	width: 370px;
+    font-size: 18px;
+    height: 25px;
+    margin: 5px 0 0 0;
+}
+
+.leftForm{
+	width: 120px;
+	float: left;
+	height: 25px;
+}
+
+.rightForm{
+	width: 250px;
+	float: left;
+	height: 25px;
+}
+
+/*會員中心 彈出窗 */
+#userChange, #passwordChange, #userDelete{
+	display: none;
+	position: absolute;
+	z-index: 9001;
+	background-color: #FFF;
+	border: #5599FF 5px solid;
+	border-radius: 10px;
+	width: 500px;
+	height:  300px;
 }
 
 /* 商品目錄列表 */
