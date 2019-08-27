@@ -42,7 +42,7 @@
 			var productTemplate = '' +
 			'<div id="%CART_ID%" class="cart">' +
 			'	<div class="wrap">' +
-			'		<img src="http://localhost:8080/img/%PRODUCT_IMAGE%">' +
+			'		<img src="/./img/%PRODUCT_IMAGE%">' +
 			'	</div>' +
 			'	<div class="wrap">' +
 			'		<div class="wrap2">' + 

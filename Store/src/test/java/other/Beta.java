@@ -9,13 +9,9 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import wang.store.address.AddressMapper;
-import wang.store.address.AddressServiceImplement;
-import wang.store.cart.Cart;
-import wang.store.cart.CartMapper;
 import wang.store.order.OrderInformation;
 import wang.store.order.OrderMapper;
-import wang.store.service.ProductServiceImplement;
+import wang.store.recipient.RecipientServiceImplement;
 
 public class Beta {
 	
@@ -33,7 +29,7 @@ public class Beta {
 	@Test
 	public void testService() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
-		AddressServiceImplement service = ctx.getBean("addressServiceImplement", AddressServiceImplement.class);
+		RecipientServiceImplement service = ctx.getBean("recipientServiceImplement", RecipientServiceImplement.class);
 		String[] roads = service.roadOption("高雄市", "苓雅區");
 		for (String road : roads) {
 			System.out.println(road);

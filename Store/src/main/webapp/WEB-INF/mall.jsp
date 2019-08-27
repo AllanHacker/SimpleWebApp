@@ -18,7 +18,7 @@
 				<c:forEach items="${products}" var="product">
 					<div id="product">
 						<div class="wrap">
-							<img src="http://localhost:8080/img/${product.image}">
+							<img src="/./img/${product.image}">
 						</div>
 						<div class="wrap">
 							${product.name}</br></br>

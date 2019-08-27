@@ -23,6 +23,9 @@ public class ProductController {
 	@Resource(name = "productServiceImplement")
 	private ProductServiceInterface productService;
 	
+	private String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\";
+	//private String path = "//home//bxunwang//img//";
+	
 	/**
 	 * 顯示拍賣頁面
 	 * @return 拍賣頁面
@@ -119,12 +122,12 @@ public class ProductController {
 				return responseResult = new ResponseResult<Void>(0, "圖片檔案有誤");
 			}
 			//若有選擇新圖片，且格式正確，刪除舊圖片
-			String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + product.getImage();
+			String path = this.path + product.getImage();
 			new File(path).delete();
 			//上傳新圖片
 			String fileName = UUID.randomUUID().toString() + ".png";
 			product.setImage(fileName);
-			path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + fileName;
+			path = this.path + fileName;
 			file.transferTo(new File(path));
 		}
 		product.setState(state);
@@ -297,7 +300,7 @@ public class ProductController {
 		product.setImage(fileName);
 		//上傳圖片
 		//path = request.getServletContext().getRealPath(image);
-		String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + fileName;
+		String path = this.path + fileName;
 		file.transferTo(new File(path));
 		product.setUserId((Integer)session.getAttribute("userId"));
 		productService.productPost(product);
@@ -313,7 +316,7 @@ public class ProductController {
 	@ResponseBody
 	public ResponseResult<Void> productDelete(Integer id) {
 		Product product = productService.findProductById(id);
-		String path = "C:\\Users\\TEDU.TW\\Downloads\\img\\" + product.getImage();
+		String path = this.path + product.getImage();
 		new File(path).delete();
 		Integer result = productService.productDelete(id);
 		return new ResponseResult<Void>(result, "您的商品已刪除");

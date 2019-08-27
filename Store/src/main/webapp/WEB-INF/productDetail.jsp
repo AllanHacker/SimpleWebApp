@@ -12,7 +12,7 @@
 		</header>
 		<div id="content">
 			<h2>${product.name }</h2>
-			<img id="productDetailImage" src="http://localhost:8080/img/${product.image}">
+			<img id="productDetailImage" src="/./img/${product.image}">
 			<p>售價： ${product.price }</p>
 			<p>庫存： ${product.number }</p>
 			數量：
