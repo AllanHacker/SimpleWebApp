@@ -3,44 +3,6 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="wang.store.recipient.RecipientMapper">
 	
-	<!-- 查詢出全台灣的縣市 String[] cityOption() -->
-	<select id="cityOption" resultType="java.lang.String">
-		SELECT DISTINCT
-			city
-		FROM
-			streetname
-	</select>
-	
-	<!-- 查詢出某個縣市的鄉鎮區 String[] districtOption(String city) -->
-	<select id="districtOption" resultType="java.lang.String">
-		SELECT DISTINCT
-			district
-		FROM
-			streetname
-		WHERE
-			city=#{city}
-	</select>
-	
-	<!-- 查詢出某縣市中的某鄉鎮區中的所有路名 String[] roadOption(@Param("city") String city, @Param("district") String district) -->
-	<select id="roadOption" resultType="java.lang.String">
-		SELECT
-			road
-		FROM
-			streetname
-		WHERE
-			city=#{city} AND district=#{district}
-	</select>
-	
-	<!-- 查詢出某個區域的郵遞區號 Integer postalCode(@Param("city") String city, @Param("district") String district, @Param("road") String road) -->
-	<select id="postalCode" resultType="java.lang.Integer">
-		SELECT DISTINCT
-			postal_code
-		FROM
-			streetname
-		WHERE
-			city=#{city} AND district=#{district} AND road=#{road}
-	</select>
-	
 	<!-- 新增收件人 Integer insert(Recipient recipient) -->
 	<insert id="insert" parameterType="wang.store.recipient.Recipient">
 		INSERT INTO recipient(

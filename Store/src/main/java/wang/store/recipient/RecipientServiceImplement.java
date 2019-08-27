@@ -12,22 +12,6 @@ public class RecipientServiceImplement implements RecipientServiceInterface{
 	@Resource(name = "recipientMapper")
 	private RecipientMapper recipientMapper;
 	
-	public String[] cityOption() {
-		return recipientMapper.cityOption();
-	}
-
-	public String[] districtOption(String city) {
-		return recipientMapper.districtOption(city);
-	}
-
-	public String[] roadOption(String city, String district) {
-		return recipientMapper.roadOption(city, district);
-	}
-	
-	public Integer postalCode(String city, String district, String road) {
-		return recipientMapper.postalCode(city, district, road);
-	}
-
 	public Integer insert(Recipient recipient) {
 		return recipientMapper.insert(recipient);
 	}

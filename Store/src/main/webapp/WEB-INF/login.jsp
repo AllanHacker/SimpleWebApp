@@ -95,7 +95,7 @@
 								alertShow("login", obj.message);
 							}
 							if (obj.state == 1) {
-								location.href = "userCenterPage.do";
+								location.href = "profilePage.do";
 							}
 						}
 					});

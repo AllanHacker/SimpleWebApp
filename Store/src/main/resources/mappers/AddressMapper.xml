@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.address.AddressMapper">
+	
+	<!-- 查詢出全台灣的縣市 String[] selectCity() -->
+	<select id="selectCity" resultType="java.lang.String">
+		SELECT DISTINCT
+			city
+		FROM
+			address
+	</select>
+	
+	<!-- 查詢出某個縣市的鄉鎮區 String[] selectDistrict(String city) -->
+	<select id="selectDistrict" resultType="java.lang.String">
+		SELECT DISTINCT
+			district
+		FROM
+			address
+		WHERE
+			city=#{city}
+	</select>
+	
+	<!-- 查詢出某縣市中的某鄉鎮區中的所有路名 String[] selectRoad(@Param("city") String city, @Param("district") String district) -->
+	<select id="selectRoad" resultType="java.lang.String">
+		SELECT
+			road
+		FROM
+			address
+		WHERE
+			city=#{city} AND district=#{district}
+	</select>
+	
+	<!-- 查詢出某個區域的郵遞區號 Integer selectPostalCode(@Param("city") String city, @Param("district") String district, @Param("road") String road) -->
+	<select id="selectPostalCode" resultType="java.lang.Integer">
+		SELECT DISTINCT
+			postal_code
+		FROM
+			address
+		WHERE
+			city=#{city} AND district=#{district} AND road=#{road}
+	</select>
+	
+</mapper>
