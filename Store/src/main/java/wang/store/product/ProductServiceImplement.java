@@ -12,11 +12,6 @@ public class ProductServiceImplement implements ProductServiceInterface{
 	@Resource(name = "productMapper")
 	ProductMapper productMapper;
 
-	public List<Product_category> findCategoryByParentId(Integer parentId) {
-		List<Product_category> category = productMapper.findCategoryByParentId(parentId);
-		return category;
-	}
-
 	public List<Product> findProductByCategoryId(Integer categoryId) {
 		List<Product> product = productMapper.findProductByCategoryId(categoryId);
 		return product;

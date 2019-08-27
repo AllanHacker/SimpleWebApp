@@ -149,18 +149,6 @@ public class ProductController {
 	}
 	
 	/**
-	 * 顯示商品目錄列表
-	 * @param parentId 父級分類id
-	 * @return 商品目錄列表
-	 */
-	@RequestMapping("/categoryListShow.do")
-	@ResponseBody
-	public ResponseResult<List<Product_category>> categoryListShow(Integer parentId) {
-		List<Product_category> category = productService.findCategoryByParentId(parentId);
-		return new ResponseResult<List<Product_category>>(category);
-	}
-	
-	/**
 	 * 顯示某分類的所有商品
 	 * @param categoryId 分類id
 	 * @return 商品列表，若查無返回提示字樣

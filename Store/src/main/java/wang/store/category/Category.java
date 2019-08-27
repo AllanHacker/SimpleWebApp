@@ -1,18 +1,18 @@
-package wang.store.product;
+package wang.store.category;
 
 import java.io.Serializable;
 
-public class Product_category implements Serializable{
+public class Category implements Serializable{
 	
-	private static final long serialVersionUID = -7233225099718704782L;
+	private static final long serialVersionUID = 831713467299792284L;
 	private Integer id;
 	private String name;
 	private Integer parentId;
 	
-	public Product_category() {
+	public Category() {
 		super();
 	}
-	public Product_category(Integer id, String name, Integer parentId) {
+	public Category(Integer id, String name, Integer parentId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,7 +53,7 @@ public class Product_category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product_category other = (Product_category) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,7 +73,7 @@ public class Product_category implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "product_category [id=" + id + ", name=" + name + ", parentId=" + parentId + "]";
+		return "Category [id=" + id + ", name=" + name + ", parentId=" + parentId + "]";
 	}
 	
 }
