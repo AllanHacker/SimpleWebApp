@@ -4,21 +4,21 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import wang.store.order.orderinformation.OrderInformation;
+import wang.store.order.orderproduct.OrderProduct;
+
 public interface OrderServiceInterface {
 	
 	/**
-	 * 新增訂單資料
-	 * @param orderInformation 訂單資料
-	 * @return 新訂單
-	 */
-	Integer insertOrderInformation(OrderInformation orderInformation);
-	
-	/**
-	 * 新增訂單的商品資料
-	 * @param orderProduct 訂單的商品資料
+	 * 新增訂單資料，同時寫入兩張表
+	 * @param total 訂單金額
+	 * @param recipientId 收件人id
+	 * @param productId 商品id
+	 * @param productNumber 商品數量
+	 * @param userId 訂購會員的id
 	 * @return 受影響的行數
 	 */
-	Integer insertOrderProduct(OrderProduct orderProduct);
+	Integer orderAdd(Integer total, Integer recipientId, Integer[] productId, Integer[] productNumber, Integer userId);
 	
 	/**
 	 * 以會員id查詢訂單資料，並以時間排序

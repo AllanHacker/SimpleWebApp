@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import wang.store.common.ResponseResult;
+import wang.store.order.orderinformation.OrderInformation;
+import wang.store.order.orderproduct.OrderProduct;
 
 @Controller("orderController")
 public class OrderController {
@@ -48,20 +50,7 @@ public class OrderController {
 			Integer[] productId, Integer[] productNumber, HttpSession session) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
-		OrderInformation orderInformation = new OrderInformation();
-		orderInformation.setTotal(total);
-		orderInformation.setUserId(userId);
-		orderInformation.setRecipientId(recipientId);
-		Integer result = orderService.insertOrderInformation(orderInformation);
-		
-		OrderProduct orderProduct;
-		for (int i = 0; i < productNumber.length; i++) {
-			int pid = productId[i];
-			int pnum = productNumber[i];
-			orderProduct = new OrderProduct(null, orderInformation.getId(), pid, pnum);
-			orderService.insertOrderProduct(orderProduct);
-		}
-		
+		Integer result = orderService.orderAdd(total, recipientId, productId, productNumber, userId);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "訂單成立");
 		}

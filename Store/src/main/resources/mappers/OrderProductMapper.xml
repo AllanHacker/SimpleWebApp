@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.order.orderproduct.OrderProductMapper">
+	
+	<!--  新增訂單的商品資料 Integer insert(OrderProduct orderProduct) -->
+	<insert id="insert" parameterType="wang.store.order.orderproduct.OrderProduct">
+		INSERT INTO order_product(
+			order_id,
+			product_id,
+			product_number
+		) 
+		VALUES(
+			#{orderId},
+			#{productId},
+			#{productNumber}
+		);
+	</insert>
+	
+	<!-- 以訂單id查詢訂單的商品資料 List<OrderProduct> selectById(Integer orderId) -->
+	<select id="selectById" resultType="wang.store.order.orderproduct.OrderProduct">
+		SELECT 
+			id,
+			order_id AS orderId,
+			product_id AS productId,
+			product_number AS productNumber
+		FROM
+			order_product
+		WHERE
+			order_id=#{orderId}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+

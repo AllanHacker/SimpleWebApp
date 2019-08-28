@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="wang.store.order.orderinformation.OrderInformationMapper">
+	
+	<!-- 新增訂單資料 Integer insert(OrderInformation orderInformation) -->
+	<insert id="insert" parameterType="wang.store.order.orderinformation.OrderInformation" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO order_information(
+			total,
+			user_id,
+			recipient_id
+		) 
+		VALUES(
+			#{total},
+			#{userId},
+			#{recipientId}
+		);
+	</insert>
+	
+	<!-- 以會員id查詢訂單資料 List<OrderInformation> selectByUserId(Integer userId) -->
+	<select id="selectByUserId" resultType="wang.store.order.orderinformation.OrderInformation">
+		SELECT 
+			id,
+			state,
+			total,
+			created_time AS createdTime,
+			user_id AS userId,
+			recipient_id AS recipientId
+		FROM
+			order_information
+		WHERE
+			user_id=#{userId}
+		ORDER BY 
+			created_time
+	</select>
+	
+	<!-- 以會員id和訂單id查詢訂單資料 OrderInformation selectByUserIdAndId(Integer userId, Integer id) -->
+	<select id="selectByUserIdAndId" resultType="wang.store.order.orderinformation.OrderInformation">
+		SELECT 
+			id,
+			state,
+			total,
+			created_time AS createdTime,
+			user_id AS userId,
+			recipient_id AS recipientId
+		FROM
+			order_information
+		WHERE
+			user_id=#{userId} AND id=#{id}
+	</select>
+	
+	<!-- 修改訂單的狀態 Integer update(Integer id, Integer userId, Integer state) -->
+	<update id="update">
+		UPDATE
+			order_information
+		SET
+			state=#{state}
+		WHERE
+			id=#{id} AND user_id=#{userId}
+	</update>
+</mapper>
+
+
+
+
+
+
+

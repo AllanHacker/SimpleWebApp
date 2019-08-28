@@ -1,4 +1,4 @@
-package wang.store.order;
+package wang.store.order.orderproduct;
 
 import java.io.Serializable;
 

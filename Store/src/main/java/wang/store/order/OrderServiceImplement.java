@@ -6,34 +6,53 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import wang.store.order.orderinformation.OrderInformation;
+import wang.store.order.orderinformation.OrderInformationMapper;
+import wang.store.order.orderproduct.OrderProduct;
+import wang.store.order.orderproduct.OrderProductMapper;
+
 @Service("orderServiceImplement")
 public class OrderServiceImplement implements OrderServiceInterface{
 	
-	@Resource(name = "orderMapper")
-	private OrderMapper orderMapper;
+	@Resource(name = "orderInformationMapper")
+	private OrderInformationMapper orderInformationMapper;
 	
-	public Integer insertOrderInformation(OrderInformation orderInformation) {
-		return orderMapper.insertOrderInformation(orderInformation);
+	@Resource(name = "orderProductMapper")
+	private OrderProductMapper orderProductMapper;
+	
+	public Integer orderAdd(Integer total, Integer recipientId, 
+			Integer[] productId, Integer[] productNumber, Integer userId) {
+		
+		OrderInformation orderInformation = new OrderInformation();
+		orderInformation.setTotal(total);
+		orderInformation.setUserId(userId);
+		orderInformation.setRecipientId(recipientId);
+		Integer result = orderInformationMapper.insert(orderInformation);
+		
+		OrderProduct orderProduct;
+		for (int i = 0; i < productNumber.length; i++) {
+			int pid = productId[i];
+			int pnum = productNumber[i];
+			orderProduct = new OrderProduct(null, orderInformation.getId(), pid, pnum);
+			result = orderProductMapper.insert(orderProduct);
+		}
+		return result;
 	}
-
-	public Integer insertOrderProduct(OrderProduct orderProduct) {
-		return orderMapper.insertOrderProduct(orderProduct);
-	}
-
+	
 	public List<OrderInformation> orderInformationsFindByUserId(Integer userId) {
-		return orderMapper.orderInformationsFindByUserId(userId);
+		return orderInformationMapper.selectByUserId(userId);
 	}
 
 	public OrderInformation orderInformationFindByUserIdAndId(Integer userId, Integer id) {
-		return orderMapper.orderInformationFindByUserIdAndId(userId, id);
+		return orderInformationMapper.selectByUserIdAndId(userId, id);
 	}
 
 	public List<OrderProduct> orderProductFindById(Integer orderId) {
-		return orderMapper.orderProductFindById(orderId);
+		return orderProductMapper.selectById(orderId);
 	}
 
 	public Integer orderStateChange(Integer id, Integer userId, Integer state) {
-		return orderMapper.orderStateChange(id, userId, state);
+		return orderInformationMapper.update(id, userId, state);
 	}
-
+	
 }

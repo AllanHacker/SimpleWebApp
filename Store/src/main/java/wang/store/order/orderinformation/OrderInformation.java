@@ -1,4 +1,4 @@
-package wang.store.order;
+package wang.store.order.orderinformation;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
