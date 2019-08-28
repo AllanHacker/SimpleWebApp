@@ -40,8 +40,8 @@
 			<mvc:exclude-mapping path="/registerPage.do" />
 			<mvc:exclude-mapping path="/loginPage.do" />
 			<mvc:exclude-mapping path="/productDetailPage.do" />
-			<mvc:exclude-mapping path="/categoryListShow.do" />
-			<mvc:exclude-mapping path="/productListShow.do" />
+			<mvc:exclude-mapping path="/categoryList.do" />
+			<mvc:exclude-mapping path="/productList.do" />
 			<mvc:exclude-mapping path="/userLogin.do" />
 			<mvc:exclude-mapping path="/loginCheck.do" />
 			<mvc:exclude-mapping path="/verificationCheck.do" />
