@@ -37,7 +37,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseResult<User> userFind(HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		User user = userService.findUserByUserId(userId);
+		User user = userService.findByUserId(userId);
 		return new ResponseResult<User>(1, user);
 	}
 	
@@ -188,7 +188,7 @@ public class UserController {
 			flag = false;
 		}
 		if (flag) {
-			User userExist = userService.findUserByUsername(username);
+			User userExist = userService.findByUsername(username);
 			if (userExist != null) {
 				return responseResult = new ResponseResult<Void>(0, "帳號已被註冊");
 			}
@@ -202,7 +202,7 @@ public class UserController {
 			user.setPassword(DigestUtils.md5Hex(password));
 			user.setEmail(email);
 			user.setPhone(phone);
-			int result = userService.userRegister(user);
+			int result = userService.add(user);
 			if (result == 1) {
 				return responseResult = new ResponseResult<Void>(1, "註冊成功");
 			} else {
@@ -228,7 +228,7 @@ public class UserController {
 		if (!verificationQ.equals(verification.toUpperCase())) {
 			return new ResponseResult<Void>(2, "驗證碼錯誤");
 		} else {
-			User user = userService.findUserByUsername(username);
+			User user = userService.findByUsername(username);
 			if (user == null) {
 				return new ResponseResult<Void>(0, "無此帳號");
 			} else {
@@ -266,10 +266,10 @@ public class UserController {
 		}
 		if (flag) {
 			Integer userId = (Integer) session.getAttribute("userId");
-			User user = userService.findUserByUserId(userId);
+			User user = userService.findByUserId(userId);
 			user.setEmail(email);
 			user.setPhone(phone);
-			userService.userUpdate(user);
+			userService.change(user);
 			return responseResult = new ResponseResult<Void>(1, "修改成功");
 		} else {
 			return responseResult = new ResponseResult<Void>(0, "資料有誤，無法修改");
@@ -300,12 +300,12 @@ public class UserController {
 		}
 		if (flag) {
 			Integer userId = (Integer) session.getAttribute("userId");
-			User user = userService.findUserByUserId(userId);
+			User user = userService.findByUserId(userId);
 			ResourceBundle properties = ResourceBundle.getBundle("db");
 			String salt = properties.getString("salt");
 			if (user.getPassword().equals(DigestUtils.md5Hex(oldPassword + salt))) {
 				user.setPassword(DigestUtils.md5Hex(password + salt));
-				userService.userUpdate(user);
+				userService.change(user);
 				return responseResult = new ResponseResult<Void>(1, "修改成功");
 			} else {
 				return responseResult = new ResponseResult<Void>(0, "密碼錯誤");
@@ -325,12 +325,12 @@ public class UserController {
 	@ResponseBody
 	public ResponseResult<Void> userDelete(String password, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		User user = userService.findUserByUserId(userId);
+		User user = userService.findByUserId(userId);
 		ResourceBundle properties = ResourceBundle.getBundle("db");
 		String salt = properties.getString("salt");
 		if (user.getPassword().equals(DigestUtils.md5Hex(password + salt))) {
 			user.setState(0);
-			userService.userUpdate(user);
+			userService.change(user);
 			return new ResponseResult<Void>(1, "帳號已被刪除");
 		} else {
 			return new ResponseResult<Void>(0, "密碼不正確");

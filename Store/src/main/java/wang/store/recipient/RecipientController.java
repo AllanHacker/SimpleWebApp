@@ -47,7 +47,7 @@ public class RecipientController {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
-		List<Recipient> recipientes = recipientService.recipientFindByUserId(userId);
+		List<Recipient> recipientes = recipientService.findByUserId(userId);
 		if (recipientes.size() > 9) {
 			return new ResponseResult<Void>(0, "只能設定10個收件人");
 		}
@@ -60,7 +60,7 @@ public class RecipientController {
 		recipient.setDistrict(district);
 		recipient.setRoad(road);
 		recipient.setOther(other);
-		Integer result = recipientService.insert(recipient);
+		Integer result = recipientService.add(recipient);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "收件人新增成功");
 		} else {
@@ -77,7 +77,7 @@ public class RecipientController {
 	@ResponseBody
 	public ResponseResult<List<Recipient>> recipientList(HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		List<Recipient> recipientes = recipientService.recipientFindByUserId(userId);
+		List<Recipient> recipientes = recipientService.findByUserId(userId);
 		if (recipientes.size() < 1) {
 			return new ResponseResult<List<Recipient>>(0, "趕快新增收件人");
 		}
@@ -92,7 +92,7 @@ public class RecipientController {
 	@RequestMapping("/recipientDelete.do")
 	@ResponseBody
 	public ResponseResult<Void> recipientDelete(Integer id) {
-		Integer result = recipientService.recipientDelete(id);
+		Integer result = recipientService.delete(id);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "收件人刪除成功");
 		}
@@ -109,8 +109,8 @@ public class RecipientController {
 	@ResponseBody
 	public ResponseResult<Void> recipientDefault(Integer id, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		Integer result = recipientService.recipientDefaultClear(userId);
-		result = recipientService.recipientDefaultSet(userId, id);
+		Integer result = recipientService.defaultClear(userId);
+		result = recipientService.defaultSet(userId, id);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "設置完畢");
 		}
@@ -127,7 +127,7 @@ public class RecipientController {
 	@ResponseBody
 	public ResponseResult<Recipient> recipientLoad(Integer id, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		Recipient recipient = recipientService.recipientFindByUserIdAndId(userId, id);
+		Recipient recipient = recipientService.findByUserIdAndId(userId, id);
 		if (recipient != null) {
 			return new ResponseResult<Recipient>(1, recipient);
 		}
@@ -155,7 +155,7 @@ public class RecipientController {
 			return new ResponseResult<Void>(0, "資料有誤");
 		}
 		Integer userId = (Integer) session.getAttribute("userId");
-		Recipient recipient = recipientService.recipientFindByUserIdAndId(userId, id);
+		Recipient recipient = recipientService.findByUserIdAndId(userId, id);
 		if (recipient != null) {
 			recipient.setRecipientName(recipientName);
 			recipient.setRecipientPhone(recipientPhone);
@@ -164,7 +164,7 @@ public class RecipientController {
 			recipient.setDistrict(district);
 			recipient.setRoad(road);
 			recipient.setOther(other);
-			recipientService.recipientUpdate(recipient);
+			recipientService.change(recipient);
 			return new ResponseResult<Void>(1, "已更新收件人");
 		}
 		return new ResponseResult<Void>(0, "收件人不存在");

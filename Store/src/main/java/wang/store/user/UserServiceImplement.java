@@ -10,22 +10,22 @@ public class UserServiceImplement implements UserServiceInterface{
 	@Resource(name="userMapper")
 	private UserMapper userMapper;
 	
-	public Integer userRegister(User user) {
+	public Integer add(User user) {
 		int result = userMapper.insert(user);
 		return result;
 	}
 
-	public User findUserByUserId(Integer userId) {
+	public User findByUserId(Integer userId) {
 		User user = userMapper.selectByUserId(userId);
 		return user;
 	}
 
-	public User findUserByUsername(String username) {
+	public User findByUsername(String username) {
 		User user = userMapper.selectByUsername(username);
 		return user;
 	}
 
-	public Integer userUpdate(User user) {
+	public Integer change(User user) {
 		Integer result = userMapper.update(user);
 		return result;
 	}

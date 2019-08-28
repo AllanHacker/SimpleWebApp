@@ -44,7 +44,7 @@ public class ProductController {
 	@RequestMapping("/mallPage.do")
 	public String mallPage(HttpSession session, ModelMap modelMap) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		List<Product> products = productService.findProductByUserId(userId);
+		List<Product> products = productService.findByUserId(userId);
 		modelMap.addAttribute("products", products);
 		return "mall";
 	}
@@ -57,7 +57,7 @@ public class ProductController {
 	 */
 	@RequestMapping("/productEditPage.do")
 	public String productEditPage(Integer id, ModelMap modelMap) {
-		Product product = productService.findProductById(id);
+		Product product = productService.findById(id);
 		modelMap.addAttribute("product", product);
 		return "productEdit";
 	}
@@ -70,7 +70,7 @@ public class ProductController {
 	@RequestMapping("/productLoad.do")
 	@ResponseBody
 	public ResponseResult<Product> productLoad(Integer id) {
-		Product product = productService.findProductById(id);
+		Product product = productService.findById(id);
 		return new ResponseResult<Product>(1, product);
 	}
 	
@@ -111,7 +111,7 @@ public class ProductController {
 		if (flag == false) {
 			return responseResult = new ResponseResult<Void>(0, "商品資料有誤");
 		}
-		Product product = productService.findProductById(id);
+		Product product = productService.findById(id);
 		product.setName(productName);
 		product.setCategoryId(Integer.valueOf(categoryId));
 		product.setPrice(Integer.valueOf(price));
@@ -131,7 +131,7 @@ public class ProductController {
 			file.transferTo(new File(path));
 		}
 		product.setState(state);
-		productService.productUpdate(product);
+		productService.change(product);
 		return responseResult = new ResponseResult<Void>(1, "商品更新完成");
 	}
 	
@@ -143,7 +143,7 @@ public class ProductController {
 	 */
 	@RequestMapping("/productDetailPage.do")
 	public String productDetailPage(Integer id, ModelMap modelMap) {
-		Product product = productService.findProductById(id);
+		Product product = productService.findById(id);
 		modelMap.addAttribute("product", product);
 		return "productDetail";
 	}
@@ -156,7 +156,7 @@ public class ProductController {
 	@RequestMapping("/productListShow.do")
 	@ResponseBody
 	public ResponseResult<List<Product>> productListShow(Integer categoryId) {
-		List<Product> products = productService.findProductByCategoryId(categoryId);
+		List<Product> products = productService.findByCategoryId(categoryId);
 		if (products.size() == 0) {
 			return new ResponseResult<List<Product>>(0, "此分類暫無商品", products);
 		}
@@ -291,7 +291,7 @@ public class ProductController {
 		String path = this.path + fileName;
 		file.transferTo(new File(path));
 		product.setUserId((Integer)session.getAttribute("userId"));
-		productService.productPost(product);
+		productService.add(product);
 		return responseResult = new ResponseResult<Void>(1, "商品新增成功");
 	}
 	
@@ -303,10 +303,10 @@ public class ProductController {
 	@RequestMapping("/productDelete.do")
 	@ResponseBody
 	public ResponseResult<Void> productDelete(Integer id) {
-		Product product = productService.findProductById(id);
+		Product product = productService.findById(id);
 		String path = this.path + product.getImage();
 		new File(path).delete();
-		Integer result = productService.productDelete(id);
+		Integer result = productService.delete(id);
 		return new ResponseResult<Void>(result, "您的商品已刪除");
 	}
 }

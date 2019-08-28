@@ -20,7 +20,7 @@ public class OrderServiceImplement implements OrderServiceInterface{
 	@Resource(name = "orderProductMapper")
 	private OrderProductMapper orderProductMapper;
 	
-	public Integer orderAdd(Integer total, Integer recipientId, 
+	public Integer add(Integer total, Integer recipientId, 
 			Integer[] productId, Integer[] productNumber, Integer userId) {
 		
 		OrderInformation orderInformation = new OrderInformation();

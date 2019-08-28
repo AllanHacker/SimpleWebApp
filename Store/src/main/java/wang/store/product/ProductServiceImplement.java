@@ -12,31 +12,31 @@ public class ProductServiceImplement implements ProductServiceInterface{
 	@Resource(name = "productMapper")
 	ProductMapper productMapper;
 
-	public List<Product> findProductByCategoryId(Integer categoryId) {
+	public List<Product> findByCategoryId(Integer categoryId) {
 		List<Product> product = productMapper.selectByCategoryId(categoryId);
 		return product;
 	}
 	
-	public List<Product> findProductByUserId(Integer userId) {
+	public List<Product> findByUserId(Integer userId) {
 		return productMapper.selectByUserId(userId);
 	}
 
-	public Product findProductById(Integer id) {
+	public Product findById(Integer id) {
 		Product product = productMapper.selectById(id);
 		return product;
 	}
 
-	public Integer productPost(Product product) {
+	public Integer add(Product product) {
 		Integer result = productMapper.insert(product);
 		return result;
 	}
 
-	public Integer productDelete(Integer id) {
+	public Integer delete(Integer id) {
 		Integer result = productMapper.delete(id);
 		return result;
 	}
 
-	public Integer productUpdate(Product product) {
+	public Integer change(Product product) {
 		Integer result = productMapper.update(product);
 		return result;
 	}

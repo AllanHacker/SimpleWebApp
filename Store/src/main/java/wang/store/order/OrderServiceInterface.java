@@ -18,7 +18,7 @@ public interface OrderServiceInterface {
 	 * @param userId 訂購會員的id
 	 * @return 受影響的行數
 	 */
-	Integer orderAdd(Integer total, Integer recipientId, Integer[] productId, Integer[] productNumber, Integer userId);
+	Integer add(Integer total, Integer recipientId, Integer[] productId, Integer[] productNumber, Integer userId);
 	
 	/**
 	 * 以會員id查詢訂單資料，並以時間排序

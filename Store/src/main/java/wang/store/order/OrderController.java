@@ -50,7 +50,7 @@ public class OrderController {
 			Integer[] productId, Integer[] productNumber, HttpSession session) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
-		Integer result = orderService.orderAdd(total, recipientId, productId, productNumber, userId);
+		Integer result = orderService.add(total, recipientId, productId, productNumber, userId);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "訂單成立");
 		}

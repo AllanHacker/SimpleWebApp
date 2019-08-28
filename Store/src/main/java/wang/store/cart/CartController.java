@@ -35,7 +35,7 @@ public class CartController {
 	@RequestMapping("/cartList.do")
 	@ResponseBody
 	public ResponseResult<List<Cart>> cartList(HttpSession session) {
-		List<Cart> carts = cartService.findCartByUserId((Integer)session.getAttribute("userId"));
+		List<Cart> carts = cartService.findByUserId((Integer)session.getAttribute("userId"));
 		if (carts.isEmpty()) {
 			return new ResponseResult<List<Cart>>(0, "空空如也，趕快去購物吧");
 		}
@@ -55,21 +55,21 @@ public class CartController {
 	public ResponseResult<Void> cartAdd(Integer productId, Integer amount, Integer productPrice,HttpSession session) {
 		Integer userId = (Integer)session.getAttribute("userId");
 		Integer total = productPrice * amount;
-		Cart cart = cartService.findCartByUserIdAndProductId(userId, productId);
+		Cart cart = cartService.findByUserIdAndProductId(userId, productId);
 		if (cart == null) {
 			cart = new Cart();
 			cart.setUserId(userId);
 			cart.setProductId(productId);
 			cart.setAmount(amount);
 			cart.setTotal(total);
-			Integer result = cartService.insert(cart);
+			Integer result = cartService.add(cart);
 			if (result == 0) {
 				return new ResponseResult<Void>(0, "加入購物車失敗");
 			}
 			return new ResponseResult<Void>(1, "已將商品加入購物車");
 		}
 		
-		Integer result = cartService.cartUpdate(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
+		Integer result = cartService.change(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
 		if (result == 0) {
 			return new ResponseResult<Void>(0, "加入購物車失敗");
 		}
@@ -84,7 +84,7 @@ public class CartController {
 	@RequestMapping("/cartDelete.do")
 	@ResponseBody
 	public ResponseResult<Void> cartDelete(Integer id) {
-		Integer result = cartService.cartDelete(id);
+		Integer result = cartService.delete(id);
 		if (result == 0) {
 			return new ResponseResult<Void>(0, "刪除失敗");
 		}
@@ -107,11 +107,11 @@ public class CartController {
 		if (productPrice < 0) {
 			total = -total;
 		}
-		Cart cart = cartService.findCartByUserIdAndProductId(userId, productId);
+		Cart cart = cartService.findByUserIdAndProductId(userId, productId);
 		if (cart == null) {
 			//不會發生
 		}
-		Integer result = cartService.cartUpdate(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
+		Integer result = cartService.change(userId, productId, cart.getAmount()+amount, cart.getTotal()+total);
 		if (result == 0) {
 			return new ResponseResult<Void>(0, "更新失敗");
 		}
