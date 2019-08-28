@@ -65,7 +65,7 @@
 				methods: {
 					categoryList2: function (t) {
 						$.ajax({
-							url: "categoryListShow.do",
+							url: "categoryList.do",
 							data: "parentId=" + t.id,
 							type: "get",
 							dataType: "json",
@@ -85,7 +85,7 @@
 					},
 					categoryList3: function (t) {
 						$.ajax({
-							url: "categoryListShow.do",
+							url: "categoryList.do",
 							data: "parentId=" + t.id,
 							type: "get",
 							dataType: "json",
@@ -104,7 +104,7 @@
 					},
 					productList: function (t) {
 						$.ajax({
-							url: "productListShow.do",
+							url: "productList.do",
 							data: "categoryId=" + t.id,
 							type: "get",
 							dataType: "json",
@@ -138,7 +138,7 @@
 			
 			function categoryList1(id) {
 				$.ajax({
-					url: "categoryListShow.do",
+					url: "categoryList.do",
 					data: "parentId=" + id,
 					type: "get",
 					dataType: "json",

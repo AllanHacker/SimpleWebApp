@@ -133,7 +133,7 @@
 			
 			function userLoad() {
 				$.ajax({
-					url: "userFind.do",
+					url: "userLoad.do",
 					type: "post",
 					dataType: "json",
 					success: function(obj){

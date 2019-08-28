@@ -82,7 +82,7 @@
 							<td></td>
 							<td>
 								<input type=hidden name=id value="${product.id }">
-								<input id="submitButton" type="button" value="確定" onclick="productEdit()">
+								<input id="submitButton" type="button" value="確定" onclick="productChange()">
 							</td>
 						</tr>
 					</table>
@@ -106,7 +106,7 @@
 			
 			function categoryList1(id) {
 				$.ajax({
-					url: "categoryListShow.do",
+					url: "categoryList.do",
 					data: "parentId=" + id,
 					type: "get",
 					dataType: "json",
@@ -148,10 +148,10 @@
 				});
 			}
 			
-			function productEdit() {
+			function productChange() {
 				var formData = new FormData($("#registerInformation")[0]);
 				$.ajax({
-					url: "productEdit.do",
+					url: "productChange.do",
 					data: formData,
 					type: "post",
 					dataType: "json",
@@ -185,7 +185,7 @@
 				methods: {
 					categoryList2: function (t) {
 						$.ajax({
-							url: "categoryListShow.do",
+							url: "categoryList.do",
 							data: "parentId=" + t.id,
 							type: "get",
 							dataType: "json",
@@ -205,7 +205,7 @@
 					},
 					categoryList3: function (t) {
 						$.ajax({
-							url: "categoryListShow.do",
+							url: "categoryList.do",
 							data: "parentId=" + t.id,
 							type: "get",
 							dataType: "json",

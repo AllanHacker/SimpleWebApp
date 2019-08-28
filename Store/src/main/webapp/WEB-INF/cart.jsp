@@ -65,7 +65,7 @@
 					amountMinus: function (cart) {
 						if (cart.amount > 1) {
 							$.ajax({
-								url: "cartUpdate.do",
+								url: "cartChange.do",
 								data: "productId=" + cart.productId +
 									"&amount=-1" +
 									"&productPrice=" + cart.productPrice,
@@ -80,7 +80,7 @@
 					amountAdd: function (cart) {
 						if (cart.amount < cart.productNumber) {
 							$.ajax({
-								url: "cartUpdate.do",
+								url: "cartChange.do",
 								data: "productId=" + cart.productId +
 									"&amount=1" +
 									"&productPrice=" + cart.productPrice,

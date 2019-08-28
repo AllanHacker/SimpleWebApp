@@ -21,9 +21,9 @@ public class CategoryController {
 	 * @param parentId 父級分類id
 	 * @return 商品目錄列表
 	 */
-	@RequestMapping("/categoryListShow.do")
+	@RequestMapping("/categoryList.do")
 	@ResponseBody
-	public ResponseResult<List<Category>> categoryListShow(Integer parentId) {
+	public ResponseResult<List<Category>> categoryList(Integer parentId) {
 		List<Category> categories = categoryService.findByParentId(parentId);
 		return new ResponseResult<List<Category>>(categories);
 	}

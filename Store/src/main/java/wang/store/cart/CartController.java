@@ -99,9 +99,9 @@ public class CartController {
 	 * @param session 會員id儲存的位置
 	 * @return 成功返回1，失敗返回0
 	 */
-	@RequestMapping(value = "/cartUpdate.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/cartChange.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> cartUpdate(Integer productId, Integer amount, Integer productPrice,HttpSession session) {
+	public ResponseResult<Void> cartChange(Integer productId, Integer amount, Integer productPrice,HttpSession session) {
 		Integer userId = (Integer)session.getAttribute("userId");
 		Integer total = productPrice * amount;
 		if (productPrice < 0) {

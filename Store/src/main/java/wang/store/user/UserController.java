@@ -33,9 +33,9 @@ public class UserController {
 	 * @param session 會員id儲存位置
 	 * @return 找到的會員資料
 	 */
-	@RequestMapping(value = "userFind.do", method=RequestMethod.POST)
+	@RequestMapping(value = "userLoad.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<User> userFind(HttpSession session) {
+	public ResponseResult<User> userLoad(HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		User user = userService.findByUserId(userId);
 		return new ResponseResult<User>(1, user);

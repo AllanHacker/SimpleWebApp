@@ -87,9 +87,9 @@ public class ProductController {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/productEdit.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/productChange.do", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> productEdit(Integer id, String productName, String categoryId, String price, String number, MultipartFile file, Integer state) throws IllegalStateException, IOException {
+	public ResponseResult<Void> productChange(Integer id, String productName, String categoryId, String price, String number, MultipartFile file, Integer state) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
@@ -153,9 +153,9 @@ public class ProductController {
 	 * @param categoryId 分類id
 	 * @return 商品列表，若查無返回提示字樣
 	 */
-	@RequestMapping("/productListShow.do")
+	@RequestMapping("/productList.do")
 	@ResponseBody
-	public ResponseResult<List<Product>> productListShow(Integer categoryId) {
+	public ResponseResult<List<Product>> productList(Integer categoryId) {
 		List<Product> products = productService.findByCategoryId(categoryId);
 		if (products.size() == 0) {
 			return new ResponseResult<List<Product>>(0, "此分類暫無商品", products);
@@ -251,9 +251,9 @@ public class ProductController {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	@RequestMapping("/productPost.do")
+	@RequestMapping("/productAdd.do")
 	@ResponseBody
-	public ResponseResult<Void> productPost(String productName, String categoryId, String price, String number, MultipartFile file, HttpSession session) throws IllegalStateException, IOException {
+	public ResponseResult<Void> productAdd(String productName, String categoryId, String price, String number, MultipartFile file, HttpSession session) throws IllegalStateException, IOException {
 		ResponseResult<Void> responseResult;
 		boolean flag = true;
 		responseResult = productNameCheck(productName);
