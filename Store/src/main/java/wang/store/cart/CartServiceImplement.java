@@ -18,22 +18,22 @@ public class CartServiceImplement implements CartServiceInterface{
 	}
 	
 	public List<Cart> findCartByUserId(Integer userId) {
-		List<Cart> carts = cartMapper.findCartByUserId(userId);
+		List<Cart> carts = cartMapper.selectByUserId(userId);
 		return carts;
 	}
 	
 	public Cart findCartByUserIdAndProductId(Integer userId, Integer productId) {
-		Cart cart = cartMapper.findCartByUserIdAndProductId(userId, productId);
+		Cart cart = cartMapper.selectByUserIdAndProductId(userId, productId);
 		return cart;
 	}
 
 	public Integer cartDelete(Integer id) {
-		Integer result = cartMapper.cartDelete(id);
+		Integer result = cartMapper.delete(id);
 		return result;
 	}
 
 	public Integer cartUpdate(Integer userId, Integer productId, Integer amount, Integer total) {
-		Integer result = cartMapper.cartUpdate(userId, productId, amount, total);
+		Integer result = cartMapper.update(userId, productId, amount, total);
 		return result;
 	}
 

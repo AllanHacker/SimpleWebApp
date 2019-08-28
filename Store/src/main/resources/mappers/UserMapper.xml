@@ -19,8 +19,8 @@
 		);
 	</insert>
 	
-	<!--  根據會員的id查找會員資料 User findUserByUserId(Integer userId) -->
-	<select id="findUserByUserId" resultType="wang.store.user.User">
+	<!--  根據會員的id查找會員資料 User selectByUserId(Integer userId) -->
+	<select id="selectByUserId" resultType="wang.store.user.User">
 		SELECT
 			user_id AS userId,
 			state,
@@ -35,8 +35,8 @@
 			state=1
 	</select>
 	
-	<!-- 根據會員帳號名稱查找會員資料 User findUserByUsername(String username) -->
-	<select id="findUserByUsername" resultType="wang.store.user.User">
+	<!-- 根據會員帳號名稱查找會員資料 User selectByUsername(String username) -->
+	<select id="selectByUsername" resultType="wang.store.user.User">
 		SELECT
 			user_id AS userId,
 			state,

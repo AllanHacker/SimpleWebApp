@@ -16,12 +16,12 @@ public class UserServiceImplement implements UserServiceInterface{
 	}
 
 	public User findUserByUserId(Integer userId) {
-		User user = userMapper.findUserByUserId(userId);
+		User user = userMapper.selectByUserId(userId);
 		return user;
 	}
 
 	public User findUserByUsername(String username) {
-		User user = userMapper.findUserByUsername(username);
+		User user = userMapper.selectByUsername(username);
 		return user;
 	}
 

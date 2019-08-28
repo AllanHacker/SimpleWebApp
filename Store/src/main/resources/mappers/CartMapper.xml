@@ -19,8 +19,8 @@
 		);
 	</insert>
 	
-	<!-- 以會員id查詢購物車 List<Cart> findCartByUserId(Integer userId) -->
-	<select id="findCartByUserId" resultType="wang.store.cart.Cart">
+	<!-- 以會員id查詢購物車 List<Cart> selectByUserId(Integer userId) -->
+	<select id="selectByUserId" resultType="wang.store.cart.Cart">
 		SELECT
 			c.id,
 			c.user_id AS userId,
@@ -42,8 +42,8 @@
 			c.user_id=#{userId}
 	</select>
 	
-	<!-- 以會員id及商品id查詢購物車 List<Cart> findCartByUserIdAndProductId(Integer userId, Integer productId) -->
-	<select id="findCartByUserIdAndProductId" resultType="wang.store.cart.Cart">
+	<!-- 以會員id及商品id查詢購物車 List<Cart> selectByUserIdAndProductId(Integer userId, Integer productId) -->
+	<select id="selectByUserIdAndProductId" resultType="wang.store.cart.Cart">
 		SELECT
 			c.id,
 			c.user_id AS userId,
@@ -65,16 +65,16 @@
 			c.user_id=#{userId} AND c.product_id=#{productId}
 	</select>
 	
-	<!-- 刪除購物車 Integer cartDelete(Integer id) -->
-	<delete id="cartDelete">
+	<!-- 刪除購物車 Integer delete(Integer id) -->
+	<delete id="delete">
 		DELETE FROM
 			cart
 		WHERE
 			id=#{id}
 	</delete>
 	
-	<!-- 修改購物車 Integer cartUpdate(Integer productId, Integer amount, Integer total) -->
-	<update id="cartUpdate">
+	<!-- 修改購物車 Integer update(Integer productId, Integer amount, Integer total) -->
+	<update id="update">
 		UPDATE
 			cart
 		SET
@@ -83,10 +83,3 @@
 			user_id=#{userId} AND product_id=#{productId};
 	</update>
 </mapper>
-
-
-
-
-
-
-

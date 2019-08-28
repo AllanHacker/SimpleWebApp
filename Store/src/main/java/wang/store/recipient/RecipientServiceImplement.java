@@ -17,27 +17,27 @@ public class RecipientServiceImplement implements RecipientServiceInterface{
 	}
 
 	public List<Recipient> recipientFindByUserId(Integer userId) {
-		return recipientMapper.recipientFindByUserId(userId);
+		return recipientMapper.selectByUserId(userId);
 	}
 	
 	public Recipient recipientFindByUserIdAndId(Integer userId, Integer id) {
-		return recipientMapper.recipientFindByUserIdAndId(userId, id);
+		return recipientMapper.selectByUserIdAndId(userId, id);
 	}
 
 	public Integer recipientDelete(Integer id) {
-		return recipientMapper.recipientDelete(id);
+		return recipientMapper.delete(id);
 	}
 
 	public Integer recipientDefaultClear(Integer userId) {
-		return recipientMapper.recipientDefaultClear(userId);
+		return recipientMapper.defaultClear(userId);
 	}
 
 	public Integer recipientDefaultSet(Integer userId, Integer id) {
-		return recipientMapper.recipientDefaultSet(userId, id);
+		return recipientMapper.defaultSet(userId, id);
 	}
 
 	public Integer recipientUpdate(Recipient recipient) {
-		return recipientMapper.recipientUpdate(recipient);
+		return recipientMapper.update(recipient);
 	}
 
 }

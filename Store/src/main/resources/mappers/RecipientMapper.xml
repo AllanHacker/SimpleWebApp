@@ -27,8 +27,8 @@
 		)
 	</insert>
 	
-	<!-- 以會員id查詢收件人 List<Recipient> recipientFindByUserId(Integer userId) -->
-	<select id="recipientFindByUserId" resultType="wang.store.recipient.Recipient">
+	<!-- 以會員id查詢收件人 List<Recipient> selectByUserId(Integer userId) -->
+	<select id="selectByUserId" resultType="wang.store.recipient.Recipient">
 		SELECT
 			id,
 			user_id AS userId,
@@ -48,8 +48,8 @@
 			recipient_default DESC
 	</select>
 	
-	<!-- 以會員id及收件人id查詢收件人 Recipient recipientFindByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id) -->
-	<select id="recipientFindByUserIdAndId" resultType="wang.store.recipient.Recipient">
+	<!-- 以會員id及收件人id查詢收件人 Recipient selectByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<select id="selectByUserIdAndId" resultType="wang.store.recipient.Recipient">
 		SELECT
 			id,
 			user_id AS userId,
@@ -67,16 +67,16 @@
 			user_id=#{userId} AND id=#{id}
 	</select>
 	
-	<!-- 根據收件人id刪除收件人資料 Integer recipientDelete(Integer id) -->
-	<delete id="recipientDelete">
+	<!-- 根據收件人id刪除收件人資料 Integer delete(Integer id) -->
+	<delete id="delete">
 		DELETE FROM
 			recipient
 		WHERE
 			id=#{id}
 	</delete>
 	
-	<!-- 將所有收件人的預設清除 Integer recipientDefaultClear(Integer userId) -->
-	<update id="recipientDefaultClear">
+	<!-- 將所有收件人的預設清除 Integer defaultClear(Integer userId) -->
+	<update id="defaultClear">
 		UPDATE
 			recipient
 		SET
@@ -85,8 +85,8 @@
 			user_id=#{userId}
 	</update>
 	
-	<!-- 設定預設收件人 Integer recipientDefaultSet(@Param("userId") Integer userId, @Param("id") Integer id) -->
-	<update id="recipientDefaultSet">
+	<!-- 設定預設收件人 Integer defaultSet(@Param("userId") Integer userId, @Param("id") Integer id) -->
+	<update id="defaultSet">
 		UPDATE
 			recipient
 		SET
@@ -95,8 +95,8 @@
 			user_id=#{userId} AND id=#{id}
 	</update>
 	
-	<!-- 修改收件人 Integer recipientUpdate(Recipient recipient) -->
-	<update id="recipientUpdate" parameterType="wang.store.recipient.Recipient">
+	<!-- 修改收件人 Integer update(Recipient recipient) -->
+	<update id="update" parameterType="wang.store.recipient.Recipient">
 		UPDATE
 			recipient
 		SET

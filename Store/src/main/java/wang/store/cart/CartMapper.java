@@ -18,7 +18,7 @@ public interface CartMapper {
 	 * @param userId 會員id
 	 * @return 購物車列表
 	 */
-	List<Cart> findCartByUserId(Integer userId);
+	List<Cart> selectByUserId(Integer userId);
 	
 	/**
 	 * 以會員id及商品id查詢購物車
@@ -26,14 +26,14 @@ public interface CartMapper {
 	 * @param productId 商品id
 	 * @return 購物車
 	 */
-	Cart findCartByUserIdAndProductId(@Param("userId")Integer userId, @Param("productId")Integer productId);
+	Cart selectByUserIdAndProductId(@Param("userId")Integer userId, @Param("productId")Integer productId);
 	
 	/**
 	 * 刪除購物車
 	 * @param id 購物車id
 	 * @return 受影響的行數
 	 */
-	Integer cartDelete(Integer id);
+	Integer delete(Integer id);
 	
 	/**
 	 * 修改購物車
@@ -42,5 +42,5 @@ public interface CartMapper {
 	 * @param total 購物車商品總數
 	 * @return 受影響的行數
 	 */
-	Integer cartUpdate(@Param("userId")Integer userId, @Param("productId")Integer productId, @Param("amount")Integer amount, @Param("total")Integer total);
+	Integer update(@Param("userId")Integer userId, @Param("productId")Integer productId, @Param("amount")Integer amount, @Param("total")Integer total);
 }

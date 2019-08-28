@@ -3,8 +3,8 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="wang.store.product.ProductMapper">
 	
-	<!-- 根據商品分類id找出該類的所有商品 List<Product> findProductByCategoryId(Integer categoryId) -->
-	<select id="findProductByCategoryId" resultType="wang.store.product.Product">
+	<!-- 根據商品分類id找出該類的所有商品 List<Product> selectByCategoryId(Integer categoryId) -->
+	<select id="selectByCategoryId" resultType="wang.store.product.Product">
 		SELECT
 			id,
 			name,
@@ -20,8 +20,8 @@
 			category_id=#{categoryId} AND state=1
 	</select>
 	
-	<!-- 根據會員id找出他所刊登的所有商品 List<Product> findProductByUserId(Integer userId) -->
-	<select id="findProductByUserId" resultType="wang.store.product.Product">
+	<!-- 根據會員id找出他所刊登的所有商品 List<Product> selectByUserId(Integer userId) -->
+	<select id="selectByUserId" resultType="wang.store.product.Product">
 		SELECT
 			id,
 			name,
@@ -37,8 +37,8 @@
 			user_id=#{userId}
 	</select>
 	
-	<!-- 根據商品id找出對應的商品 Product findProductById(Integer id) -->
-	<select id="findProductById" resultType="wang.store.product.Product">
+	<!-- 根據商品id找出對應的商品 Product selectById(Integer id) -->
+	<select id="selectById" resultType="wang.store.product.Product">
 		SELECT
 			id,
 			name,
@@ -54,8 +54,8 @@
 			id=#{id}
 	</select>
 	
-	<!-- 新增商品 Integer insertProduct(Product product) -->
-	<insert id="insertProduct" parameterType="wang.store.product.Product">
+	<!-- 新增商品 Integer insert(Product product) -->
+	<insert id="insert" parameterType="wang.store.product.Product">
 		INSERT INTO product(
 			name,
 			category_id,
@@ -74,16 +74,16 @@
 		);
 	</insert>
 	
-	<!-- 刪除商品 Integer productDelete(Integer id) -->
-	<delete id="productDelete">
+	<!-- 刪除商品 Integer delete(Integer id) -->
+	<delete id="delete">
 		DELETE FROM
 			product
 		WHERE
 			id=#{id}
 	</delete>
 	
-	<!-- 修改商品 Integer productUpdate(Product product) -->
-	<update id="productUpdate" parameterType="wang.store.product.Product">
+	<!-- 修改商品 Integer update(Product product) -->
+	<update id="update" parameterType="wang.store.product.Product">
 		UPDATE
 			product
 		SET
