@@ -18,22 +18,33 @@
 				<div class="container">
 					<div id="content">
 						<h2 class="jumbotron-heading">Product Edit</h2>
-						<div id="category">
-							<ul>
-								<li v-for="category in categories" 
-									v-bind:id="category.id"
-									v-on:mouseover="categoryList2($event.target)">{{category.name}}</li>
-							</ul>
-							<ul>
-								<li v-for="category in categories2" 
-									v-bind:id="category.id"
-									v-on:mouseover="categoryList3($event.target)">{{category.name}}</li>
-							</ul>
-							<ul>
-								<li v-for="category in categories3" 
-									v-bind:id="category.id"
-									v-on:click="productSelect($event.target)">{{category.name}}</li>
-							</ul>
+						<div class="card text-center" id="category">
+							<div class="card-header">
+								<ul class="nav nav-tabs card-header-tabs">
+									<dd class="nav-item" v-for="category in categories" >
+										<span class="nav-link" v-bind:id="category.id" 
+										v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+									</dd>
+								</ul>
+							</div>
+							<div class="card-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-3">
+											<ul>
+												<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
+													v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+											</ul>
+										</div>
+										<div class="col-9">
+											<ul class="nav">
+												<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
+													v-on:click="productSelect($event.target)">{{category.name}}</dd>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<form id="registerInformation">
 							<table>
@@ -191,6 +202,8 @@
 				},
 				methods: {
 					categoryList2: function (t) {
+						$(".nav-item span").attr("class", "nav-link");
+						$(t).attr("class", "nav-link active");
 						$.ajax({
 							url: "categoryList.do",
 							data: "parentId=" + t.id,
