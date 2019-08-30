@@ -14,19 +14,16 @@
 		</header>
 		<div id="content">
 			<div id="title"><h2>訂單內容</h2></div>
-			<c:import url="userLeftBar.jsp"></c:import>
-			<div id="rightWrap">
-				<div id="mask"></div>
-				<div id="popupRecipientList"></div>
-				<p>金額：&nbsp;&nbsp;</p>
-				<span id="totalCount"></span></br>
-				<p>收件人</p>
-				<div id="recipientSection"></div>
-				<p>商品</p>
-				<div id="cart"></div>
-				<button onclick="orderAdd()">下訂單</button>
-				<button onclick="cancel()">取消</button>
-			</div>
+			<div id="mask"></div>
+			<div id="popupRecipientList"></div>
+			<p>金額：&nbsp;&nbsp;</p>
+			<span id="totalCount"></span></br>
+			<p>收件人</p>
+			<div id="recipientSection"></div>
+			<p>商品</p>
+			<div id="cart"></div>
+			<button onclick="orderAdd()">下訂單</button>
+			<button onclick="cancel()">取消</button>
 		</div>
 		<footer id="footer"></footer>
 		

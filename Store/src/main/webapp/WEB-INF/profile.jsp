@@ -15,113 +15,110 @@
 		</header>
 		<div id="content">
 			<div id="title"><h2>會員中心</h2></div>
-			<c:import url="userLeftBar.jsp"></c:import>
-			<div id="rightWrap">
-				<button onclick="popupUserChange()">修改個人資料</button>
-				<button onclick="popupPasswordChange()">修改密碼</button>
-				<button onclick="popupUserDelete()">刪除帳號</button>
-				<div id="mask"></div>
-				
-				<div id="userChange">
-					<div class="formFather">
-						<div class="leftForm">電子信箱：</div>
-						<div class="rightForm">
-							<input id="email" name="email" type="text" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="emailAlert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm">手機號碼：</div>
-						<div class="rightForm">
-							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="phoneAlert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="userChange()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
-				</div>
-				
-				<div id="passwordChange">
-					<div class="formFather">
-						<div class="leftForm">密碼：</div>
-						<div class="rightForm">
-							<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="oldPasswordAlert"></div>
-						</div>
-					</div class="formFather">
-					
-					<div class="formFather">
-						<div class="leftForm">新密碼：</div>
-						<div class="rightForm">
-							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="passwordAlert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm">密碼驗證：</div>
-						<div class="rightForm">
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="password2Alert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="passwordChange()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
-				</div>
-				
-				<div id="userDelete">
-					<div class="formFather">
-						<div class="leftForm">請輸入密碼：</div>
-						<div class="rightForm">
-							<input id="pwd" name="pwd" type="password">
-						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="userDelete()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
-				</div>
-				
-				<div class="formFather">
-					<div class="leftForm">歡迎</div>
-					<div class="rightForm" id="nameShow"></div>
-				</div>
+			<button onclick="popupUserChange()">修改個人資料</button>
+			<button onclick="popupPasswordChange()">修改密碼</button>
+			<button onclick="popupUserDelete()">刪除帳號</button>
+			<div id="mask"></div>
+			
+			<div id="userChange">
 				<div class="formFather">
 					<div class="leftForm">電子信箱：</div>
-					<div class="rightForm" id="emailShow"></div>
+					<div class="rightForm">
+						<input id="email" name="email" type="text" onblur="dataCheck(this)">
+					</div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm"></div>
+					<div class="rightForm">
+						<div id="emailAlert"></div>
+					</div>
 				</div>
 				<div class="formFather">
 					<div class="leftForm">手機號碼：</div>
-					<div class="rightForm" id="phoneShow"></div>
+					<div class="rightForm">
+						<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
+					</div>
 				</div>
+				<div class="formFather">
+					<div class="leftForm"></div>
+					<div class="rightForm">
+						<div id="phoneAlert"></div>
+					</div>
+				</div>
+				<div class="formFather">
+					<button onclick="userChange()">確定</button>
+					<button onclick="closepopup()">取消</button>
+				</div>
+			</div>
+			
+			<div id="passwordChange">
+				<div class="formFather">
+					<div class="leftForm">密碼：</div>
+					<div class="rightForm">
+						<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+					</div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm"></div>
+					<div class="rightForm">
+						<div id="oldPasswordAlert"></div>
+					</div>
+				</div class="formFather">
+				
+				<div class="formFather">
+					<div class="leftForm">新密碼：</div>
+					<div class="rightForm">
+						<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+					</div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm"></div>
+					<div class="rightForm">
+						<div id="passwordAlert"></div>
+					</div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm">密碼驗證：</div>
+					<div class="rightForm">
+						<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
+					</div>
+				</div>
+				<div class="formFather">
+					<div class="leftForm"></div>
+					<div class="rightForm">
+						<div id="password2Alert"></div>
+					</div>
+				</div>
+				<div class="formFather">
+					<button onclick="passwordChange()">確定</button>
+					<button onclick="closepopup()">取消</button>
+				</div>
+			</div>
+			
+			<div id="userDelete">
+				<div class="formFather">
+					<div class="leftForm">請輸入密碼：</div>
+					<div class="rightForm">
+						<input id="pwd" name="pwd" type="password">
+					</div>
+				</div>
+				<div class="formFather">
+					<button onclick="userDelete()">確定</button>
+					<button onclick="closepopup()">取消</button>
+				</div>
+			</div>
+			
+			<div class="formFather">
+				<div class="leftForm">歡迎</div>
+				<div class="rightForm" id="nameShow"></div>
+			</div>
+			<div class="formFather">
+				<div class="leftForm">電子信箱：</div>
+				<div class="rightForm" id="emailShow"></div>
+			</div>
+			<div class="formFather">
+				<div class="leftForm">手機號碼：</div>
+				<div class="rightForm" id="phoneShow"></div>
 			</div>
 		</div>
 		<footer id="footer"></footer>

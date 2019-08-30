@@ -15,25 +15,22 @@
 		</header>
 		<div id="content">
 			<div id="title"><h2>個人賣場</h2></div>
-			<c:import url="userLeftBar.jsp"></c:import>
-			<div id="rightWrap">
-				<c:forEach items="${products}" var="product">
-					<div id="product">
-						<div class="wrap">
-							<img src="/./img/${product.image}">
-						</div>
-						<div class="wrap">
-							${product.name}</br></br>
-							庫存：${product.number}</br>
-							價格：${product.price}
-						</div>
-						<div class="wrap">
-							<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
-							<button name="${product.id}" onclick="productDelete(this)">刪除</button>
-						</div>
+			<c:forEach items="${products}" var="product">
+				<div id="product">
+					<div class="wrap">
+						<img src="/./img/${product.image}">
 					</div>
-				</c:forEach>
-			</div>
+					<div class="wrap">
+						${product.name}</br></br>
+						庫存：${product.number}</br>
+						價格：${product.price}
+					</div>
+					<div class="wrap">
+						<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
+						<button name="${product.id}" onclick="productDelete(this)">刪除</button>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 		<footer id="footer"></footer>
 		

@@ -1,36 +1,15 @@
 @charset "BIG5";
 
-/* header 超連結*/
+/* header 超連結
 #header a{
 	font-size: 14px;
 	text-decoration: none;
 	color: blue;
-}
+}*/
 
 /* 每個頁面的標題*/
 #title{
 	text-align: center;
-}
-
-/* 會員中心側邊欄 */
-#userLeftBar{
-	padding: 30px 0 0 0;
-	float: left;
-	width: 15%;
-}
-
-#userLeftBar a{
-	font-size: 30px;
-	text-decoration: none;
-	color: blue;
-	display: block;
-	margin: 0 0 15px 0;
-}
-
-/* 會員中心右邊欄 */
-#rightWrap{
-	float: left;
-	width: 85%;
 }
 
 /* 會員中心表單 */
