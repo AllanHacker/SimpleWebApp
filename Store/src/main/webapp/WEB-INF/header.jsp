@@ -17,7 +17,7 @@
 				</div>
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a class="nav-link" href="cartPage.do">Cart<span class="sr-only">(current)</span></a></li>
+						<li class="nav-item active"><a class="nav-link" href="cartPage.do">Cart</a></li>
 						<li class="nav-item"><a class="nav-link" href="registerPage.do">Register</a></li>
 						<li class="nav-item"><a class="nav-link" id="loginCheck" href="#">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="logout.do">Logout</a></li>
