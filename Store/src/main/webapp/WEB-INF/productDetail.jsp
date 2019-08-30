@@ -12,18 +12,24 @@
 		<header id="header">
 			<c:import url="header.jsp"></c:import>
 		</header>
-		<div id="content">
-			<h2>${product.name }</h2>
-			<img id="productDetailImage" src="/./img/${product.image}">
-			<p>售價： ${product.price }</p>
-			<p>庫存： ${product.number }</p>
-			數量：
-			<input type="button" value="-" onclick="amountMinus()">
-			<span id="amount">1</span>
-			<input type="button" value="+" onclick="amountAdd()">
-			<input type="button" value="立即購買" onclick="buyImmediately()">
-			<input type="button" value="加入購物車" onclick="cartAdd()">
-		</div>
+		<main role="main">
+			<section class="jumbotron text-center">
+				<div class="container">
+					<div id="content">
+						<h2>${product.name }</h2>
+						<img id="productDetailImage" src="/./img/${product.image}">
+						<p>售價： ${product.price }</p>
+						<p>庫存： ${product.number }</p>
+						數量：
+						<input type="button" value="-" onclick="amountMinus()">
+						<span id="amount">1</span>
+						<input type="button" value="+" onclick="amountAdd()">
+						<input type="button" value="立即購買" onclick="buyImmediately()">
+						<input type="button" value="加入購物車" onclick="cartAdd()">
+					</div>
+				</div>
+			</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

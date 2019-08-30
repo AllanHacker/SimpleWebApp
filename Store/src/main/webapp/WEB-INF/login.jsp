@@ -13,43 +13,49 @@
 		<header id="header">
 			<c:import url="header.jsp"></c:import>
 		</header>
-		<div id="content">
-			<div id="title"><h2>登入</h2></div>
-			<form id="registerInformation">
-				<table>
-					<tr>
-						<td class="words">帳號：</td>
-						<td>
-							<input id="username" name="username" type="text" onblur="alertClear(this)">
-							<div id="usernameAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">密碼：</td>
-						<td>
-							<input id="password" name="password" type="password" onblur="alertClear(this)">
-							<div id="passwordAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="words">驗證碼：</td>
-						<td>
-							<input id="verification" name="verification" type="text" onblur="alertClear(this)">
-							<img id="verificationImg" src="verification.do" />
-							<a href="#" onclick="codeRefresh()">刷新</a>
-							<div id="verificationAlert"></div>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input id="submitButton" type="button" value="登入" onclick="userLogin()">
-							<div id="loginAlert"></div>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
+		<main role="main">
+			<section class="jumbotron text-center">
+				<div class="container">
+					<div id="content">
+						<h2 class="jumbotron-heading">Login</h2>
+						<form id="registerInformation">
+							<table>
+								<tr>
+									<td class="words">帳號：</td>
+									<td>
+										<input id="username" name="username" type="text" onblur="alertClear(this)">
+										<div id="usernameAlert"></div>
+									</td>
+								</tr>
+								<tr>
+									<td class="words">密碼：</td>
+									<td>
+										<input id="password" name="password" type="password" onblur="alertClear(this)">
+										<div id="passwordAlert"></div>
+									</td>
+								</tr>
+								<tr>
+									<td class="words">驗證碼：</td>
+									<td>
+										<input id="verification" name="verification" type="text" onblur="alertClear(this)">
+										<img id="verificationImg" src="verification.do" />
+										<a href="#" onclick="codeRefresh()">刷新</a>
+										<div id="verificationAlert"></div>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<input id="submitButton" type="button" value="登入" onclick="userLogin()">
+										<div id="loginAlert"></div>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

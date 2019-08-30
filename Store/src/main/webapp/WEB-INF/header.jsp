@@ -22,8 +22,9 @@
 						<li class="nav-item"><a class="nav-link" id="loginCheck" href="#">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="logout.do">Logout</a></li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="profilePage.do" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+							<a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
 							<div class="dropdown-menu" aria-labelledby="dropdown01">
+								<a class="dropdown-item" href="profilePage.do">Profile</a>
 								<a class="dropdown-item" href="sellPage.do">Selling</a>
 								<a class="dropdown-item" href="mallPage.do">My Mall</a>
 								<a class="dropdown-item" href="recipientPage.do">Recipient</a>

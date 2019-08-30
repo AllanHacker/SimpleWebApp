@@ -13,21 +13,27 @@
 		<header id="header">
 			<c:import url="header.jsp"></c:import>
 		</header>
-		<div id="content">
-			<div id="title"><h2>購物車</h2></div>
-			<div id='cart'>
-				<cart v-for="cart in carts" 
-					v-bind:key="cart.id"
-					v-bind:cart="cart"
-					v-on:cart-delete="cartDelete(cart)"
-					v-on:amount-minus="amountMinus(cart)"
-					v-on:amount-add="amountAdd(cart)">
-				</cart>
-				一共<span>{{amountCount}}</span>樣商品，
-				總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
-				<a href='orderDetailPage.do'>結帳</a>
-			</div>
-		</div>
+		<main role="main">
+			<section class="jumbotron text-center">
+				<div class="container">
+					<div id="content">
+						<div id="title"><h2>購物車</h2></div>
+						<div id='cart'>
+							<cart v-for="cart in carts" 
+								v-bind:key="cart.id"
+								v-bind:cart="cart"
+								v-on:cart-delete="cartDelete(cart)"
+								v-on:amount-minus="amountMinus(cart)"
+								v-on:amount-add="amountAdd(cart)">
+							</cart>
+							一共<span>{{amountCount}}</span>樣商品，
+							總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
+							<a href='orderDetailPage.do'>結帳</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
