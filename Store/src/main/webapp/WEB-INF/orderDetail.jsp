@@ -9,28 +9,22 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Order Detail</h2>
-						<div id="mask"></div>
-						<div id="popupRecipientList"></div>
-						<p>金額：&nbsp;&nbsp;</p>
-						<span id="totalCount"></span></br>
-						<p>收件人</p>
-						<div id="recipientSection"></div>
-						<p>商品</p>
-						<div id="cart"></div>
-						<button onclick="orderAdd()">下訂單</button>
-						<button onclick="cancel()">取消</button>
-					</div>
-				</div>
-			</section>
-		</main>
+			<div id="content" class="container text-center">
+				<h2 id="title">Order Detail</h2>
+				<div id="mask"></div>
+				<div id="popupRecipientList"></div>
+				<p>金額：&nbsp;&nbsp;</p>
+				<span id="totalCount"></span></br>
+				<p>收件人</p>
+				<div id="recipientSection"></div>
+				<p>商品</p>
+				<div id="cart"></div>
+				<button onclick="orderAdd()">下訂單</button>
+				<button onclick="cancel()">取消</button>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

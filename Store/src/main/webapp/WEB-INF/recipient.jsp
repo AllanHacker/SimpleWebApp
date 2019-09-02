@@ -9,37 +9,31 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Recipient</h2>
-						<button onclick="popup(0)">新增收件人</button>
-						<div id="mask"></div>
-						<div id="recipientForm">
-							<div id="wrap">
-								<input id="recipientName" type="text" placeholder="姓名">
-								<input id="recipientPhone" type="text" placeholder="手機">
-								<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly">
-								<select id="city" onchange="districtOption()"></select>
-								<select id="district" onchange="roadOption()"></select>
-								<select id="road" onchange="postalCode()"></select>
-								<input id="other" type="text" placeholder="巷弄號樓">
-								<input id="recipientId" type="hidden">
-								<div>
-									<button onclick="recipientSubmit()">確定</button>
-									<button onclick="closepopup()">取消</button>
-								</div>
-							</div>
+			<div id="content" class="container text-center">
+				<h2 id="title">Recipient</h2>
+				<button onclick="popup(0)">新增收件人</button>
+				<div id="mask"></div>
+				<div id="recipientForm">
+					<div id="wrap">
+						<input id="recipientName" type="text" placeholder="姓名">
+						<input id="recipientPhone" type="text" placeholder="手機">
+						<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly">
+						<select id="city" onchange="districtOption()"></select>
+						<select id="district" onchange="roadOption()"></select>
+						<select id="road" onchange="postalCode()"></select>
+						<input id="other" type="text" placeholder="巷弄號樓">
+						<input id="recipientId" type="hidden">
+						<div>
+							<button onclick="recipientSubmit()">確定</button>
+							<button onclick="closepopup()">取消</button>
 						</div>
-						<div id="recipientList"></div>
 					</div>
 				</div>
-			</section>
-		</main>
+				<div id="recipientList"></div>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

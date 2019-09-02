@@ -10,52 +10,46 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Order</h2>
-						<div id="mask"></div>
-						<div id="orderDetail">
-							<p>下單時間：{{createdTime}}</p>
-							<p>狀態：{{state}}</p>
-							<p>金額：{{total}}</p>
-							<p>收件人姓名：{{recipientName}}</p>
-							<p>收件人電話：{{recipientPhone}}</p>
-							<p>收件人地址：{{recipientAddress}}</p>
-							<div id="orderProduct">
-								<div v-for="product in products" class="cart">
-									<div class="wrap">
-										<img :src="product.image">
-									</div>
-									<div class="wrap">
-										<div class="wrap2">
-											<p>商品名稱：{{product.name}}</p>
-											<p>商品價格：{{product.price}}</p>
-										</div>
-									</div>
-									<div class="wrap">
-										購買數量：{{product.number}}
-									</div>
+			<div id="content" class="container text-center">
+				<h2 id="title">Order</h2>
+				<div id="mask"></div>
+				<div id="orderDetail">
+					<p>下單時間：{{createdTime}}</p>
+					<p>狀態：{{state}}</p>
+					<p>金額：{{total}}</p>
+					<p>收件人姓名：{{recipientName}}</p>
+					<p>收件人電話：{{recipientPhone}}</p>
+					<p>收件人地址：{{recipientAddress}}</p>
+					<div id="orderProduct">
+						<div v-for="product in products" class="cart">
+							<div class="wrap">
+								<img :src="product.image">
+							</div>
+							<div class="wrap">
+								<div class="wrap2">
+									<p>商品名稱：{{product.name}}</p>
+									<p>商品價格：{{product.price}}</p>
 								</div>
 							</div>
-							<button onclick="popupClose()">關閉</button>
-							<button onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
-						</div>
-						<div id="orderListSection">
-							<div class="orderList" v-for="order in orders">
-								<p>{{order.createdTime}}</p>
-								<p>{{order.state}}</p>
-								<button onclick="popup(this)" v-bind:value="order.orderId">訂單內容</button>
+							<div class="wrap">
+								購買數量：{{product.number}}
 							</div>
 						</div>
 					</div>
+					<button onclick="popupClose()">關閉</button>
+					<button onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
 				</div>
-			</section>
-		</main>
+				<div id="orderListSection">
+					<div class="orderList" v-for="order in orders">
+						<p>{{order.createdTime}}</p>
+						<p>{{order.state}}</p>
+						<button onclick="popup(this)" v-bind:value="order.orderId">訂單內容</button>
+					</div>
+				</div>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

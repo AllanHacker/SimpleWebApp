@@ -10,30 +10,24 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<div id="title"><h2>購物車</h2></div>
-						<div id='cart'>
-							<cart v-for="cart in carts" 
-								v-bind:key="cart.id"
-								v-bind:cart="cart"
-								v-on:cart-delete="cartDelete(cart)"
-								v-on:amount-minus="amountMinus(cart)"
-								v-on:amount-add="amountAdd(cart)">
-							</cart>
-							一共<span>{{amountCount}}</span>樣商品，
-							總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
-							<a href='orderDetailPage.do'>結帳</a>
-						</div>
-					</div>
+			<div id="content" class="container text-center">
+				<h2 id="title">Cart</h2>
+				<div id='cart'>
+					<cart v-for="cart in carts" 
+						v-bind:key="cart.id"
+						v-bind:cart="cart"
+						v-on:cart-delete="cartDelete(cart)"
+						v-on:amount-minus="amountMinus(cart)"
+						v-on:amount-add="amountAdd(cart)">
+					</cart>
+					一共<span>{{amountCount}}</span>樣商品，
+					總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
+					<a href='orderDetailPage.do'>結帳</a>
 				</div>
-			</section>
-		</main>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

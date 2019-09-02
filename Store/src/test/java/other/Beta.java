@@ -1,6 +1,5 @@
 package other;
 
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -9,31 +8,23 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import wang.store.order.OrderInformation;
-import wang.store.order.OrderMapper;
 import wang.store.recipient.RecipientServiceImplement;
+import wang.store.user.UserMapper;
 
 public class Beta {
 	
 	@Test
 	public void testMapper() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
-		OrderMapper mapper = ctx.getBean("orderMapper", OrderMapper.class);
-		List<OrderInformation> orderInformations = mapper.orderInformationsFindByUserId(29);
-		for (OrderInformation orderInformation : orderInformations) {
-			System.out.println(orderInformation.getRecipientId());
-			System.out.println(orderInformation.getTotal());
-		}
+		UserMapper mapper = ctx.getBean("userMapper", UserMapper.class);
+		
 	}
 	
 	@Test
 	public void testService() {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-dao.xml","spring-mvc.xml");
 		RecipientServiceImplement service = ctx.getBean("recipientServiceImplement", RecipientServiceImplement.class);
-		String[] roads = service.roadOption("高雄市", "苓雅區");
-		for (String road : roads) {
-			System.out.println(road);
-		}
+		
 	}
 	
 	@Test

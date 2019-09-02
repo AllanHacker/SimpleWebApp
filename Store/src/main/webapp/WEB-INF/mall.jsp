@@ -10,34 +10,28 @@
 		
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">My Mall</h2>
-						<c:forEach items="${products}" var="product">
-							<div id="product">
-								<div class="wrap">
-									<img src="/./img/${product.image}">
-								</div>
-								<div class="wrap">
-									${product.name}</br></br>
-									庫存：${product.number}</br>
-									價格：${product.price}
-								</div>
-								<div class="wrap">
-									<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
-									<button name="${product.id}" onclick="productDelete(this)">刪除</button>
-								</div>
-							</div>
-						</c:forEach>
+			<div id="content" class="container text-center">
+				<h2 id="title">My Mall</h2>
+				<c:forEach items="${products}" var="product">
+					<div id="product">
+						<div class="wrap">
+							<img src="/./img/${product.image}">
+						</div>
+						<div class="wrap">
+							${product.name}</br></br>
+							庫存：${product.number}</br>
+							價格：${product.price}
+						</div>
+						<div class="wrap">
+							<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
+							<button name="${product.id}" onclick="productDelete(this)">刪除</button>
+						</div>
 					</div>
-				</div>
-			</section>
-		</main>
+				</c:forEach>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

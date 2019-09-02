@@ -7,55 +7,60 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
-		
+		<link href="login.css" rel="stylesheet" />
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Login</h2>
-						<form id="registerInformation">
-							<table>
-								<tr>
-									<td class="words">帳號：</td>
-									<td>
-										<input id="username" name="username" type="text" onblur="alertClear(this)">
-										<div id="usernameAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">密碼：</td>
-									<td>
-										<input id="password" name="password" type="password" onblur="alertClear(this)">
-										<div id="passwordAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">驗證碼：</td>
-									<td>
-										<input id="verification" name="verification" type="text" onblur="alertClear(this)">
-										<img id="verificationImg" src="verification.do" />
-										<a href="#" onclick="codeRefresh()">刷新</a>
-										<div id="verificationAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<input id="submitButton" type="button" value="登入" onclick="userLogin()">
-										<div id="loginAlert"></div>
-									</td>
-								</tr>
-							</table>
-						</form>
+			<div id="content" class="container text-center">
+				<h2 id="title">Login</h2>
+			 	<form id="registerInformation" class="needs-validation" novalidate>
+					<div class="form-row">
+						<div class="col-3 text-right">
+							<label for="username">帳號：</label>
+						</div>
+						<div class="col-6">
+							<input id="username" name="username" type="text"  onblur="alertClear(this)"
+							class="form-control" placeholder="account" required autofocus>
+							<div id="usernameAlert" class=""></div>
+						</div>
+						<div class="col-3"></div>
 					</div>
+					<div class="form-row">
+						<div class="col-3 text-right">
+							<label for="password">密碼：</label>
+						</div>
+						<div class="col-6">
+							<input id="password" name="password" type="password"  onblur="alertClear(this)"
+							class="form-control" placeholder="password" required>
+							<div id="passwordAlert" class=""></div>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="form-row">
+						<div class="col-3 text-right">
+							<label for="verification">驗證碼：</label>
+						</div>
+						<div class="col-6">
+							<input id="verification" name="verification" type="text"  onblur="alertClear(this)"
+							class="form-control" placeholder="verification" required>
+							<div id="verificationAlert" class=""></div>
+						</div>
+						<div class="col-3 text-left">
+							<img id="verificationImg" src="verification.do" />
+							<a href="#" class="text-decoration-none" onclick="codeRefresh()">刷新</a>
+						</div>
+					</div>
+				</form>
+				<div class="row">
+					<div class="col"></div>
+					<div class="col">
+						<button class="btn btn-primary btn-block" onclick="userLogin()">登入</button>
+					</div>
+					<div class="col"></div>
 				</div>
-			</section>
-		</main>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -67,9 +72,8 @@
 			function alertClear(tag) {
 				var name = $(tag).attr("name");
 				$("#" + name + "Alert").html("");
-				$(tag).css("border-color", "initial");
-				$(tag).css("border-width", "2px");
-				$(tag).css("border-style", "inset");	
+				$("#" + name + "Alert").attr("class", "");
+				$(tag).attr("class", "form-control");
 			}
 			
 			function codeRefresh() {
@@ -98,11 +102,14 @@
 						type: "post",
 						dataType: "json",
 						success: function(obj){
-							if (obj.state == 2) {
+							if (obj.state == 3) {
 								alertShow("verification", obj.message);
 							}
 							if (obj.state == 0) {
-								alertShow("login", obj.message);
+								alertShow("username", obj.message);
+							}
+							if (obj.state == 2) {
+								alertShow("password", obj.message);
 							}
 							if (obj.state == 1) {
 								location.href = "profilePage.do";
@@ -113,8 +120,8 @@
 				
 				function alertShow(tag, string) {
 					$("#" + tag + "Alert").html(string);
-					$("#" + tag + "Alert").css("color", "red");
-					$("#" + tag).css("border", "red 2px solid");
+					$("#" + tag + "Alert").attr("class", "invalid-feedback");
+					$("#" + tag).attr("class", "form-control is-invalid");
 				}
 				
 			}

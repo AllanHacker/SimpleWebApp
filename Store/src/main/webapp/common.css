@@ -1,6 +1,21 @@
 @charset "BIG5";
 
 /* 基礎骨架 */
+section{
+	height: 100vh;
+}
+
+#title{
+	margin-bottom: 25px;
+	font-weight: 300;
+}
+
+footer {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+/* 基礎骨架 
 .jumbotron {
 	padding-top: 3rem;
 	padding-bottom: 3rem;
@@ -27,10 +42,7 @@
 	max-width: 40rem;
 }
 
-footer {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
-}
+*/
 
 /* 商品目錄列表 */
 .col-9 .nav dd:hover {
@@ -90,7 +102,7 @@ footer {
 	font-size: 20px;
 }
 
-/* 註冊表單 */
+/* 註冊表單 
 #registerInformation{
 	display: flex;
 	justify-content: center;
@@ -119,14 +131,15 @@ footer {
 	font-size: 18px;
 }
 
-/* 表單內的刷新超連結 */
+
+ 表單內的刷新超連結 
 #registerInformation a{
 	font-size: 12px;
 	text-decoration: none;
 	color: blue;
 }
 
-/* 圖片預覽 */
+ 圖片預覽 
 #registerInformation #imagePreview{
 	height: auto;
 }
@@ -135,7 +148,7 @@ footer {
 	height: 150px;
 }
 
-#registerInformation #submitButton{
+#registerInformation {
 	height: 25px;
 	width: 50px;
 	font-size: 18px;
@@ -147,21 +160,23 @@ footer {
 	font-size: 18px;
 }
 
-/* 商品修改頁面的選項按鈕 */
+ 商品修改頁面的選項按鈕 
 #registerInformation #state1, #registerInformation #state0{
 	width: auto;
 	height: auto;
 }
 
-/* 商品修改頁面的選項按鈕的文字 */
+ 商品修改頁面的選項按鈕的文字 
 #registerInformation #state1 + span, #registerInformation #state0 + span{
 	font-size: 18px;
 }
 
-/* 登入頁面的提示訊息框 */
+ 登入頁面的提示訊息框 
 #registerInformation #loginAlert{
 	margin: 7px 0 0 0;
 }
+*/
+
 
 /* 商品詳細內容頁面的圖片大小 */
 #productDetailImage{

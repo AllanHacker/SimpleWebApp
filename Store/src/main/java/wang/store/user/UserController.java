@@ -226,7 +226,7 @@ public class UserController {
 			HttpSession session) {
 		String verificationQ = (String) session.getAttribute("verification");
 		if (!verificationQ.equals(verification.toUpperCase())) {
-			return new ResponseResult<Void>(2, "驗證碼錯誤");
+			return new ResponseResult<Void>(3, "驗證碼錯誤");
 		} else {
 			User user = userService.findByUsername(username);
 			if (user == null) {
@@ -236,7 +236,7 @@ public class UserController {
 				String salt = properties.getString("salt");
 				password = password + salt;
 				if (!user.getPassword().equals(DigestUtils.md5Hex(password))) {
-					return new ResponseResult<Void>(0, "密碼錯誤");
+					return new ResponseResult<Void>(2, "密碼錯誤");
 				}
 			}
 			session.setAttribute("userId", user.getUserId());

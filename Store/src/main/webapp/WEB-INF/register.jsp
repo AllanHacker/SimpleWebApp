@@ -9,72 +9,66 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Register</h2>
-						<form id="registerInformation">
-							<table>
-								<tr>
-									<td class="words">帳號：</td>
-									<td>
-										<input id="username" name="username" type="text" placeholder="6-20位英數字或底線" onblur="dataCheck(this)">
-										<div id="usernameAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">密碼：</td>
-									<td>
-										<input id="password" name="password" type="password" placeholder="8-30位英數字或底線"onblur="dataCheck(this)">
-										<div id="passwordAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">密碼驗證：</td>
-									<td>
-										<input id="password2" name="password2" type="password" placeholder="請再次輸入密碼"onblur="dataCheck(this)">
-										<div id="password2Alert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">電子信箱：</td>
-									<td>
-										<input id="email" name="email" type="text" onblur="dataCheck(this)">
-										<div id="emailAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">手機號碼：</td>
-									<td>
-										<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
-										<div id="phoneAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">驗證碼：</td>
-									<td>
-										<input id="verification" name="verification" type="text" onblur="dataCheck(this)">
-										<img id="verificationImg" src="verification.do" />
-										<a href="#" onclick="codeRefresh()">刷新</a></br>
-										<div id="verificationAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<input id="submitButton" type="button" value="確定" onclick="userRegister()">
-									</td>
-								</tr>
-							</table>
-						</form>
-					</div>
-				</div>
-			</section>
-		</main>
+			<div id="content" class="container text-center">
+				<h2 id="title">Register</h2>
+				<form id="registerInformation">
+					<table>
+						<tr>
+							<td class="words">帳號：</td>
+							<td>
+								<input id="username" name="username" type="text" placeholder="6-20位英數字或底線" onblur="dataCheck(this)">
+								<div id="usernameAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">密碼：</td>
+							<td>
+								<input id="password" name="password" type="password" placeholder="8-30位英數字或底線"onblur="dataCheck(this)">
+								<div id="passwordAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">密碼驗證：</td>
+							<td>
+								<input id="password2" name="password2" type="password" placeholder="請再次輸入密碼"onblur="dataCheck(this)">
+								<div id="password2Alert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">電子信箱：</td>
+							<td>
+								<input id="email" name="email" type="text" onblur="dataCheck(this)">
+								<div id="emailAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">手機號碼：</td>
+							<td>
+								<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
+								<div id="phoneAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">驗證碼：</td>
+							<td>
+								<input id="verification" name="verification" type="text" onblur="dataCheck(this)">
+								<img id="verificationImg" src="verification.do" />
+								<a href="#" onclick="codeRefresh()">刷新</a></br>
+								<div id="verificationAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<input id="submitButton" type="button" value="確定" onclick="userRegister()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

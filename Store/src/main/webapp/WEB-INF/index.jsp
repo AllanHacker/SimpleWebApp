@@ -9,71 +9,65 @@
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<link href="common.css" rel="stylesheet">
 		<link href="index.css" rel="stylesheet">
 	</head>
 	<body>
-		<header>
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-	
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<h2 class="jumbotron-heading">Category</h2>
-					<div class="card text-center" id="category">
-						<div class="card-header">
-							<ul class="nav nav-tabs card-header-tabs">
-								<dd class="nav-item" v-for="category in categories" >
-									<span class="nav-link" v-bind:id="category.id" 
-									v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
-								</dd>
-							</ul>
-						</div>
-						<div class="card-body">
-							<div class="container">
-								<div class="row">
-									<div class="col-3">
-										<ul>
-											<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
-												v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
-									<div class="col-9">
-										<ul class="nav">
-											<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
-												v-on:click="productList($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
+			<div id="content" class="container text-center">
+				<h2 id="title">Category</h2>
+				<div class="card text-center" id="category">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs">
+							<dd class="nav-item" v-for="category in categories" >
+								<span class="nav-link" v-bind:id="category.id" 
+								v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+							</dd>
+						</ul>
 					</div>
-				</div>
-			</section>
-
-			<div class="album py-5 bg-light">
-				<div class="container">
-					<div class="row" id="productList">
-						<div class="col-md-4" v-for="product in products">
-							<div class="card mb-4 shadow-sm">
-								<div class="bd-placeholder-img card-img-top" width="100%" height="225">
-									<img :src="'/./img/' + product.image" class="img-fluid" alt="Responsive image"></img>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-3">
+									<ul>
+										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
+											v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+									</ul>
 								</div>
-								<div class="card-body">
-									<h5 class="card-text">{{product.name}}</h5>
-									<p class="card-text">&dollar;&nbsp;{{product.price}}</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">View</a>
-										<small class="text-muted">庫存：{{product.number}}</small>
-									</div>
+								<div class="col-9">
+									<ul class="nav">
+										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
+											v-on:click="productList($event.target)">{{category.name}}</dd>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</main>
-	
+		</section>
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<div class="row" id="productList">
+					<div class="col-md-4" v-for="product in products">
+						<div class="card mb-4 shadow-sm">
+							<div class="bd-placeholder-img card-img-top" width="100%" height="225">
+								<img :src="'/./img/' + product.image" class="img-fluid" alt="Responsive image"></img>
+							</div>
+							<div class="card-body">
+								<h5 class="card-text">{{product.name}}</h5>
+								<p class="card-text">&dollar;&nbsp;{{product.price}}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">View</a>
+									<small class="text-muted">庫存：{{product.number}}</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

@@ -10,93 +10,87 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<header id="header">
+		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
-		</header>
-		<main role="main">
-			<section class="jumbotron text-center">
-				<div class="container">
-					<div id="content">
-						<h2 class="jumbotron-heading">Selling</h2>
-						<div class="card text-center" id="category">
-						<div class="card-header">
-							<ul class="nav nav-tabs card-header-tabs">
-								<dd class="nav-item" v-for="category in categories" >
-									<span class="nav-link" v-bind:id="category.id" 
-									v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
-								</dd>
-							</ul>
-						</div>
-						<div class="card-body">
-							<div class="container">
-								<div class="row">
-									<div class="col-3">
-										<ul>
-											<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
-												v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
-									<div class="col-9">
-										<ul class="nav">
-											<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
-												v-on:click="productSelect($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
+			<div id="content" class="container text-center">
+				<h2 id="title">Selling</h2>
+				<div class="card text-center" id="category">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs">
+							<dd class="nav-item" v-for="category in categories" >
+								<span class="nav-link" v-bind:id="category.id" 
+								v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+							</dd>
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-3">
+									<ul>
+										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
+											v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+									</ul>
+								</div>
+								<div class="col-9">
+									<ul class="nav">
+										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
+											v-on:click="productSelect($event.target)">{{category.name}}</dd>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-						<form id="registerInformation">
-							<table>
-								<tr>
-									<td class="words">分類：</td>
-									<td>
-										<input id="cat" type="text" readonly="readonly">
-										<input id="categoryId" name="categoryId" type="hidden">
-										<div id="categoryIdAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">名稱：</td>
-									<td>
-										<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
-										<div id="productNameAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">價格：</td>
-									<td>
-										<input id="price" name="price" type="text" onblur="dataCheck(this)">
-										<div id="priceAlert"></div>
-									</td>
-								</tr>
-								<tr>
-									<td class="words">數量：</td>
-									<td>
-										<input id="number" name="number" type="text" onblur="dataCheck(this)">
-										<div id="numberAlert"></div>
-									</td>
-								</tr>
-			  					<tr>
-									<td class="words">圖片：</td>
-									<td>
-										<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
-										<div id="fileAlert"></div>
-										<div id="imagePreview"></div>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<input id="submitButton" type="button" value="確定" onclick="productAdd()">
-									</td>
-								</tr>
-							</table>
-						</form>
-					</div>
 				</div>
-			</section>
-		</main>
+				<form id="registerInformation">
+					<table>
+						<tr>
+							<td class="words">分類：</td>
+							<td>
+								<input id="cat" type="text" readonly="readonly">
+								<input id="categoryId" name="categoryId" type="hidden">
+								<div id="categoryIdAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">名稱：</td>
+							<td>
+								<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
+								<div id="productNameAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">價格：</td>
+							<td>
+								<input id="price" name="price" type="text" onblur="dataCheck(this)">
+								<div id="priceAlert"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="words">數量：</td>
+							<td>
+								<input id="number" name="number" type="text" onblur="dataCheck(this)">
+								<div id="numberAlert"></div>
+							</td>
+						</tr>
+	  					<tr>
+							<td class="words">圖片：</td>
+							<td>
+								<input id="file" name="file" type="file" accept=".png" onchange="dataCheck(this)">
+								<div id="fileAlert"></div>
+								<div id="imagePreview"></div>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<input id="submitButton" type="button" value="確定" onclick="productAdd()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</section>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-			<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<header id="header">
+			<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 				<div class="container d-flex justify-content-between">
 					<a href="indexPage.do" class="navbar-brand d-flex align-items-center">
 						<svg
@@ -17,7 +17,7 @@
 				</div>
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a class="nav-link" href="cartPage.do">Cart</a></li>
+						<li class="nav-item"><a class="nav-link" href="cartPage.do">Cart</a></li>
 						<li class="nav-item"><a class="nav-link" href="registerPage.do">Register</a></li>
 						<li class="nav-item"><a class="nav-link" id="loginCheck" href="#">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="logout.do">Logout</a></li>
@@ -35,4 +35,4 @@
 					</ul>
 				</div>
 			</nav>
-	
+		</header>
