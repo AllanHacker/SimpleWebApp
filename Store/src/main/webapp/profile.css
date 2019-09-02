@@ -1,0 +1,22 @@
+@CHARSET "BIG5";
+
+/*會員中心 彈出窗 */
+#popup{
+	display: none;
+	position: absolute;
+	z-index: 9001;
+	background-color: #FFF;
+	border: #5599FF 5px solid;
+	border-radius: 10px;
+}
+
+#userChange, #passwordChange, #userDelete{
+	display: none;
+	width: 50%;
+	margin: 0px auto;
+}
+
+#personalData{
+	margin-top: 40px;
+	width: 60%;
+}

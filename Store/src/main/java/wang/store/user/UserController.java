@@ -108,8 +108,9 @@ public class UserController {
 	@RequestMapping(value = "password2Check.do", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult<Void> password2Check(String password, String password2) {
-		if ("".equals(password2)) {
-			return new ResponseResult<Void>(0, "錯誤");
+		ResponseResult<Void> rr = passwordCheck(password);
+		if (rr.getState() == 0) {
+			return new ResponseResult<Void>(0, "密碼設定錯誤");
 		}
 		if (password.equals(password2)) {
 			return new ResponseResult<Void>(1, "正確");

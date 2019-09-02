@@ -7,117 +7,84 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
-		
+		<link href="profile.css" rel="stylesheet" />
 	</head>
 	<body>
 		<section class="d-flex flex-column justify-content-center align-items-center">
 			<c:import url="header.jsp"></c:import>
 			<div id="content" class="container text-center">
 				<h2 id="title">Profile</h2>
-				<button onclick="popupUserChange()">修改個人資料</button>
-				<button onclick="popupPasswordChange()">修改密碼</button>
-				<button onclick="popupUserDelete()">刪除帳號</button>
+				<button class="btn btn-primary" onclick="popupUserChange()">修改個人資料</button>
+				<button class="btn btn-primary" onclick="popupPasswordChange()">修改密碼</button>
+				<button class="btn btn-primary" onclick="popupUserDelete()">刪除帳號</button>
 				<div id="mask"></div>
 				
+				<div id="popup" class="container">
 				<div id="userChange">
-					<div class="formFather">
-						<div class="leftForm">電子信箱：</div>
-						<div class="rightForm">
-							<input id="email" name="email" type="text" onblur="dataCheck(this)">
+					<form>
+						<div class="form-group">
+							<label for="email">電子信箱：</label>
+							<input class="form-control" id="email" name="email" type="text" onblur="dataCheck(this)">
+							<div id="emailAlert" class=""></div>
 						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="emailAlert"></div>
+						<div class="form-group">
+							<label for="phone">手機號碼：</label>
+							<input class="form-control" id="phone" name="phone" type="text" onblur="dataCheck(this)">
+							<div id="phoneAlert" class=""></div>
 						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm">手機號碼：</div>
-						<div class="rightForm">
-							<input id="phone" name="phone" type="text" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="phoneAlert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="userChange()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
+					</form>
+					<button class="btn btn-primary btn-sm" onclick="userChange()">確定</button>
+					<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
 				</div>
 				
 				<div id="passwordChange">
-					<div class="formFather">
-						<div class="leftForm">密碼：</div>
-						<div class="rightForm">
-							<input id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+					<form>
+						<div class="form-group">
+							<label for="oldPassword">密碼：</label>
+							<input class="form-control" id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+							<div id="oldPasswordAlert" class=""></div>
 						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="oldPasswordAlert"></div>
+						<div class="form-group">
+							<label for="password">新密碼：</label>
+							<input class="form-control" id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+							<div id="passwordAlert" class=""></div>
 						</div>
-					</div class="formFather">
-					
-					<div class="formFather">
-						<div class="leftForm">新密碼：</div>
-						<div class="rightForm">
-							<input id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+						<div class="form-group">
+							<label for="password2">密碼驗證：</label>
+							<input class="form-control" id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
+							<div id="password2Alert" class=""></div>
 						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="passwordAlert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm">密碼驗證：</div>
-						<div class="rightForm">
-							<input id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
-						</div>
-					</div>
-					<div class="formFather">
-						<div class="leftForm"></div>
-						<div class="rightForm">
-							<div id="password2Alert"></div>
-						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="passwordChange()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
+					</form>
+					<button class="btn btn-primary btn-sm" onclick="passwordChange()">確定</button>
+					<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
 				</div>
 				
 				<div id="userDelete">
-					<div class="formFather">
-						<div class="leftForm">請輸入密碼：</div>
-						<div class="rightForm">
-							<input id="pwd" name="pwd" type="password">
+					<form>
+						<div class="form-group">
+							<label for="oldPassword">請輸入密碼：</label>
+							<input class="form-control" id="pwd" name="pwd" type="password">
 						</div>
-					</div>
-					<div class="formFather">
-						<button onclick="userDelete()">確定</button>
-						<button onclick="closepopup()">取消</button>
-					</div>
+					</form>
+					<button class="btn btn-primary btn-sm" onclick="userDelete()">確定</button>
+					<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
 				</div>
 				
-				<div class="formFather">
-					<div class="leftForm">歡迎</div>
-					<div class="rightForm" id="nameShow"></div>
 				</div>
-				<div class="formFather">
-					<div class="leftForm">電子信箱：</div>
-					<div class="rightForm" id="emailShow"></div>
-				</div>
-				<div class="formFather">
-					<div class="leftForm">手機號碼：</div>
-					<div class="rightForm" id="phoneShow"></div>
+				
+				<div class="container" id="personalData">
+					<div class="row">
+						<div class="col-5 text-center">歡迎</div>
+						<div class="col" id="nameShow"></div>
+					</div>
+					<div class="row">
+						<div class="col-5 text-center">電子信箱：</div>
+						<div class="col" id="emailShow"></div>
+					</div>
+					<div class="row">
+						<div class="col-5 text-center">手機號碼：</div>
+						<div class="col" id="phoneShow"></div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -165,13 +132,11 @@
 					success: function(obj){
 						$("#" + name + "Alert").html(obj.message);
 						if (obj.state == 1) {
-							$("#" + name + "Alert").css("color", "green");
-							$("#" + name).css("border-color", "initial");
-							$("#" + name).css("border-width", "2px");
-							$("#" + name).css("border-style", "inset");
+							$("#" + name + "Alert").attr("class", "valid-feedback");
+							$("#" + name).attr("class", "form-control is-valid");
 						} else {
-							$("#" + name + "Alert").css("color", "red");
-							$("#" + name).css("border", "red 2px solid");
+							$("#" + name + "Alert").attr("class", "invalid-feedback");
+							$("#" + name).attr("class", "form-control is-invalid");
 						}
 					}
 				});
@@ -235,16 +200,19 @@
 			
 			function popupUserChange() {
 				$("#mask").show();
+				$("#popup").show();
 				$("#userChange").show();
 			}
 			
 			function popupPasswordChange() {
 				$("#mask").show();
+				$("#popup").show();
 				$("#passwordChange").show();
 			}
 			
 			function popupUserDelete() {
 				$("#mask").show();
+				$("#popup").show();
 				$("#userDelete").show();
 			}
 			
@@ -263,6 +231,7 @@
 				$("#userChange").hide();
 				$("#passwordChange").hide();
 				$("#userDelete").hide();
+				$("#popup").hide();
 			}
 		</script>
 	</body>
