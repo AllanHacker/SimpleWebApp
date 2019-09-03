@@ -7,24 +7,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
+		<link href="orderDetail.css" rel="stylesheet" />
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Order Detail</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-				<div id="mask"></div>
-				<div id="popupRecipientList"></div>
-				<p>金額：&nbsp;&nbsp;</p>
-				<span id="totalCount"></span></br>
-				<p>收件人</p>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order Detail</h2></header>
+		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
+			<div class="container">
+				<h4 class="my-4 font-weight-bold">收件人</h4>
 				<div id="recipientSection"></div>
-				<p>商品</p>
+				<h4 class="my-4 font-weight-bold">商品</h4>
 				<div id="cart"></div>
-				<button onclick="orderAdd()">下訂單</button>
-				<button onclick="cancel()">取消</button>
+				<h4 class="my-4 font-weight-bold">總金額</h4>
+				<p>&dollar;&nbsp;<span id="totalCount"></span>&nbsp;元</p>
+				<div class="container text-center my-4">
+					<button class="btn btn-outline-secondary btn-sm" onclick="orderAdd()">下訂單</button>
+					<button class="btn btn-outline-secondary btn-sm" onclick="cancel()">取消</button>
+				</div>
 			</div>
-		</section>
+			<div id="mask"></div>
+			<div id="popupRecipientList" class="p-4"></div>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -33,39 +36,42 @@
 		<script src="common.js"></script>
 		<script type="text/javascript">
 			var recipientTemplate = '' +
-			'<div class="wrap">' +
-			'	<p>姓名：%RECIPIENT_NAME%</p>' +
-			'	<p>電話：%RECIPIENT_PHONE%</p>' +
-			'	<p>地址：%RECIPIENT_ADDRESS%</p>' +
-			'	<input id="recipientId" type="hidden" value="%RECIPIENT_ID%"/>' +
+			'<div class="row border border-secondary mb-1">' +
+			'	<div class="col p-3">' +
+			'		<p>姓名：%RECIPIENT_NAME%</p>' +
+			'		<p>電話：%RECIPIENT_PHONE%</p>' +
+			'		<p>地址：%RECIPIENT_ADDRESS%</p>' +
+			'		<input id="recipientId" type="hidden" value="%RECIPIENT_ID%"/>' +
+			'	</div>' +
+			'	<div class="col-3 align-self-center">' +
+			'		<button class="btn btn-outline-secondary btn-sm" onclick="popup()">更改</button>' +
+			'	</div>' +
 			'</div>';
 		
 			var productTemplate = '' +
-			'<div id="%CART_ID%" class="cart">' +
-			'	<div class="wrap">' +
+			'<div id="%CART_ID%" class="row border border-secondary mb-1">' +
+			'	<div class="col">' +
 			'		<img src="/./img/%PRODUCT_IMAGE%">' +
 			'	</div>' +
-			'	<div class="wrap">' +
-			'		<div class="wrap2">' + 
-			'			<p>名稱：%PRODUCT_NAME%</p>' +
-			'			<p>售價：%PRODUCT_PRICE%</p>' +
-			'			<p>數量：%PRODUCT_AMOUNT%</p>' +
-			'		</div>' + 
+			'	<div class="col align-self-center">' +
+			'		<p>名稱：%PRODUCT_NAME%</p>' +
+			'		<p>售價：%PRODUCT_PRICE%</p>' +
+			'		<p>數量：%PRODUCT_AMOUNT%</p>' +
 			'	</div>' +
-			'	<div class="wrap">' +
+			'	<div class="col align-self-center">' +
 			'		<p>總額：%PRODUCT_TOTAL%</p>' +
 			'	</div>' +
 			'</div>';
 			
 			var popupRecipientTemplate = '' +
-			'<div class="wrap">' +
-			'	<div class="left">' +
+			'<div class="row border border-secondary mb-1">' +
+			'	<div class="col p-3">' +
 			'		<p>姓名：%RECIPIENT_NAME%</p>' +
 			'		<p>電話：%RECIPIENT_PHONE%</p>' +
 			'		<p>地址：%RECIPIENT_ADDRESS%</p>' +
 			'	</div>' +
-			'	<div class="right">' +
-			'		<button value="%INDEX%" onclick="recipientChange(this)">選擇</button>' +
+			'	<div class="col-3 align-self-center">' +
+			'		<button class="btn btn-outline-secondary btn-sm" value="%INDEX%" onclick="recipientChange(this)">選擇</button>' +
 			'	</div>' +
 			'</div>';
 			
@@ -88,7 +94,7 @@
 						if (obj.state == 0) {
 							$("#recipientSection").append("<div>" + obj.message + "</div>");
 						} else {
-							$("#recipientSection").append('<button onclick="popup()">更改</button>');
+							$("#recipientSection").append('');
 							var html = recipientTemplate;
 							var recipient = obj.data[index];
 							var address = recipient.postalCode + recipient.city + recipient.district + recipient.road + recipient.other;
@@ -148,7 +154,8 @@
 							html = html.replace("%INDEX%", i);
 						}
 						$("#popupRecipientList").append(html);
-						$("#popupRecipientList").append('<button onclick="popupClose()">取消</button>');
+						$("#popupRecipientList").append('<div class="container text-center my-3">'+
+								'<button class="btn btn-outline-secondary btn-sm" onclick="popupClose()">取消</button></div>');
 					}
 				});
 			}

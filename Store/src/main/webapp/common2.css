@@ -297,52 +297,6 @@ footer {
 	font-size: 16px;
 }
 
-/* 結帳頁面 */
-#rightWrap > p {
-	margin: 15px 0 15px 0px;
-	font-weight: bold;
-}
-
-#rightWrap > p:nth-child(3) {
-	display: inline-block;
-}
-
-#recipientSection .wrap{
-	margin: 5px 0 10px 0;
-	font-size: 18px;
-	border: grey 1px solid;
-}
-
-#recipientSection p{
-	margin: 10px 0 10px 20px;
-}
-
-/* 結帳頁面彈出窗 */
-#popupRecipientList{
-	display: none;
-	position: absolute;
-	z-index: 9001;
-	background-color: #FFF;
-	border: #5599FF 5px solid;
-	border-radius: 10px;
-	width: 700px;
-	height:  auto;
-}
-
-#popupRecipientList button{
-	font-size: 16px;
-    margin: 30px 0 30px 20px;
-}
-
-/* 結帳頁面 地址列表 */
-#popupRecipientList .wrap{
-	font-size: 18px;
-	height: 120px;
-	border: grey 1px solid;
-	margin: 3px 0 0 0;
-	/* 其下的樣式重用收件人管理的地址列表 */
-}
-
 /* 我的訂單頁面 */
 .orderList{
 	font-size: 22px;
