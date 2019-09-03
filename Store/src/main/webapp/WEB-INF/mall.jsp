@@ -11,27 +11,38 @@
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">My Mall</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">My Mall</h2></header>
+		
+		<c:if test="${empty products}">
+			<main class="bg-light pb-5" style="height: 70vh;">
+			<div class="container text-center">
+			試試開始出售您的第一個商品
+			</div>
+			</main>
+		</c:if>
+		
+		<c:if test="${!empty products}">
+		<main class="bg-light pb-5">
+			<div class="container text-center">
 				<c:forEach items="${products}" var="product">
-					<div id="product">
-						<div class="wrap">
+					<div id="product" class="row border border-secondary mb-1">
+						<div class="col">
 							<img src="/./img/${product.image}">
 						</div>
-						<div class="wrap">
-							${product.name}</br></br>
-							庫存：${product.number}</br>
-							價格：${product.price}
+						<div class="col align-self-center">
+							<p>${product.name}</br></br>
+							<small>庫存：${product.number}</small></br>
+							<small>價格：${product.price}</small></p>
 						</div>
-						<div class="wrap">
-							<button name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
-							<button name="${product.id}" onclick="productDelete(this)">刪除</button>
+						<div class="col align-self-center">
+							<button class="btn btn-outline-secondary btn-sm" name="${product.id}" onclick="productEditPage(this)">修改</button>&nbsp;&nbsp;
+							<button class="btn btn-outline-secondary btn-sm" name="${product.id}" onclick="productDelete(this)">刪除</button>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-		</section>
+		</main>
+		</c:if>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
