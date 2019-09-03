@@ -10,20 +10,30 @@
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">${product.name }</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-				<img id="productDetailImage" src="/./img/${product.image}">
-				<p>售價： ${product.price }</p>
-				<p>庫存： ${product.number }</p>
-				數量：
-				<input type="button" value="-" onclick="amountMinus()">
-				<span id="amount">1</span>
-				<input type="button" value="+" onclick="amountAdd()">
-				<input type="button" value="立即購買" onclick="buyImmediately()">
-				<input type="button" value="加入購物車" onclick="cartAdd()">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">${product.name}</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container" style="height: 65vh;">
+				<div class="row">
+					<div class="col">
+						<img id="productDetailImage" src="/./img/${product.image}">
+					</div>
+					<div class="col align-self-center">
+						<div class="mb-2">售價： ${product.price }</div>
+						<div class="mb-2">庫存： ${product.number }</div>
+						<div class="mb-2">
+							數量：
+							<button class="btn btn-outline-secondary btn-sm" onclick="amountMinus()">-</button>
+							<span id="amount">1</span>
+							<button class="btn btn-outline-secondary btn-sm" onclick="amountAdd()">+</button>
+						</div>
+						<div class="btn-group" role="group" aria-label="Basic example">
+							<button class="btn btn-outline-secondary btn-sm" onclick="buyImmediately()">立即購買</button>
+							<button class="btn btn-outline-secondary btn-sm" onclick="cartAdd()">加入購物車</button>
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
