@@ -11,16 +11,11 @@
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Login</h2></header>
-		<main>
-		
-		
-		</main>
-		
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-			 	<form id="registerInformation" class="needs-validation" novalidate>
-					<div class="form-row">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Login</h2></header>
+		<main class="bg-light pb-5" style="height: 70vh;">
+			<div class="container text-center">
+				<form id="registerInformation" class="needs-validation" novalidate>
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="username">帳號：</label>
 						</div>
@@ -31,7 +26,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="password">密碼：</label>
 						</div>
@@ -42,7 +37,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="verification">驗證碼：</label>
 						</div>
@@ -53,7 +48,7 @@
 						</div>
 						<div class="col-3 text-left">
 							<img id="verificationImg" src="verification.do" />
-							<a href="#" class="text-decoration-none" onclick="codeRefresh()">刷新</a>
+							<a href="#" class="text-decoration-none text-justify" onclick="codeRefresh()">刷新</a>
 						</div>
 					</div>
 				</form>
@@ -65,7 +60,7 @@
 					<div class="col"></div>
 				</div>
 			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
