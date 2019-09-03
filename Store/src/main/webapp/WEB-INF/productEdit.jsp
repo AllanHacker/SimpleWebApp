@@ -11,9 +11,9 @@
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Product Edit</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Product Edit</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container text-center">
 				<div class="card text-center" id="category">
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
@@ -42,63 +42,65 @@
 						</div>
 					</div>
 				</div>
-				<form id="registerInformation">
-					<table>
-						<tr>
-							<td class="words">分類：</td>
-							<td>
-								<input id="cat" type="text" readonly="readonly">
-								<input id="categoryId" name="categoryId" type="hidden">
-								<div id="categoryIdAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">名稱：</td>
-							<td>
-								<input id="productName" name="productName" type="text" onblur="dataCheck(this)">
-								<div id="productNameAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">價格：</td>
-							<td>
-								<input id="price" name="price" type="text" onblur="dataCheck(this)">
-								<div id="priceAlert"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words">數量：</td>
-							<td>
-								<input id="number" name="number" type="text" onblur="dataCheck(this)">
-								<div id="numberAlert"></div>
-							</td>
-						</tr>
-	  					<tr>
-							<td class="words">圖片：</td>
-							<td>
-								<input id="file" name="file" type="file" accept=".png">
-								<div id="fileAlert"></div>
-								<div id="imagePreview"></div>
-							</td>
-						</tr>
-						<tr>
-							<td class="words"></td>
-							<td>
-								<input id="state1" type="radio" name="state" value="1"><span>上架</span><br>
-								<input id="state0" type="radio" name="state" value="0"><span>下架</span><br>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<input type=hidden name=id value="${product.id }">
-								<input id="submitButton" type="button" value="確定" onclick="productChange()">
-							</td>
-						</tr>
-					</table>
+				<form id="registerInformation" class="mt-4">
+					<div class="row justify-content-center mb-3">
+						<div class="col-2 text-right">分類：</div>
+						<div class="col-5">
+							<input id="cat" type="text" readonly class="form-control-plaintext">
+							<input id="categoryId" name="categoryId" type="hidden">
+							<div id="categoryIdAlert"></div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-2 text-right">名稱：</div>
+						<div class="col-5">
+							<input id="productName" name="productName" type="text" onblur="dataCheck(this)" class="form-control" required>
+							<div id="productNameAlert"></div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-2 text-right">價格：</div>
+						<div class="col-5">
+							<input id="price" name="price" type="text" onblur="dataCheck(this)" class="form-control" required>
+							<div id="priceAlert"></div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-2 text-right">數量：</div>
+						<div class="col-5">
+							<input id="number" name="number" type="text" onblur="dataCheck(this)" class="form-control" required>
+							<div id="numberAlert"></div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-2 text-right">圖片：</div>
+						<div class="col-5">
+							<input id="file" name="file" type="file" accept=".png" class="form-control-file">
+							<div id="fileAlert"></div>
+							<div id="imagePreview"></div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-7">
+							<div class="form-check d-inline-block">
+								<input id="state1" type="radio" name="state" value="1" class="form-check-input">
+								<label class="form-check-label" for="state1">上架</label>
+							</div>
+							<div class="form-check d-inline-block">
+								<input id="state0" type="radio" name="state" value="0" class="form-check-input">
+								<label class="form-check-label" for="state0">下架</label>
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center mb-3">
+						<div class="col-5">
+							<input type=hidden name=id value="${product.id }">
+							<button class="btn btn-secondary btn-block" onclick="productChange()">確定</button>
+						</div>
+					</div>
 				</form>
 			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -148,13 +150,11 @@
 					success: function(obj){
 						$("#" + name + "Alert").html(obj.message);
 						if (obj.state == 1) {
-							$("#" + name + "Alert").css("color", "green");
-							$("#" + name).css("border-color", "initial");
-							$("#" + name).css("border-width", "2px");
-							$("#" + name).css("border-style", "inset");
+							$("#" + name + "Alert").attr("class", "valid-feedback");
+							$("#" + name).attr("class", "form-control is-valid");
 						} else {
-							$("#" + name + "Alert").css("color", "red");
-							$("#" + name).css("border", "red 2px solid");
+							$("#" + name + "Alert").attr("class", "invalid-feedback");
+							$("#" + name).attr("class", "form-control is-invalid");
 						}
 					}
 				});
