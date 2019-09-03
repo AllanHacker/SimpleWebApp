@@ -353,22 +353,6 @@ footer {
 	margin: 0 25px 20px 0;
 }
 
-/* 訂單內容 彈出窗口*/
-#orderDetail{
-	display: none;
-	position: absolute;
-	z-index: 9001;
-	background-color: #FFF;
-	border: #5599FF 5px solid;
-	border-radius: 10px;
-	width: 700px;
-	height:  auto;
-}
-
-#orderDetail p{
-	font-size: 20px;
-	margin: 5px 0 20px 5px;
-}
 
 /* alertAPI的樣式 */
 .alertAPI {

@@ -7,49 +7,54 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
+		<link href="order.css" rel="stylesheet" />
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Order</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-				<div id="mask"></div>
-				<div id="orderDetail">
-					<p>下單時間：{{createdTime}}</p>
-					<p>狀態：{{state}}</p>
-					<p>金額：{{total}}</p>
-					<p>收件人姓名：{{recipientName}}</p>
-					<p>收件人電話：{{recipientPhone}}</p>
-					<p>收件人地址：{{recipientAddress}}</p>
-					<div id="orderProduct">
-						<div v-for="product in products" class="cart">
-							<div class="wrap">
-								<img :src="product.image">
-							</div>
-							<div class="wrap">
-								<div class="wrap2">
-									<p>商品名稱：{{product.name}}</p>
-									<p>商品價格：{{product.price}}</p>
-								</div>
-							</div>
-							<div class="wrap">
-								購買數量：{{product.number}}
-							</div>
-						</div>
-					</div>
-					<button onclick="popupClose()">關閉</button>
-					<button onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
-				</div>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order</h2></header>
+		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
+			<div class="container text-center">
 				<div id="orderListSection">
-					<div class="orderList" v-for="order in orders">
-						<p>{{order.createdTime}}</p>
-						<p>{{order.state}}</p>
-						<button onclick="popup(this)" v-bind:value="order.orderId">訂單內容</button>
+					<div class="row justify-content-center mb-1" v-for="order in orders">
+						<div class="col-2">{{order.createdTime}}</div>
+						<div class="col-2">{{order.state}}</div>
+						<div class="col-2">
+							<button class="btn btn-outline-secondary btn-sm" onclick="popup(this)" v-bind:value="order.orderId">訂單內容</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</section>
+			<div id="mask"></div>
+			<div id="orderDetail">
+				<div class="container my-3">
+					<small>下單時間：{{createdTime}}</small></br>
+					<small>狀態：{{state}}</small></br>
+					<small>金額：{{total}}</small></br>
+					<small>收件人姓名：{{recipientName}}</small></br>
+					<small>收件人電話：{{recipientPhone}}</small></br>
+					<small>收件人地址：{{recipientAddress}}</small>
+				</div>
+				<div id="orderProduct" class="container text-center my-3">
+					<div v-for="product in products" class="row border border-secondary mb-1">
+						<div class="col">
+							<img :src="product.image">
+						</div>
+						<div class="col align-self-center">
+							<small>商品名稱：{{product.name}}</small></br>
+							<small>商品價格：{{product.price}}</small>
+						</div>
+						<div class="col align-self-center">
+							<small>購買數量：{{product.number}}</small>
+						</div>
+					</div>
+				</div>
+				<div class="container text-center my-3">
+					<button class="btn btn-outline-secondary btn-sm" onclick="popupClose()">關閉</button>
+					<button class="btn btn-outline-secondary btn-sm" onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
+				</div>
+			</div>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -97,6 +102,7 @@
 																orderId: order.id });
 							}
 						} else {
+							$("main").attr("style", "height: 70vh;");
 							alertAPI(obj.message, "alertFailure");
 						}
 					}
