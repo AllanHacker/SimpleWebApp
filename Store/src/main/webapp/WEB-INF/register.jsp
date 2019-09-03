@@ -3,17 +3,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>User Register</title>
+		<title>Register</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
 		<link href="register.css" rel="stylesheet" />
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center"><h2 class="font-weight-light">Register</h2></header>
+		<section class="d-flex justify-content-center align-items-center">
 			<div id="content" class="container text-center">
-				<h2 id="title">Register</h2>
 				<form id="registerInformation" class="needs-validation" novalidate>
 					<div class="form-row">
 						<div class="col-3 text-right">

@@ -10,10 +10,10 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
-			<div id="content" class="container text-center">
-				<h2 id="title">Cart</h2>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Cart</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container text-center">
 				<div id='cart'>
 					<cart v-for="cart in carts" 
 						v-bind:key="cart.id"
@@ -22,12 +22,14 @@
 						v-on:amount-minus="amountMinus(cart)"
 						v-on:amount-add="amountAdd(cart)">
 					</cart>
-					一共<span>{{amountCount}}</span>樣商品，
-					總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
-					<a href='orderDetailPage.do'>結帳</a>
+					<p class="mt-5">
+						一共<span>{{amountCount}}</span>樣商品，
+						總金額為：<span>{{totalCount}}</span>元&nbsp;&nbsp;
+						<a class="text-decoration-none" href='orderDetailPage.do'>結帳</a>
+					</p>
 				</div>
 			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -38,21 +40,19 @@
 			Vue.component('cart', {
 				props: ['cart'],
 				template: `
-					<div class='cart'>
-						<div class='wrap'>
+					<div class='row border border-secondary mb-1'>
+						<div class='col'>
 							<img :src="'/./img/' + cart.productImage">
 						</div>
-						<div class='wrap'>
-							<div class='wrap2'>
-								<p>{{cart.productName}}</p>
-								<p>{{cart.productPrice}}</p>
-							</div>
+						<div class='col align-self-center'>
+							<h5>{{cart.productName}}</h5>
+							<p class="font-weight-lighter">{{cart.productPrice}}</p>
 						</div>
-						<div class='wrap'>
-							<button v-on:click="$emit('amount-minus')">-</button>&nbsp;
+						<div class='col align-self-center'>
+							<button class="btn btn-outline-secondary btn-sm" v-on:click="$emit('amount-minus')">-</button>&nbsp;
 							<span>{{cart.amount}}</span>&nbsp;
-							<button v-on:click="$emit('amount-add')">+</button>&nbsp;
-							<button v-on:click="$emit('cart-delete')">刪除</button>
+							<button class="btn btn-outline-secondary btn-sm" v-on:click="$emit('amount-add')">+</button>&nbsp;
+							<button class="btn btn-outline-secondary btn-sm" v-on:click="$emit('cart-delete')">刪除</button>
 						</div>
 					</div>
 				`
@@ -127,6 +127,7 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
+							$("main").attr("style", "height: 70vh;");
 							$("#cart").empty();
 							$("#cart").append(obj.message);
 						} else {

@@ -10,10 +10,10 @@
 		
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center"><h2 class="font-weight-light">My Mall</h2></header>
+		<section class="d-flex justify-content-center align-items-center">
 			<div id="content" class="container text-center">
-				<h2 id="title">My Mall</h2>
 				<c:forEach items="${products}" var="product">
 					<div id="product">
 						<div class="wrap">

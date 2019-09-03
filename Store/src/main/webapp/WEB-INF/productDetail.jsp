@@ -9,10 +9,10 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center"><h2 class="font-weight-light">${product.name }</h2></header>
+		<section class="d-flex justify-content-center align-items-center">
 			<div id="content" class="container text-center">
-				<h2>${product.name }</h2>
 				<img id="productDetailImage" src="/./img/${product.image}">
 				<p>售價： ${product.price }</p>
 				<p>庫存： ${product.number }</p>

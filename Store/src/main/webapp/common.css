@@ -1,18 +1,21 @@
 @charset "BIG5";
 
-/* 基礎骨架 */
-section{
+/* 頁面布局 */
+section {
 	height: 100vh;
-}
-
-#title{
-	margin-bottom: 25px;
-	font-weight: 300;
+	background-color: #f5f5f5;
+	
 }
 
 footer {
 	padding-top: 3rem;
 	padding-bottom: 3rem;
+}
+
+/* 商品目錄的滑鼠游標樣式 */
+.col-9 .nav dd:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	cursor: pointer;
 }
 
 /* 彈出窗的遮罩 */

@@ -9,10 +9,10 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center"><h2 class="font-weight-light">Recipient</h2></header>
+		<section class="d-flex justify-content-center align-items-center">
 			<div id="content" class="container text-center">
-				<h2 id="title">Recipient</h2>
 				<button onclick="popup(0)">新增收件人</button>
 				<div id="mask"></div>
 				<div id="recipientForm">

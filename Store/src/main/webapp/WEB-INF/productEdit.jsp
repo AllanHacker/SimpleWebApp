@@ -10,10 +10,10 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center"><h2 class="font-weight-light">Product Edit</h2></header>
+		<section class="d-flex justify-content-center align-items-center">
 			<div id="content" class="container text-center">
-				<h2 id="title">Product Edit</h2>
 				<div class="card text-center" id="category">
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">

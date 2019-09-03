@@ -13,10 +13,10 @@
 		<link href="index.css" rel="stylesheet">
 	</head>
 	<body>
-		<section class="d-flex flex-column justify-content-center align-items-center">
-			<c:import url="header.jsp"></c:import>
-			<div id="content" class="container text-center">
-				<h2 id="title">Category</h2>
+		<c:import url="header.jsp"></c:import>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Category</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container">
 				<div class="card text-center" id="category">
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
@@ -46,28 +46,30 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<div class="album py-5 bg-light">
-			<div class="container">
-				<div class="row" id="productList">
-					<div class="col-md-4" v-for="product in products">
-						<div class="card mb-4 shadow-sm">
-							<div class="bd-placeholder-img card-img-top" width="100%" height="225">
-								<img :src="'/./img/' + product.image" class="img-fluid" alt="Responsive image"></img>
-							</div>
-							<div class="card-body">
-								<h5 class="card-text">{{product.name}}</h5>
-								<p class="card-text">&dollar;&nbsp;{{product.price}}</p>
-								<div class="d-flex justify-content-between align-items-center">
-									<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">View</a>
-									<small class="text-muted">庫存：{{product.number}}</small>
+			
+			<div class="album py-5 bg-light">
+				<div class="container">
+					<div class="row" id="productList">
+						<div class="col-md-4" v-for="product in products">
+							<div class="card mb-4 shadow-sm">
+								<div class="bd-placeholder-img card-img-top" width="100%" height="225">
+									<img :src="'/./img/' + product.image" class="img-fluid" alt="Responsive image"></img>
+								</div>
+								<div class="card-body">
+									<h5 class="card-text">{{product.name}}</h5>
+									<p class="card-text">&dollar;&nbsp;{{product.price}}</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">View</a>
+										<small class="text-muted">庫存：{{product.number}}</small>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</main>
+		
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
