@@ -9,31 +9,29 @@
 		<link href="common.css" rel="stylesheet" />
 	</head>
 	<body>
+		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Recipient</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-				<button onclick="popup(0)">新增收件人</button>
-				<div id="mask"></div>
-				<div id="recipientForm">
-					<div id="wrap">
-						<input id="recipientName" type="text" placeholder="姓名">
-						<input id="recipientPhone" type="text" placeholder="手機">
-						<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly">
-						<select id="city" onchange="districtOption()"></select>
-						<select id="district" onchange="roadOption()"></select>
-						<select id="road" onchange="postalCode()"></select>
-						<input id="other" type="text" placeholder="巷弄號樓">
-						<input id="recipientId" type="hidden">
-						<div>
-							<button onclick="recipientSubmit()">確定</button>
-							<button onclick="closepopup()">取消</button>
-						</div>
-					</div>
-				</div>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Recipient</h2></header>
+		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
+			<div class="container">
+				<button class="btn btn-outline-secondary btn-sm mb-3" onclick="popup(0)">新增收件人</button>
 				<div id="recipientList"></div>
 			</div>
-		</section>
+			<div id="recipientForm" class="popupStyle w-50 p-5 text-center">
+				<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
+				<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
+				<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly" class="form-control-plaintext mb-2" required>
+				<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
+				<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
+				<select id="road" onchange="postalCode()" class="form-control mb-2"></select>
+				<input id="other" type="text" placeholder="巷弄號樓" class="form-control mb-4" required>
+				<input id="recipientId" type="hidden">
+				<div>
+					<button class="btn btn-outline-secondary btn-sm" onclick="recipientSubmit()">確定</button>
+					<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
+				</div>
+			</div>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
@@ -48,16 +46,16 @@
 			function recipientList() {
 				$("#recipientList").empty();
 				var template = 
-					'<div class="wrap">' +
-						'<div class="left">' +
+					'<div class="row border border-secondary mb-1">' +
+						'<div class="col p-3">' +
 							'<p>姓名：%RECIPIENT_NAME%</p>' +
 							'<p>手機：%RECIPIENT_PHONE%</p>' +
 							'<p>地址：%RECIPIENT_ADDRESS%</p>' +
 						'</div>' +
-						'<div class="right">' +
-							'<button onclick="recipientDefault(%ID%)">預設</button>' +
-							'<button onclick="popup(%ID%)">修改</button>' +
-							'<button onclick="recipientDelete(%ID%)">刪除</button>' +
+						'<div class="col-3 align-self-center">' +
+							'<button class="btn btn-outline-secondary btn-sm mr-1" onclick="recipientDefault(%ID%)">預設</button>' +
+							'<button class="btn btn-outline-secondary btn-sm mr-1" onclick="popup(%ID%)">修改</button>' +
+							'<button class="btn btn-outline-secondary btn-sm" onclick="recipientDelete(%ID%)">刪除</button>' +
 						'</div>' +
 					'</div>';
 				
@@ -80,7 +78,7 @@
 								htmlString = htmlString.replace(/%ID%/g, recipient.id);
 							}
 							$("#recipientList").html(htmlString);
-							$("#recipientList div:first").css("border", "#48D1CC 3px solid");
+							$("#recipientList div:first").attr("class", "row border border-info mb-1");
 							$("#recipientList div:first").css("background-color", "#E0FFFF");
 							$("#recipientList div:first div button:first").attr("disabled", "disabled");
 						}
@@ -160,7 +158,7 @@
 				$.ajax({
 					url: "districtOption.do",
 					data: "city=" + city,
-					type: "get",
+					type: "post",
 					dataType: "json",
 					async: false,
 					success: function(obj){
@@ -184,7 +182,7 @@
 					url: "roadOption.do",
 					data: "city=" + city + 
 						  "&district=" + district,
-					type: "get",
+					type: "post",
 					dataType: "json",
 					async: false,
 					success: function(obj){
@@ -202,7 +200,7 @@
 					data: "city=" + $("#city option:selected").val() + 
 						  "&district=" + $("#district option:selected").val() + 
 						  "&road=" + $("#road option:selected").val(),
-					type: "get",
+					type: "post",
 					dataType: "json",
 					success: function(obj){
 						$("#postalCode").val(obj.data);
