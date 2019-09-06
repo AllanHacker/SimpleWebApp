@@ -11,6 +11,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
+		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order</h2></header>
 		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
@@ -25,8 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="mask"></div>
-			<div id="orderDetail">
+			<div id="orderDetail" class="popupStyle w-75">
 				<div class="container my-3">
 					<small>下單時間：{{createdTime}}</small></br>
 					<small>狀態：{{state}}</small></br>

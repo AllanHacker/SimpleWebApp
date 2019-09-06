@@ -10,6 +10,7 @@
 		<link href="orderDetail.css" rel="stylesheet" />
 	</head>
 	<body>
+		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order Detail</h2></header>
 		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
@@ -25,8 +26,7 @@
 					<button class="btn btn-outline-secondary btn-sm" onclick="cancel()">取消</button>
 				</div>
 			</div>
-			<div id="mask"></div>
-			<div id="popupRecipientList" class="p-4"></div>
+			<div id="popupRecipientList" class="popupStyle p-4 w-50"></div>
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		

@@ -10,16 +10,30 @@
 		<link href="profile.css" rel="stylesheet" />
 	</head>
 	<body>
+		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Profile</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
-				<button class="btn btn-primary" onclick="popupUserChange()">修改個人資料</button>
-				<button class="btn btn-primary" onclick="popupPasswordChange()">修改密碼</button>
-				<button class="btn btn-primary" onclick="popupUserDelete()">刪除帳號</button>
-				<div id="mask"></div>
-				
-				<div id="popup" class="container">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Profile</h2></header>
+		<main class="bg-light pb-5 d-flex justify-content-center align-items-center" style="height: 70vh;">
+			<div class="container text-center h-75">
+				<button class="btn btn-outline-secondary" onclick="popupUserChange()">修改個人資料</button>
+				<button class="btn btn-outline-secondary" onclick="popupPasswordChange()">修改密碼</button>
+				<button class="btn btn-outline-secondary" onclick="popupUserDelete()">刪除帳號</button>
+				<div class="container mt-5">
+					<div class="row justify-content-center mb-1">
+						<div class="col-3 text-right">歡迎回來！</div>
+						<div class="col-4" id="nameShow"></div>
+					</div>
+					<div class="row justify-content-center mb-1">
+						<div class="col-3 text-right">電子信箱：</div>
+						<div class="col-4" id="emailShow"></div>
+					</div>
+					<div class="row justify-content-center mb-1">
+						<div class="col-3 text-right">手機號碼：</div>
+						<div class="col-4" id="phoneShow"></div>
+					</div>
+				</div>
+			</div>
+			<div id="popup" class="popupStyle text-center p-5 w-50">
 					<div id="userChange">
 						<form>
 							<div class="form-group">
@@ -33,8 +47,8 @@
 								<div id="phoneAlert" class=""></div>
 							</div>
 						</form>
-						<button class="btn btn-primary btn-sm" onclick="userChange()">確定</button>
-						<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="userChange()">確定</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
 					</div>
 					
 					<div id="passwordChange">
@@ -55,8 +69,8 @@
 								<div id="password2Alert" class=""></div>
 							</div>
 						</form>
-						<button class="btn btn-primary btn-sm" onclick="passwordChange()">確定</button>
-						<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="passwordChange()">確定</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
 					</div>
 					
 					<div id="userDelete">
@@ -66,27 +80,11 @@
 								<input class="form-control" id="pwd" name="pwd" type="password">
 							</div>
 						</form>
-						<button class="btn btn-primary btn-sm" onclick="userDelete()">確定</button>
-						<button class="btn btn-primary btn-sm" onclick="closepopup()">取消</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="userDelete()">確定</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
 					</div>
 				</div>
-				
-				<div class="container" id="personalData">
-					<div class="row">
-						<div class="col-5 text-center">歡迎</div>
-						<div class="col" id="nameShow"></div>
-					</div>
-					<div class="row">
-						<div class="col-5 text-center">電子信箱：</div>
-						<div class="col" id="emailShow"></div>
-					</div>
-					<div class="row">
-						<div class="col-5 text-center">手機號碼：</div>
-						<div class="col" id="phoneShow"></div>
-					</div>
-				</div>
-			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

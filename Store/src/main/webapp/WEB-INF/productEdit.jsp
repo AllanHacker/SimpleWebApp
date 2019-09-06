@@ -46,7 +46,7 @@
 					<div class="row justify-content-center mb-3">
 						<div class="col-2 text-right">分類：</div>
 						<div class="col-5">
-							<input id="cat" type="text" readonly class="form-control-plaintext">
+							<input id="cat" type="text" placeholder="請由上表選擇" class="form-control-plaintext">
 							<input id="categoryId" name="categoryId" type="hidden">
 							<div id="categoryIdAlert"></div>
 						</div>
