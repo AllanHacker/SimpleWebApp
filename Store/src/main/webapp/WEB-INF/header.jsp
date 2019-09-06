@@ -10,10 +10,10 @@
 						<path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
 						<strong>Shopping</strong>
 					</a>
-					<a class="" href="cartPage.do">Cart</a>
-					<a class="" href="registerPage.do">Register</a>
-					<a class="" id="loginCheck" href="#">Login</a>
-					<a class="" href="logout.do">Logout</a></li>
+					<a href="cartPage.do">Cart</a>
+					<a href="registerPage.do">Register</a>
+					<a id="loginCheck" href="#">Login</a>
+					<a href="logout.do">Logout</a></li>
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">

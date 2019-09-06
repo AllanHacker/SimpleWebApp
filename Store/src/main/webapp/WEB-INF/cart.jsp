@@ -117,6 +117,7 @@
 			})
 			
 			$(function(){
+				$("a:contains('Cart')").attr("style", "color:white");
 				cartList();
 			});
 			
