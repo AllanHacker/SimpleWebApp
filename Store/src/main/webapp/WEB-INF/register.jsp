@@ -7,15 +7,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
-		<link href="register.css" rel="stylesheet" />
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Register</h2></header>
-		<section class="d-flex justify-content-center align-items-center">
-			<div id="content" class="container text-center">
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Register</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container text-center">
 				<form id="registerInformation" class="needs-validation" novalidate>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="username">帳號：</label>
 						</div>
@@ -26,7 +25,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="password">密碼：</label>
 						</div>
@@ -37,7 +36,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="password2">密碼驗證：</label>
 						</div>
@@ -48,7 +47,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="email">電子信箱：</label>
 						</div>
@@ -59,7 +58,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="phone">手機號碼：</label>
 						</div>
@@ -70,7 +69,7 @@
 						</div>
 						<div class="col-3"></div>
 					</div>
-					<div class="form-row">
+					<div class="form-row mb-3">
 						<div class="col-3 text-right">
 							<label for="verification">驗證碼：</label>
 						</div>
@@ -88,12 +87,12 @@
 				<div class="row">
 					<div class="col"></div>
 					<div class="col">
-						<button class="btn btn-primary btn-block" onclick="userRegister()">註冊</button>
+						<button class="btn btn-secondary btn-block" onclick="userRegister()">註冊</button>
 					</div>
 					<div class="col"></div>
 				</div>
 			</div>
-		</section>
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>

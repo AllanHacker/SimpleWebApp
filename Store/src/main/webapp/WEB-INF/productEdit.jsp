@@ -43,45 +43,51 @@
 					</div>
 				</div>
 				<form id="registerInformation" class="mt-4">
-					<div class="row justify-content-center mb-3">
-						<div class="col-2 text-right">分類：</div>
-						<div class="col-5">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">分類：</div>
+						<div class="col-6">
 							<input id="cat" type="text" placeholder="請由上表選擇" class="form-control-plaintext">
 							<input id="categoryId" name="categoryId" type="hidden">
 							<div id="categoryIdAlert"></div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-2 text-right">名稱：</div>
-						<div class="col-5">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">名稱：</div>
+						<div class="col-6">
 							<input id="productName" name="productName" type="text" onblur="dataCheck(this)" class="form-control" required>
 							<div id="productNameAlert"></div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-2 text-right">價格：</div>
-						<div class="col-5">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">價格：</div>
+						<div class="col-6">
 							<input id="price" name="price" type="text" onblur="dataCheck(this)" class="form-control" required>
 							<div id="priceAlert"></div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-2 text-right">數量：</div>
-						<div class="col-5">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">數量：</div>
+						<div class="col-6">
 							<input id="number" name="number" type="text" onblur="dataCheck(this)" class="form-control" required>
 							<div id="numberAlert"></div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-2 text-right">圖片：</div>
-						<div class="col-5">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">圖片：</div>
+						<div class="col-6">
 							<input id="file" name="file" type="file" accept=".png" class="form-control-file">
 							<div id="fileAlert"></div>
 							<div id="imagePreview"></div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-7">
+					<div class="form-row mb-5">
+						<div class="col-3 text-right">狀態：</div>
+						<div class="col-6 text-left">
 							<div class="form-check d-inline-block">
 								<input id="state1" type="radio" name="state" value="1" class="form-check-input">
 								<label class="form-check-label" for="state1">上架</label>
@@ -91,14 +97,17 @@
 								<label class="form-check-label" for="state0">下架</label>
 							</div>
 						</div>
+						<div class="col-3"></div>
 					</div>
-					<div class="row justify-content-center mb-3">
-						<div class="col-5">
-							<input type=hidden name=id value="${product.id }">
-							<button class="btn btn-secondary btn-block" onclick="productChange()">確定</button>
-						</div>
-					</div>
+					<input type=hidden name=id value="${product.id }">
 				</form>
+				<div class="row">
+					<div class="col"></div>
+					<div class="col">
+						<button class="btn btn-secondary btn-block" onclick="productChange()">確定</button>
+					</div>
+					<div class="col"></div>
+				</div>
 			</div>
 		</main>
 		<c:import url="footer.jsp"></c:import>

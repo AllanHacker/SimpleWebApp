@@ -7,7 +7,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
-		<link href="login.css" rel="stylesheet" />
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
@@ -55,7 +54,7 @@
 				<div class="row">
 					<div class="col"></div>
 					<div class="col">
-						<button class="btn btn-primary btn-block" onclick="userLogin()">登入</button>
+						<button class="btn btn-secondary btn-block" onclick="userLogin()">登入</button>
 					</div>
 					<div class="col"></div>
 				</div>

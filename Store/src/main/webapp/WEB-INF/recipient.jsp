@@ -12,23 +12,25 @@
 		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Recipient</h2></header>
-		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
-			<div class="container">
+		<main class="bg-light pb-5">
+			<div class="container text-center">
 				<button class="btn btn-outline-secondary btn-sm mb-3" onclick="popup(0)">新增收件人</button>
 				<div id="recipientList"></div>
 			</div>
-			<div id="recipientForm" class="popupStyle w-50 p-5 text-center">
-				<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
-				<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
-				<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly" class="form-control-plaintext mb-2" required>
-				<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
-				<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
-				<select id="road" onchange="postalCode()" class="form-control mb-2"></select>
-				<input id="other" type="text" placeholder="巷弄號樓" class="form-control mb-4" required>
-				<input id="recipientId" type="hidden">
-				<div>
-					<button class="btn btn-outline-secondary btn-sm" onclick="recipientSubmit()">確定</button>
-					<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
+			<div class="d-flex justify-content-center align-items-center">
+				<div id="recipientForm" class="popupStyle w-50 p-5 text-center">
+					<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
+					<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
+					<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly" class="form-control-plaintext mb-2" required>
+					<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
+					<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
+					<select id="road" onchange="postalCode()" class="form-control mb-2"></select>
+					<input id="other" type="text" placeholder="巷弄號樓" class="form-control mb-4" required>
+					<input id="recipientId" type="hidden">
+					<div>
+						<button class="btn btn-outline-secondary btn-sm" onclick="recipientSubmit()">確定</button>
+						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -47,7 +49,7 @@
 				$("#recipientList").empty();
 				var template = 
 					'<div class="row border border-secondary mb-1">' +
-						'<div class="col p-3">' +
+						'<div class="col p-3 text-left">' +
 							'<p>姓名：%RECIPIENT_NAME%</p>' +
 							'<p>手機：%RECIPIENT_PHONE%</p>' +
 							'<p>地址：%RECIPIENT_ADDRESS%</p>' +
@@ -65,8 +67,10 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
+							$("main").attr("style", "height: 70vh;");
 							$("#recipientList").append("<div>" + obj.message + "</div>");
 						} else {
+							$("main").removeAttr("style");
 							var htmlString = "";
 							for (var i = 0; i < obj.data.length; i++) {
 								htmlString += template;

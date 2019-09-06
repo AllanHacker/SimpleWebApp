@@ -7,118 +7,110 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="common.css" rel="stylesheet" />
-		<link href="sell.css" rel="stylesheet" />
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
+		
 		<c:import url="header.jsp"></c:import>
-		<header class="p-5 text-center"><h2 class="font-weight-light">Selling</h2></header>
-		<div class="container-fluid">
-			<div class="row d-flex justify-content-center align-items-center text-center">
-				<div class="col-9">
-					<div class="card text-center" id="category">
-						<div class="card-header">
-							<ul class="nav nav-tabs card-header-tabs">
-								<dd class="nav-item" v-for="category in categories" >
-									<span class="nav-link" v-bind:id="category.id" 
-									v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
-								</dd>
-							</ul>
-						</div>
-						<div class="card-body">
-							<div class="container">
-								<div class="row">
-									<div class="col-3">
-										<ul>
-											<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
-												v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
-									<div class="col-9">
-										<ul class="nav">
-											<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
-												v-on:click="productSelect($event.target)">{{category.name}}</dd>
-										</ul>
-									</div>
+		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Selling</h2></header>
+		<main class="bg-light pb-5">
+			<div class="container text-center">
+				<div class="card text-center" id="category">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs">
+							<dd class="nav-item" v-for="category in categories" >
+								<span class="nav-link" v-bind:id="category.id" 
+								v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+							</dd>
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-3">
+									<ul>
+										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
+											v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+									</ul>
+								</div>
+								<div class="col-9">
+									<ul class="nav">
+										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
+											v-on:click="productSelect($event.target)">{{category.name}}</dd>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<form id="registerInformation" class="needs-validation" novalidate>
-						<div class="form-row">
-							<div class="col-3 text-right">
-								<label for="categoryId">分類：</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control-plaintext" id="cat" type="text"
-								placeholder="請由上面選擇" readonly required>
-								<input id="categoryId" name="categoryId" type="hidden">
-								<div id="categoryIdAlert"></div>
-							</div>
-							<div class="col-3"></div>
+				</div>
+				<form id="registerInformation" class="mt-4">
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">
+							<label for="categoryId">分類：</label>
 						</div>
-						<div class="form-row">
-							<div class="col-3 text-right">
-								<label for="productName">名稱：</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control" id="productName" name="productName" type="text"
-								onblur="dataCheck(this)" required>
-								<div id="productNameAlert"></div>
-							</div>
-							<div class="col-3"></div>
+						<div class="col-6">
+							<input class="form-control-plaintext" id="cat" type="text"
+							placeholder="請由上表選擇" readonly required>
+							<input id="categoryId" name="categoryId" type="hidden">
+							<div id="categoryIdAlert"></div>
 						</div>
-						<div class="form-row">
-							<div class="col-3 text-right">
-								<label for="price">價格：</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control" id="price" name="price" type="text"
-								onblur="dataCheck(this)" required>
-								<div id="priceAlert"></div>
-							</div>
-							<div class="col-3"></div>
-						</div>
-						<div class="form-row">
-							<div class="col-3 text-right">
-								<label for="number">數量：</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control" id="number" name="number" type="text"
-								onblur="dataCheck(this)" required>
-								<div id="numberAlert"></div>
-							</div>
-							<div class="col-3"></div>
-						</div>
-						<div class="form-row">
-							<div class="col-3 text-right">
-								<label for="file">圖片：</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control-file" id="file" name="file" type="file"
-								accept=".png" onchange="dataCheck(this)" required>
-								<div id="fileAlert"></div>
-								<div id="imagePreview"></div>
-							</div>
-							<div class="col-3"></div>
-						</div>
-					</form>
-					<div class="row">
-						<div class="col"></div>
-						<div class="col">
-							<button class="btn btn-primary btn-block" onclick="productAdd()">刊登商品</button>
-						</div>
-						<div class="col"></div>
+						<div class="col-3"></div>
 					</div>
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">
+							<label for="productName">名稱：</label>
+						</div>
+						<div class="col-6">
+							<input class="form-control" id="productName" name="productName" type="text"
+							onblur="dataCheck(this)" required>
+							<div id="productNameAlert"></div>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">
+							<label for="price">價格：</label>
+						</div>
+						<div class="col-6">
+							<input class="form-control" id="price" name="price" type="text"
+							onblur="dataCheck(this)" required>
+							<div id="priceAlert"></div>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="form-row mb-3">
+						<div class="col-3 text-right">
+							<label for="number">數量：</label>
+						</div>
+						<div class="col-6">
+							<input class="form-control" id="number" name="number" type="text"
+							onblur="dataCheck(this)" required>
+							<div id="numberAlert"></div>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="form-row mb-5">
+						<div class="col-3 text-right">
+							<label for="file">圖片：</label>
+						</div>
+						<div class="col-6">
+							<input class="form-control-file" id="file" name="file" type="file"
+							accept=".png" onchange="dataCheck(this)" required>
+							<div id="fileAlert"></div>
+							<div id="imagePreview"></div>
+						</div>
+						<div class="col-3"></div>
+					</div>
+				</form>
+				<div class="row">
+					<div class="col"></div>
+					<div class="col">
+						<button class="btn btn-secondary btn-block" onclick="productAdd()">刊登商品</button>
+					</div>
+					<div class="col"></div>
 				</div>
 			</div>
-		</div>
-<!-- 		<section class="d-flex justify-content-center align-items-center">
-d-flex justify-content-center align-items-center text-center
-			<div id="content" class="container py-10 text-center">
-				
-			</div>
-		</section>  -->
+		</main>
 		<c:import url="footer.jsp"></c:import>
 		
 		<script src="jquery-3.1.1.min.js"></script>
