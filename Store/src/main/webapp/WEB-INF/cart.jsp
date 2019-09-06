@@ -42,7 +42,7 @@
 				template: `
 					<div class='row border border-secondary mb-1'>
 						<div class='col'>
-							<img :src="'/./img/' + cart.productImage">
+							<img :src="'/./img/' + cart.productImage" class="img-fluid">
 						</div>
 						<div class='col align-self-center'>
 							<h5>{{cart.productName}}</h5>

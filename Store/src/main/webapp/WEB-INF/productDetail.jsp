@@ -15,7 +15,7 @@
 			<div class="container" style="height: 65vh;">
 				<div class="row">
 					<div class="col">
-						<img id="productDetailImage" src="/./img/${product.image}">
+						<img id="productDetailImage" src="/./img/${product.image}" class="img-fluid">
 					</div>
 					<div class="col align-self-center">
 						<div class="mb-2">售價： ${product.price }</div>

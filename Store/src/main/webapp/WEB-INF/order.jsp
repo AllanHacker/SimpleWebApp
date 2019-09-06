@@ -37,7 +37,7 @@
 				<div id="orderProduct" class="container text-center my-3">
 					<div v-for="product in products" class="row border border-secondary mb-1">
 						<div class="col">
-							<img :src="product.image">
+							<img :src="product.image" class="img-fluid">
 						</div>
 						<div class="col align-self-center">
 							<small>商品名稱：{{product.name}}</small></br>

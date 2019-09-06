@@ -192,7 +192,7 @@
 				$("#imagePreview").empty();
 				var file = this.files[0];
 				var url = window.URL.createObjectURL(file);
-				var img = $("<img>").attr("src", url);
+				var img = $("<img class='img-fluid'>").attr("src", url);
 				$("#imagePreview").append(img);
 			});
 			

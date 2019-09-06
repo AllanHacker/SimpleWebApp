@@ -50,7 +50,7 @@
 			var productTemplate = '' +
 			'<div id="%CART_ID%" class="row border border-secondary mb-1">' +
 			'	<div class="col">' +
-			'		<img src="/./img/%PRODUCT_IMAGE%">' +
+			'		<img src="/./img/%PRODUCT_IMAGE%" class="img-fluid">' +
 			'	</div>' +
 			'	<div class="col align-self-center">' +
 			'		<p>名稱：%PRODUCT_NAME%</p>' +
