@@ -52,7 +52,7 @@
 					<div class="row" id="productList">
 						<div class="col-md-4" v-for="product in products">
 							<div class="card mb-4 shadow-sm">
-								<img :src="'/./img/' + product.image" class="bd-placeholder-img card-img-top img-fluid" width="100%" height="225"></img>
+								<img :src="'/./img/' + product.image" class="bd-placeholder-img card-img-top img-fluid" style="height:280px"></img>
 								<div class="card-body">
 									<h5 class="card-text">{{product.name}}</h5>
 									<p class="card-text">&dollar;&nbsp;{{product.price}}</p>

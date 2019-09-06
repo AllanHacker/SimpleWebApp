@@ -26,7 +26,7 @@
 				<c:forEach items="${products}" var="product">
 					<div id="product" class="row border border-secondary mb-1">
 						<div class="col">
-							<img src="/./img/${product.image}" class="img-fluid">
+							<img src="/./img/${product.image}" class="img-fluid" >
 						</div>
 						<div class="col align-self-center">
 							<p>${product.name}</br></br>
