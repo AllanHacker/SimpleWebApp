@@ -11,6 +11,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<link href="common.css" rel="stylesheet">
 		<link href="index.css" rel="stylesheet">
+		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
 		<c:import url="header.jsp"></c:import>
