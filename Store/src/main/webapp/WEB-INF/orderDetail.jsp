@@ -160,10 +160,6 @@
 			}
 			
 			function orderAdd() {
-				if ($("#recipientAddress").text() == undefined) {
-					alertAPI("請先設置收件人", "alertFailure");
-					return;
-				}
 				$.ajax({
 					url: "orderAdd.do",
 					data: "total=" + $("#totalCount").text() +

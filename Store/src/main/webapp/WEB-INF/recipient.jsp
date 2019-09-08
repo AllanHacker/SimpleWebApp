@@ -22,7 +22,7 @@
 				<div id="recipientForm" class="popupStyle w-50 p-5 text-center">
 					<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
 					<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
-					<input id="postalCode" type="text" placeholder="郵遞區號" readonly="readonly" class="form-control-plaintext mb-2" required>
+					<input id="postalCode" type="text" placeholder="郵遞區號(自動查詢)" readonly="readonly" class="form-control-plaintext mb-2" required>
 					<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
 					<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
 					<select id="road" onchange="postalCode()" class="form-control mb-2"></select>

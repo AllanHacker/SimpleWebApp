@@ -53,6 +53,12 @@ public class OrderController {
 	public ResponseResult<Void> orderAdd(Integer total, String recipientName, String recipientPhone, String recipientAddress, 
 			Integer[] productId, Integer[] productNumber, HttpSession session) {
 		
+		if ("".equals(recipientName) || "".equals(recipientPhone) || "".equals(recipientAddress)) {
+			return new ResponseResult<Void>(0, "請先設置收件人");
+		}
+		if (total == null || productId.length == 0 || productNumber.length == 0) {
+			return new ResponseResult<Void>(0, "資料有誤");
+		}
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer result = orderService.add(total, recipientName, recipientPhone, recipientAddress, productId, productNumber, userId);
 		if (result == 1) {
