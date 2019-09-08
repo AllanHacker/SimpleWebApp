@@ -22,7 +22,7 @@
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
 							<dd class="nav-item" v-for="category in categories" >
-								<span class="nav-link" v-on:mouseover="categoryList2(category.id, $event.target)">{{category.name}}</span>
+								<span class="nav-link" v-bind:id="category.id" v-on:mouseover="categoryList2(category.id)">{{category.name}}</span>
 							</dd>
 						</ul>
 					</div>
@@ -31,12 +31,12 @@
 							<div class="row">
 								<div class="col-3">
 									<ul>
-										<dd class="nav-item" v-for="category in categories2" v-on:mouseover="categoryList3(category.id)">{{category.name}}</dd>
+										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id" v-on:mouseover="categoryList3(category.id)">{{category.name}}</dd>
 									</ul>
 								</div>
 								<div class="col-9">
 									<ul class="nav">
-										<dd class="nav-link" v-for="category in categories3" v-on:click="productList(category.id)">{{category.name}}</dd>
+										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id" v-on:click="productList(category.id)" v-on:mouseover="styleChange($event.target)">{{category.name}}</dd>
 									</ul>
 								</div>
 							</div>
@@ -134,9 +134,9 @@
 					categories3: []
 				},
 				methods: {
-					categoryList2: function (id, t) {
+					categoryList2: function (id) {
 						$(".nav-item span").attr("class", "nav-link");
-						$(t).attr("class", "nav-link active");
+						$("#" + id).attr("class", "nav-link active");
 						$.ajax({
 							url: "categoryList.do",
 							data: "parentId=" + id,
@@ -157,6 +157,8 @@
 						});
 					},
 					categoryList3: function (id) {
+						$(".col-3 ul dd").attr("style", "background-color: none;");
+						$("#" + id).attr("style", "background-color: rgba(0, 0, 0, 0.2);");
 						$.ajax({
 							url: "categoryList.do",
 							data: "parentId=" + id,
@@ -184,28 +186,34 @@
 							success: function(obj){
 								if (obj.state == 0) {
 									alertAPI(obj.message, "alertFailure");
-								}
-								productListVue.products = [];
-								for (var i = 0; i < obj.data.length; i++) {
-									var product = obj.data[i];
-									productListVue.products.push({
-										id: product.id,
-										name: product.name,
-										categoryId: product.categoryId,
-										price: product.price,
-										number: product.number,
-										image: product.image,
-										state: product.state,
-										userId: product.userId
-									});
+								} else {
+									productListVue.products = [];
+									for (var i = 0; i < obj.data.length; i++) {
+										var product = obj.data[i];
+										productListVue.products.push({
+											id: product.id,
+											name: product.name,
+											categoryId: product.categoryId,
+											price: product.price,
+											number: product.number,
+											image: product.image,
+											state: product.state,
+											userId: product.userId
+										});
+									}
 								}
 							}
 						});
+					},
+					styleChange: function (t) {
+						$(".col-9 ul dd").attr("style", "background-color: none;");
+						$(t).attr("style", "background-color: rgba(0, 0, 0, 0.2); cursor: pointer;");
 					}
 				}
 			})
 			
 			$(function(){
+				//男裝、上衣、襯衫
 				categoryList1(0);
 				categoryVue.categoryList2(67);
 				categoryVue.categoryList3(73);

@@ -20,7 +20,7 @@
 						<ul class="nav nav-tabs card-header-tabs">
 							<dd class="nav-item" v-for="category in categories" >
 								<span class="nav-link" v-bind:id="category.id" 
-								v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+								v-on:mouseover="categoryList2(category.id)">{{category.name}}</span>
 							</dd>
 						</ul>
 					</div>
@@ -30,13 +30,13 @@
 								<div class="col-3">
 									<ul>
 										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
-											v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+											v-on:mouseover="categoryList3(category.id)">{{category.name}}</dd>
 									</ul>
 								</div>
 								<div class="col-9">
 									<ul class="nav">
 										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
-											v-on:click="productSelect($event.target)">{{category.name}}</dd>
+											v-on:click="productSelect(category.id)" v-on:mouseover="styleChange($event.target)">{{category.name}}</dd>
 									</ul>
 								</div>
 							</div>
@@ -47,7 +47,7 @@
 					<div class="form-row mb-3">
 						<div class="col-3 text-right">分類：</div>
 						<div class="col-6">
-							<input id="cat" type="text" placeholder="請由上表選擇" class="form-control-plaintext">
+							<input id="cat" type="text" placeholder="請由上表選擇" class="form-control-plaintext" readonly>
 							<input id="categoryId" name="categoryId" type="hidden">
 							<div id="categoryIdAlert"></div>
 						</div>
@@ -205,12 +205,12 @@
 					categories3: []
 				},
 				methods: {
-					categoryList2: function (t) {
+					categoryList2: function (id) {
 						$(".nav-item span").attr("class", "nav-link");
-						$(t).attr("class", "nav-link active");
+						$("#" + id).attr("class", "nav-link active");
 						$.ajax({
 							url: "categoryList.do",
-							data: "parentId=" + t.id,
+							data: "parentId=" + id,
 							type: "get",
 							dataType: "json",
 							success: function(obj){
@@ -227,10 +227,12 @@
 							}
 						});
 					},
-					categoryList3: function (t) {
+					categoryList3: function (id) {
+						$(".col-3 ul dd").attr("style", "background-color: none;");
+						$("#" + id).attr("style", "background-color: rgba(0, 0, 0, 0.2);");
 						$.ajax({
 							url: "categoryList.do",
-							data: "parentId=" + t.id,
+							data: "parentId=" + id,
 							type: "get",
 							dataType: "json",
 							success: function(obj){
@@ -246,9 +248,13 @@
 							}
 						});
 					},
-					productSelect: function (t) {
-						$("#cat").val($(t).text());
-						$("#categoryId").val(t.id);
+					productSelect: function (id) {
+						$("#cat").val($("#" + id).text());
+						$("#categoryId").val(id);
+					},
+					styleChange: function (t) {
+						$(".col-9 ul dd").attr("style", "background-color: none;");
+						$(t).attr("style", "background-color: rgba(0, 0, 0, 0.2); cursor: pointer;");
 					}
 				}
 			})
