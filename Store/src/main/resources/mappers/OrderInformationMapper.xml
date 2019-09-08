@@ -8,12 +8,16 @@
 		INSERT INTO order_information(
 			total,
 			user_id,
-			recipient_id
+			recipient_name,
+			recipient_phone,
+			recipient_address
 		) 
 		VALUES(
 			#{total},
 			#{userId},
-			#{recipientId}
+			#{recipientName},
+			#{recipientPhone},
+			#{recipientAddress}
 		);
 	</insert>
 	
@@ -25,7 +29,9 @@
 			total,
 			created_time AS createdTime,
 			user_id AS userId,
-			recipient_id AS recipientId
+			recipient_name AS recipientName,
+			recipient_phone AS recipientPhone,
+			recipient_address AS recipientAddress
 		FROM
 			order_information
 		WHERE
@@ -42,7 +48,9 @@
 			total,
 			created_time AS createdTime,
 			user_id AS userId,
-			recipient_id AS recipientId
+			recipient_name AS recipientName,
+			recipient_phone AS recipientPhone,
+			recipient_address AS recipientAddress
 		FROM
 			order_information
 		WHERE

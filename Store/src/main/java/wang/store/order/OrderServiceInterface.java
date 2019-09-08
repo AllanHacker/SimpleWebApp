@@ -12,13 +12,16 @@ public interface OrderServiceInterface {
 	/**
 	 * 新增訂單資料，同時寫入兩張表
 	 * @param total 訂單金額
-	 * @param recipientId 收件人id
+	 * @param recipientName 收件人姓名
+	 * @param recipientPhone 收件人電話
+	 * @param recipientAddress 收件人地址
 	 * @param productId 商品id
 	 * @param productNumber 商品數量
 	 * @param userId 訂購會員的id
 	 * @return 受影響的行數
 	 */
-	Integer add(Integer total, Integer recipientId, Integer[] productId, Integer[] productNumber, Integer userId);
+	Integer add(Integer total, String recipientName, String recipientPhone, String recipientAddress, 
+			Integer[] productId, Integer[] productNumber, Integer userId);
 	
 	/**
 	 * 以會員id查詢訂單資料，並以時間排序

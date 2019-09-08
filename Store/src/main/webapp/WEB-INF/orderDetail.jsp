@@ -38,10 +38,9 @@
 			var recipientTemplate = '' +
 			'<div class="row border border-secondary mb-1">' +
 			'	<div class="col p-3">' +
-			'		<p>姓名：%RECIPIENT_NAME%</p>' +
-			'		<p>電話：%RECIPIENT_PHONE%</p>' +
-			'		<p>地址：%RECIPIENT_ADDRESS%</p>' +
-			'		<input id="recipientId" type="hidden" value="%RECIPIENT_ID%"/>' +
+			'		<p>姓名：<span id="recipientName">%RECIPIENT_NAME%</span></p>' +
+			'		<p>電話：<span id="recipientPhone">%RECIPIENT_PHONE%</span></p>' +
+			'		<p>地址：<span id="recipientAddress">%RECIPIENT_ADDRESS%</span></p>' +
 			'	</div>' +
 			'	<div class="col-3 align-self-center">' +
 			'		<button class="btn btn-outline-secondary btn-sm" onclick="popup()">更改</button>' +
@@ -161,14 +160,16 @@
 			}
 			
 			function orderAdd() {
-				if ($("#recipientId").val() == undefined) {
+				if ($("#recipientAddress").text() == undefined) {
 					alertAPI("請先設置收件人", "alertFailure");
 					return;
 				}
 				$.ajax({
 					url: "orderAdd.do",
 					data: "total=" + $("#totalCount").text() +
-						  "&recipientId=" + $("#recipientId").val() +
+						  "&recipientName=" + $("#recipientName").text() +
+						  "&recipientPhone=" + $("#recipientPhone").text() +
+						  "&recipientAddress=" + $("#recipientAddress").text() +
 						  "&productId=" + productId +
 						  "&productNumber=" + productNumber,
 					type: "post",

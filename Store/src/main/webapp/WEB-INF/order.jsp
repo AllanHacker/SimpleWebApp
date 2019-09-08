@@ -134,24 +134,11 @@
 							if (obj.data.state > 1) {
 								$("#cancelButton").attr("disabled", true);
 							}
-							recipientLoad(obj.data.recipientId);
+							orderDetail.recipientName = obj.data.recipientName;
+							orderDetail.recipientPhone = obj.data.recipientPhone;
+							orderDetail.recipientAddress = obj.data.recipientAddress;
 							orderProductLoad(obj.data.id);
 						}
-					}
-				});
-			}
-			
-			function recipientLoad(recipientId) {
-				$.ajax({
-					url: "recipientLoad.do",
-					data: "id=" + recipientId,
-					type: "get",
-					dataType: "json",
-					async: false,
-					success: function(obj){
-						orderDetail.recipientName = obj.data.recipientName;
-						orderDetail.recipientPhone = obj.data.recipientPhone;
-						orderDetail.recipientAddress = obj.data.postalCode + obj.data.city + obj.data.district + obj.data.road + obj.data.other;
 					}
 				});
 			}

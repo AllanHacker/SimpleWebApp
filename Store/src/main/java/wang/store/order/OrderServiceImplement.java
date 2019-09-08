@@ -20,13 +20,15 @@ public class OrderServiceImplement implements OrderServiceInterface{
 	@Resource(name = "orderProductMapper")
 	private OrderProductMapper orderProductMapper;
 	
-	public Integer add(Integer total, Integer recipientId, 
+	public Integer add(Integer total, String recipientName, String recipientPhone, String recipientAddress, 
 			Integer[] productId, Integer[] productNumber, Integer userId) {
 		
 		OrderInformation orderInformation = new OrderInformation();
 		orderInformation.setTotal(total);
 		orderInformation.setUserId(userId);
-		orderInformation.setRecipientId(recipientId);
+		orderInformation.setRecipientName(recipientName);
+		orderInformation.setRecipientPhone(recipientPhone);
+		orderInformation.setRecipientAddress(recipientAddress);
 		Integer result = orderInformationMapper.insert(orderInformation);
 		
 		OrderProduct orderProduct;

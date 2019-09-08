@@ -40,17 +40,21 @@ public class OrderController {
 	/**
 	 * 創建訂單。同時寫入orderInformation與orderProduct
 	 * @param total 訂單金額
-	 * @param recipientId 收件人
+	 * @param recipientName 收件人姓名
+	 * @param recipientPhone 收件人電話
+	 * @param recipientAddress 收件人地址
+	 * @param productId 商品id
+	 * @param productNumber 商品數量
 	 * @param session 會員id儲存位置
 	 * @return 成功返回1，失敗返回0
 	 */
 	@RequestMapping("/orderAdd.do")
 	@ResponseBody
-	public ResponseResult<Void> orderAdd(Integer total, Integer recipientId, 
+	public ResponseResult<Void> orderAdd(Integer total, String recipientName, String recipientPhone, String recipientAddress, 
 			Integer[] productId, Integer[] productNumber, HttpSession session) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
-		Integer result = orderService.add(total, recipientId, productId, productNumber, userId);
+		Integer result = orderService.add(total, recipientName, recipientPhone, recipientAddress, productId, productNumber, userId);
 		if (result == 1) {
 			return new ResponseResult<Void>(1, "訂單成立");
 		}
