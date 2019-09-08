@@ -126,7 +126,20 @@
 				$("#number").val("${product.number}");
 				$("#state${product.state}").attr("checked", "true");
 				categoryList1(0);
+				categoryLoad("${product.categoryId}");
 			});
+			
+			function categoryLoad(id) {
+				$.ajax({
+					url: "categoryLoad.do",
+					data: "id=" + id,
+					type: "get",
+					dataType: "json",
+					success: function(obj){
+						$("#cat").val(obj.data.name);
+					}
+				});
+			}
 			
 			function categoryList1(id) {
 				$.ajax({

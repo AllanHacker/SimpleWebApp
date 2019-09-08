@@ -15,6 +15,18 @@
 			parent_id=#{parentId}
 	</select>
 	
+	<!-- 以id找出某個商品目錄 Category selectById(Integer id) -->
+	<select id="selectById" resultType="wang.store.category.Category">
+		SELECT
+			id,
+			name,
+			parent_id AS parentId
+		FROM
+			category
+		WHERE
+			id=#{id}
+	</select>
+	
 </mapper>
 
 

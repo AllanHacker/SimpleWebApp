@@ -28,4 +28,15 @@ public class CategoryController {
 		return new ResponseResult<List<Category>>(categories);
 	}
 	
+	/**
+	 * 顯示某個商品目錄
+	 * @param id 商品目錄id
+	 * @return 該商品目錄
+	 */
+	@RequestMapping("/categoryLoad.do")
+	@ResponseBody
+	public ResponseResult<Category> categoryLoad(Integer id) {
+		Category category = categoryService.findById(id);
+		return new ResponseResult<Category>(category);
+	}
 }

@@ -17,4 +17,8 @@ public class CategoryServiceImplement implements CategoryServiceInterface{
 		return categories;
 	}
 
+	public Category findById(Integer id) {
+		return categoryMapper.selectById(id);
+	}
+
 }

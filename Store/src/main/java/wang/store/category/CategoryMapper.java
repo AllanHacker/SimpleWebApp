@@ -11,4 +11,10 @@ public interface CategoryMapper {
 	 */
 	List<Category> selectByParentId(Integer parentId);
 	
+	/**
+	 * 以id找出某個商品目錄
+	 * @param id 商品目錄id
+	 * @return 該商品目錄
+	 */
+	Category selectById(Integer id);
 }
