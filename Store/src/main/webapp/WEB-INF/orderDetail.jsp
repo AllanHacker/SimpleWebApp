@@ -92,7 +92,7 @@
 					dataType: "json",
 					success: function(obj){
 						if (obj.state == 0) {
-							$("#recipientSection").append("<div>" + obj.message + "</div>");
+							$("#recipientSection").append("<a class='text-decoration-none' href='recipientPage.do'>" + obj.message + "</a>");
 						} else {
 							$("#recipientSection").append('');
 							var html = recipientTemplate;
@@ -161,6 +161,10 @@
 			}
 			
 			function orderAdd() {
+				if ($("#recipientId").val() == undefined) {
+					alertAPI("請先設置收件人", "alertFailure");
+					return;
+				}
 				$.ajax({
 					url: "orderAdd.do",
 					data: "total=" + $("#totalCount").text() +

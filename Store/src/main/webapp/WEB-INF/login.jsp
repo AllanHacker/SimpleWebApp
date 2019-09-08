@@ -56,6 +56,7 @@
 					<div class="col"></div>
 					<div class="col">
 						<button class="btn btn-secondary btn-block" onclick="userLogin()">登入</button>
+						還沒有帳號嗎？請先<a class="text-decoration-none" href="registerPage.do">註冊</a>。
 					</div>
 					<div class="col"></div>
 				</div>

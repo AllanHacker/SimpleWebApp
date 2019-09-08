@@ -22,8 +22,7 @@
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs">
 							<dd class="nav-item" v-for="category in categories" >
-								<span class="nav-link" v-bind:id="category.id" 
-								v-on:mouseover="categoryList2($event.target)">{{category.name}}</span>
+								<span class="nav-link" v-on:mouseover="categoryList2(category.id, $event.target)">{{category.name}}</span>
 							</dd>
 						</ul>
 					</div>
@@ -32,14 +31,12 @@
 							<div class="row">
 								<div class="col-3">
 									<ul>
-										<dd class="nav-item" v-for="category in categories2" v-bind:id="category.id"
-											v-on:mouseover="categoryList3($event.target)">{{category.name}}</dd>
+										<dd class="nav-item" v-for="category in categories2" v-on:mouseover="categoryList3(category.id)">{{category.name}}</dd>
 									</ul>
 								</div>
 								<div class="col-9">
 									<ul class="nav">
-										<dd class="nav-link" v-for="category in categories3" v-bind:id="category.id"
-											v-on:click="productList($event.target)">{{category.name}}</dd>
+										<dd class="nav-link" v-for="category in categories3" v-on:click="productList(category.id)">{{category.name}}</dd>
 									</ul>
 								</div>
 							</div>
@@ -58,7 +55,31 @@
 									<h5 class="card-text">{{product.name}}</h5>
 									<p class="card-text">&dollar;&nbsp;{{product.price}}</p>
 									<div class="d-flex justify-content-between align-items-center">
-										<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">View</a>
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<a :href="'productDetailPage.do?id=' + product.id" class="btn btn-sm btn-outline-secondary">
+												<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													width="20" height="20" viewBox="0 0 488.85 488.85" style="enable-background:new 0 0 488.85 488.85;" xml:space="preserve">
+													<g>
+														<path d="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2
+															s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025
+															c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3
+															C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7
+															c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"/>
+													</g>
+												</svg>
+											</a>
+											<button v-on:click="cartAdd(product.id, product.price)" class="btn btn-sm btn-outline-secondary">
+												<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 510 510" 
+													style="enable-background:new 0 0 510 510;" xml:space="preserve" role="img" focusable="false">
+													<g id="shopping-cart">
+														<path d="M153,408c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S181.05,408,153,408z M0,0v51h51l91.8,193.8L107.1,306
+															c-2.55,7.65-5.1,17.85-5.1,25.5c0,28.05,22.95,51,51,51h306v-51H163.2c-2.55,0-5.1-2.55-5.1-5.1v-2.551l22.95-43.35h188.7
+															c20.4,0,35.7-10.2,43.35-25.5L504.9,89.25c5.1-5.1,5.1-7.65,5.1-12.75c0-15.3-10.2-25.5-25.5-25.5H107.1L84.15,0H0z M408,408
+															c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S436.05,408,408,408z"/>
+													</g>
+												</svg>
+											</button>
+										</div>
 										<small class="text-muted">庫存：{{product.number}}</small>
 									</div>
 								</div>
@@ -80,6 +101,28 @@
 				el: "#productList",
 				data: {
 					products: []
+				},
+				methods: {
+					cartAdd: function (id, price) {
+						$.ajax({
+							url: "cartAdd.do",
+							data: "productId=" + id +
+								"&amount=1" +
+								"&productPrice=" + price,
+							type: "post",
+							dataType: "json",
+							success: function(obj){
+								if (obj.state == 1) {
+									alertAPI(obj.message);
+								} else {
+									alertAPI(obj.message, "alertFailure");
+								}
+							},
+							error: function(obj){
+								alertAPI("請先登入", "alertFailure");
+							}
+						});
+					}
 				}
 			})
 			
@@ -91,12 +134,12 @@
 					categories3: []
 				},
 				methods: {
-					categoryList2: function (t) {
+					categoryList2: function (id, t) {
 						$(".nav-item span").attr("class", "nav-link");
 						$(t).attr("class", "nav-link active");
 						$.ajax({
 							url: "categoryList.do",
-							data: "parentId=" + t.id,
+							data: "parentId=" + id,
 							type: "get",
 							dataType: "json",
 							success: function(obj){
@@ -113,10 +156,10 @@
 							}
 						});
 					},
-					categoryList3: function (t) {
+					categoryList3: function (id) {
 						$.ajax({
 							url: "categoryList.do",
-							data: "parentId=" + t.id,
+							data: "parentId=" + id,
 							type: "get",
 							dataType: "json",
 							success: function(obj){
@@ -132,10 +175,10 @@
 							}
 						});
 					},
-					productList: function (t) {
+					productList: function (id) {
 						$.ajax({
 							url: "productList.do",
-							data: "categoryId=" + t.id,
+							data: "categoryId=" + id,
 							type: "get",
 							dataType: "json",
 							success: function(obj){
@@ -164,6 +207,9 @@
 			
 			$(function(){
 				categoryList1(0);
+				categoryVue.categoryList2(67);
+				categoryVue.categoryList3(73);
+				categoryVue.productList(143);
 			});
 			
 			function categoryList1(id) {
