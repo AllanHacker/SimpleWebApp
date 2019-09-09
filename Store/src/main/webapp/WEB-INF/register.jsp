@@ -139,7 +139,7 @@
 						if (obj.state == 1) {
 							location.href = "logout.do";
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

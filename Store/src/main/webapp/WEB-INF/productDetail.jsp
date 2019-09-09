@@ -48,7 +48,7 @@
 					amount ++;
 					$("#amount").text(amount);
 				} else {
-					alertAPI("已超過庫存!", "alertFailure");
+					alertAPI("已超過庫存!", "alert-danger");
 				}
 			}
 			
@@ -58,7 +58,7 @@
 					amount --;
 					$("#amount").text(amount);
 				} else {
-					alertAPI("至少要1個!", "alertFailure");
+					alertAPI("至少要1個!", "alert-danger");
 				}
 			}
 			
@@ -79,11 +79,11 @@
 						if (obj.state == 1) {
 							alertAPI(obj.message);
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					},
 					error: function(obj){
-						alertAPI("請先登入", "alertFailure");
+						alertAPI("請先登入", "alert-danger");
 					}
 				});
 			}

@@ -1,23 +1,12 @@
 /*
- * 彈跳視窗的函式
- * 
- * 有三個參數 : 訊息、樣式、時間。需搭配alertAPI.css
- * 
+ * 於螢幕中間彈出alert視窗，1.2秒後移除。
  * message: 彈跳視窗中顯示的內容。
- * style  : 彈跳視窗的顏色，有綠色alertSuccess、紅色alertFailure、藍色alertInfo。若不設置預設為綠色。
- * time   : 彈跳視窗停留時間，若不設置預設為1.2秒。
- * 
+ * style  : 彈跳視窗的樣式，預設為alert-success。bootstrap可設置8種不同的樣式。
  */
-var alertAPI = function (message, style, time) {
-	style = (style === undefined) ? 'alertSuccess' : style;
-	time = (time === undefined) ? 1200 : time;
-		$('<div>')
-		.appendTo('body')
-		.addClass('alertAPI ' + style)
-		.html(message)
-		.show()
-		.delay(time)
-		.fadeOut();
+function alertAPI(message, style) {
+	style = (style === undefined) ? 'alert-success' : style;
+	$('<div class="alert alertAPI fade show" role="alert">').appendTo('body').addClass(style).html(message);
+	setTimeout(function() {$('.alert:first').alert('close');}, 1200);
 };
 
 /*
@@ -34,7 +23,7 @@ $("#loginCheck").click(function(){
 			if (obj.state == 1) {
 				location.href = "loginPage.do";
 			} 
-			alertAPI(obj.message, "alertFailure");
+			alertAPI(obj.message, "alert-danger");
 		}
 	});
 });

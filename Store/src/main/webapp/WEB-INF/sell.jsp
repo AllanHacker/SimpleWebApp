@@ -192,7 +192,7 @@
 							$("#number").attr("class", "form-control");
 							$("#file").attr("class", "form-control-file");
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

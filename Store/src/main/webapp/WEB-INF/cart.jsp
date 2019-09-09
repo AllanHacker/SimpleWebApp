@@ -96,7 +96,7 @@
 								}
 							});
 						} else {
-							alertAPI("已超過庫存!", "alertFailure");
+							alertAPI("已超過庫存!", "alert-danger");
 						}
 					},
 					cartDelete: function (cart){
@@ -109,7 +109,7 @@
 								if (obj.state == 1) {
 									cartList();
 								} else {
-									alertAPI(obj.message, "alertFailure");
+									alertAPI(obj.message, "alert-danger");
 								}
 							}
 						});

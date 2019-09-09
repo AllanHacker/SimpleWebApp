@@ -242,7 +242,7 @@
 								closepopup();
 							}
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});
@@ -259,7 +259,7 @@
 							alertAPI(obj.message);
 							recipientList();
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});
@@ -276,7 +276,7 @@
 							alertAPI(obj.message);
 							recipientList();
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

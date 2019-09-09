@@ -150,7 +150,7 @@
 							if (obj.state == 1) {
 								location.href = "logout.do";
 							} else {
-								alertAPI(obj.message, "alertFailure");
+								alertAPI(obj.message, "alert-danger");
 							}
 						}
 					});
@@ -170,7 +170,7 @@
 							userLoad();
 							closepopup();
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});
@@ -189,7 +189,7 @@
 							alertAPI(obj.message);
 							closepopup();
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

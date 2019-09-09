@@ -103,7 +103,7 @@
 							}
 						} else {
 							$("main").attr("style", "height: 70vh;");
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});
@@ -191,7 +191,7 @@
 							$("#cancelButton").attr("disabled", true);
 							orderList();
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

@@ -177,7 +177,7 @@
 							}
 							location.href = "orderPage.do";
 						} else {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						}
 					}
 				});

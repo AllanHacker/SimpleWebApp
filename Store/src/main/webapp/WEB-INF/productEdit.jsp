@@ -194,7 +194,7 @@
 					processData: false,
 					success: function(obj){
 						if (obj.state == 0) {
-							alertAPI(obj.message, "alertFailure");
+							alertAPI(obj.message, "alert-danger");
 						} else {
 							alertAPI(obj.message);
 						}

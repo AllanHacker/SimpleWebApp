@@ -115,11 +115,11 @@
 								if (obj.state == 1) {
 									alertAPI(obj.message);
 								} else {
-									alertAPI(obj.message, "alertFailure");
+									alertAPI(obj.message, "alert-danger");
 								}
 							},
 							error: function(obj){
-								alertAPI("請先登入", "alertFailure");
+								alertAPI("請先登入", "alert-danger");
 							}
 						});
 					}
@@ -185,7 +185,7 @@
 							dataType: "json",
 							success: function(obj){
 								if (obj.state == 0) {
-									alertAPI(obj.message, "alertFailure");
+									alertAPI(obj.message, "alert-danger");
 								} else {
 									productListVue.products = [];
 									for (var i = 0; i < obj.data.length; i++) {
