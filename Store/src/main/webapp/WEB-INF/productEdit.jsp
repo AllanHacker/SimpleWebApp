@@ -89,13 +89,13 @@
 					<div class="form-row mb-5">
 						<div class="col-3 text-right">狀態：</div>
 						<div class="col-6 text-left">
-							<div class="form-check d-inline-block">
-								<input id="state1" type="radio" name="state" value="1" class="form-check-input">
-								<label class="form-check-label" for="state1">上架</label>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input id="state1" type="radio" name="state" value="1" class="custom-control-input">
+								<label class="custom-control-label" for="state1">上架</label>
 							</div>
-							<div class="form-check d-inline-block">
-								<input id="state0" type="radio" name="state" value="0" class="form-check-input">
-								<label class="form-check-label" for="state0">下架</label>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input id="state0" type="radio" name="state" value="0" class="custom-control-input">
+								<label class="custom-control-label" for="state0">下架</label>
 							</div>
 						</div>
 						<div class="col-3"></div>

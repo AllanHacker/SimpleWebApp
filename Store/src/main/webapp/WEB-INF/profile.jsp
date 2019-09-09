@@ -10,14 +10,13 @@
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
-		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Profile</h2></header>
 		<main class="bg-light pb-5 d-flex justify-content-center align-items-center" style="height: 70vh;">
 			<div class="container text-center h-75">
-				<button class="btn btn-outline-secondary" onclick="popupUserChange()">修改個人資料</button>
-				<button class="btn btn-outline-secondary" onclick="popupPasswordChange()">修改密碼</button>
-				<button class="btn btn-outline-secondary" onclick="popupUserDelete()">刪除帳號</button>
+				<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#userChange">修改個人資料</button>
+				<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#passwordChange">修改密碼</button>
+				<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#userDelete">刪除帳號</button>
 				<div class="container mt-5">
 					<div class="row justify-content-center mb-1">
 						<div class="col-3 text-right">歡迎回來！</div>
@@ -33,57 +32,96 @@
 					</div>
 				</div>
 			</div>
-			<div id="popup" class="popupStyle text-center p-5 w-50">
-					<div id="userChange">
-						<form>
-							<div class="form-group">
-								<label for="email">電子信箱：</label>
-								<input class="form-control" id="email" name="email" type="text" onblur="dataCheck(this)">
-								<div id="emailAlert" class=""></div>
-							</div>
-							<div class="form-group">
-								<label for="phone">手機號碼：</label>
-								<input class="form-control" id="phone" name="phone" type="text" onblur="dataCheck(this)">
-								<div id="phoneAlert" class=""></div>
-							</div>
-						</form>
-						<button class="btn btn-outline-secondary btn-sm" onclick="userChange()">確定</button>
-						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
-					</div>
-					
-					<div id="passwordChange">
-						<form>
-							<div class="form-group">
-								<label for="oldPassword">密碼：</label>
-								<input class="form-control" id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
-								<div id="oldPasswordAlert" class=""></div>
-							</div>
-							<div class="form-group">
-								<label for="password">新密碼：</label>
-								<input class="form-control" id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
-								<div id="passwordAlert" class=""></div>
-							</div>
-							<div class="form-group">
-								<label for="password2">密碼驗證：</label>
-								<input class="form-control" id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
-								<div id="password2Alert" class=""></div>
-							</div>
-						</form>
-						<button class="btn btn-outline-secondary btn-sm" onclick="passwordChange()">確定</button>
-						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
-					</div>
-					
-					<div id="userDelete">
-						<form>
-							<div class="form-group">
-								<label for="oldPassword">請輸入密碼：</label>
-								<input class="form-control" id="pwd" name="pwd" type="password">
-							</div>
-						</form>
-						<button class="btn btn-outline-secondary btn-sm" onclick="userDelete()">確定</button>
-						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
+			
+			<div class="modal fade" id="userChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">修改個人資料</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="email">電子信箱：</label>
+									<input class="form-control" id="email" name="email" type="text" onblur="dataCheck(this)">
+									<div id="emailAlert" class=""></div>
+								</div>
+								<div class="form-group">
+									<label for="phone">手機號碼：</label>
+									<input class="form-control" id="phone" name="phone" type="text" onblur="dataCheck(this)">
+									<div id="phoneAlert" class=""></div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-outline-secondary btn-sm" onclick="userChange()">確定</button>
+						</div>
 					</div>
 				</div>
+			</div>
+			
+			<div class="modal fade" id="passwordChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">修改密碼</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="oldPassword">密碼：</label>
+									<input class="form-control" id="oldPassword" name="oldPassword" type="password" placeholder="請輸入原本的密碼">
+									<div id="oldPasswordAlert" class=""></div>
+								</div>
+								<div class="form-group">
+									<label for="password">新密碼：</label>
+									<input class="form-control" id="password" name="password" type="password" placeholder="請輸入新密碼" onblur="dataCheck(this)">
+									<div id="passwordAlert" class=""></div>
+								</div>
+								<div class="form-group">
+									<label for="password2">密碼驗證：</label>
+									<input class="form-control" id="password2" name="password2" type="password" placeholder="請再次輸入新密碼" onblur="dataCheck(this)">
+									<div id="password2Alert" class=""></div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-outline-secondary btn-sm" onclick="passwordChange()">確定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="userDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">刪除帳號</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="oldPassword">請輸入密碼：</label>
+									<input class="form-control" id="pwd" name="pwd" type="password">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-outline-secondary btn-sm" onclick="userDelete()">確定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		
@@ -168,7 +206,7 @@
 						if (obj.state == 1) {
 							alertAPI(obj.message);
 							userLoad();
-							closepopup();
+							$('.modal').modal('hide');
 						} else {
 							alertAPI(obj.message, "alert-danger");
 						}
@@ -187,7 +225,7 @@
 					success: function(obj){
 						if (obj.state == 1) {
 							alertAPI(obj.message);
-							closepopup();
+							$('.modal').modal('hide');
 						} else {
 							alertAPI(obj.message, "alert-danger");
 						}
@@ -195,41 +233,26 @@
 				});
 			}
 			
-			function popupUserChange() {
-				$("#mask").show();
-				$("#popup").show();
-				$("#userChange").show();
-			}
-			
-			function popupPasswordChange() {
-				$("#mask").show();
-				$("#popup").show();
-				$("#passwordChange").show();
-			}
-			
-			function popupUserDelete() {
-				$("#mask").show();
-				$("#popup").show();
-				$("#userDelete").show();
-			}
-			
-			function closepopup() {
+			$('.modal').on('hidden.bs.modal', function (e) {
 				$("#oldPassword").val("");
 				$("#password").val("");
 				$("#password2").val("");
 				$("#pwd").val("");
+				
+				$("#email").attr("class", "form-control");
+				$("#phone").attr("class", "form-control");
+				$("#oldPassword").attr("class", "form-control");
+				$("#password").attr("class", "form-control");
+				$("#password2").attr("class", "form-control");
+				$("#pwd").attr("class", "form-control");
+				
 				$("#emailAlert").html("");
 				$("#phoneAlert").html("");
-				$("#odlPasswordAlert").html("");
 				$("#passwordAlert").html("");
 				$("#password2Alert").html("");
 				
-				$("#mask").hide();
-				$("#userChange").hide();
-				$("#passwordChange").hide();
-				$("#userDelete").hide();
-				$("#popup").hide();
-			}
+			})
+			
 		</script>
 	</body>
 </html>
