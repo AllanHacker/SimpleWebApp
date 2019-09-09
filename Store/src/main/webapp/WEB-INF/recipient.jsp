@@ -18,22 +18,36 @@
 				<button class="btn btn-outline-secondary btn-sm mb-3" onclick="popup(0)">新增收件人</button>
 				<div id="recipientList"></div>
 			</div>
-			<div class="d-flex justify-content-center align-items-center">
-				<div id="recipientForm" class="popupStyle w-50 p-5 text-center">
-					<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
-					<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
-					<input id="postalCode" type="text" placeholder="郵遞區號(自動查詢)" readonly="readonly" class="form-control-plaintext mb-2" required>
-					<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
-					<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
-					<select id="road" onchange="postalCode()" class="form-control mb-2"></select>
-					<input id="other" type="text" placeholder="巷弄號樓" class="form-control mb-4" required>
-					<input id="recipientId" type="hidden">
-					<div>
-						<button class="btn btn-outline-secondary btn-sm" onclick="recipientSubmit()">確定</button>
-						<button class="btn btn-outline-secondary btn-sm" onclick="closepopup()">取消</button>
+			
+			<div class="modal fade" id="recipientForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">新增收件人</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="text-center">
+								<input id="recipientName" type="text" placeholder="姓名" class="form-control mb-2" required>
+								<input id="recipientPhone" type="text" placeholder="手機" class="form-control mb-2" required>
+								<input id="postalCode" type="text" placeholder="郵遞區號(自動查詢)" class="form-control-plaintext mb-2" required readonly>
+								<select id="city" onchange="districtOption()" class="form-control mb-2"></select>
+								<select id="district" onchange="roadOption()" class="form-control mb-2"></select>
+								<select id="road" onchange="postalCodeFind()" class="form-control mb-2"></select>
+								<input id="other" type="text" placeholder="巷弄號樓" class="form-control mb-4" required>
+								<input id="recipientId" type="hidden">
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-outline-secondary btn-sm" onclick="recipientSubmit()">確定</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			
+			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		
@@ -92,9 +106,7 @@
 			}
 			
 			function popup(id) {
-				$("#mask").show();
-				//$("#recipientForm").css("display", "flex");
-				$("#recipientForm").show();
+				$('.modal').modal('show');
 				$("#recipientId").val(id);
 				$("#recipientName").val("");
 				$("#recipientPhone").val("");
@@ -124,11 +136,6 @@
 						}
 					});
 				}
-			}
-			
-			function closepopup() {
-				$("#mask").hide();
-				$("#recipientForm").hide();
 			}
 			
 			function cityOption() {
@@ -199,7 +206,7 @@
 				});
 			}
 			
-			function postalCode(){
+			function postalCodeFind(){
 				$.ajax({
 					url: "postalCode.do",
 					data: "city=" + $("#city option:selected").val() + 
@@ -239,7 +246,7 @@
 							if (id == 0) {
 								popup(0);
 							} else {
-								closepopup();
+								$('.modal').modal('hide');
 							}
 						} else {
 							alertAPI(obj.message, "alert-danger");

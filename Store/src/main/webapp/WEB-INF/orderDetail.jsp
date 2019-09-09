@@ -10,7 +10,6 @@
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
-		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order Detail</h2></header>
 		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
@@ -26,7 +25,23 @@
 					<button class="btn btn-outline-secondary btn-sm" onclick="cancel()">取消</button>
 				</div>
 			</div>
-			<div id="popupRecipientList" class="popupStyle p-4 w-50"></div>
+		<!--  	<div id="popupRecipientList" class="popupStyle p-4 w-50"></div> -->
+			
+			<div class="modal fade" id="popupRecipientList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">更改收件人</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		
@@ -136,7 +151,7 @@
 			}
 			
 			function popupRecipientList() {
-				$("#popupRecipientList").empty();
+				$("#popupRecipientList .modal-body").empty();
 				$.ajax({
 					url: "recipientList.do",
 					type: "get",
@@ -152,9 +167,7 @@
 							html = html.replace("%RECIPIENT_ADDRESS%", address);
 							html = html.replace("%INDEX%", i);
 						}
-						$("#popupRecipientList").append(html);
-						$("#popupRecipientList").append('<div class="container text-center my-3">'+
-								'<button class="btn btn-outline-secondary btn-sm" onclick="popupClose()">取消</button></div>');
+						$("#popupRecipientList .modal-body").append(html);
 					}
 				});
 			}
@@ -198,18 +211,12 @@
 			function recipientChange(tag) {
 				var index = $(tag).val();
 				recipientList(index);
-				popupClose();
+				$('.modal').modal('hide');
 			}
 			
 			function popup() {
-				$("#mask").show();
-				$("#popupRecipientList").show();
 				popupRecipientList();
-			}
-			
-			function popupClose() {
-				$("#mask").hide();
-				$("#popupRecipientList").hide();
+				$('.modal').modal('show');
 			}
 			
 			function cancel() {

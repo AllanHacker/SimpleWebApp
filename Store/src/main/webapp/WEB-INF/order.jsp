@@ -11,7 +11,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body>
-		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Order</h2></header>
 		<main class="bg-light pb-5 d-flex justify-content-center align-items-center">
@@ -26,34 +25,47 @@
 					</div>
 				</div>
 			</div>
-			<div id="orderDetail" class="popupStyle w-75">
-				<div class="container my-3">
-					<small>下單時間：{{createdTime}}</small></br>
-					<small>狀態：{{state}}</small></br>
-					<small>金額：{{total}}</small></br>
-					<small>收件人姓名：{{recipientName}}</small></br>
-					<small>收件人電話：{{recipientPhone}}</small></br>
-					<small>收件人地址：{{recipientAddress}}</small>
-				</div>
-				<div id="orderProduct" class="container text-center my-3">
-					<div v-for="product in products" class="row border border-secondary mb-1">
-						<div class="col">
-							<img :src="product.image" class="img-fluid">
+
+			<div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">訂單內容</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-						<div class="col align-self-center">
-							<small>商品名稱：{{product.name}}</small></br>
-							<small>商品價格：{{product.price}}</small>
+						<div class="modal-body">
+							<div class="container">
+								<small>下單時間：{{createdTime}}</small></br>
+								<small>狀態：{{state}}</small></br>
+								<small>金額：{{total}}</small></br>
+								<small>收件人姓名：{{recipientName}}</small></br>
+								<small>收件人電話：{{recipientPhone}}</small></br>
+								<small>收件人地址：{{recipientAddress}}</small>
+							</div>
+							<div id="orderProduct" class="container text-center mt-3">
+								<div v-for="product in products" class="row border border-secondary mb-1">
+									<div class="col">
+										<img :src="product.image" class="img-fluid">
+									</div>
+									<div class="col align-self-center">
+										<small>商品名稱：{{product.name}}</small></br>
+										<small>商品價格：{{product.price}}</small>
+									</div>
+									<div class="col align-self-center">
+										<small>購買數量：{{product.number}}</small>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="col align-self-center">
-							<small>購買數量：{{product.number}}</small>
+						<div class="modal-footer">
+							<button class="btn btn-outline-secondary btn-sm" onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
 						</div>
 					</div>
 				</div>
-				<div class="container text-center my-3">
-					<button class="btn btn-outline-secondary btn-sm" onclick="popupClose()">關閉</button>
-					<button class="btn btn-outline-secondary btn-sm" onclick="orderCancel(this)" v-bind:value="orderId" id="cancelButton">取消訂單</button>
-				</div>
 			</div>
+			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		
@@ -110,8 +122,7 @@
 			}
 			
 			function popup(tag) {
-				$("#mask").show();
-				$("#orderDetail").show();
+				$('.modal').modal('show');
 				$("#cancelButton").attr("disabled", false);
 				$.ajax({
 					url: "orderLoad.do",
@@ -195,11 +206,6 @@
 						}
 					}
 				});
-			}
-			
-			function popupClose() {
-				$("#mask").hide();
-				$("#orderDetail").hide();
 			}
 			
 			function stateMeaning(state) {
