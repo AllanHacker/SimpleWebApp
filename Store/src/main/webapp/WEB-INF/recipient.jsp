@@ -10,7 +10,6 @@
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
-		<div id="mask"></div>
 		<c:import url="header.jsp"></c:import>
 		<header class="p-5 text-center bg-light"><h2 class="font-weight-light">Recipient</h2></header>
 		<main class="bg-light pb-5">
@@ -46,8 +45,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		

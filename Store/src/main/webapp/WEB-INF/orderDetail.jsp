@@ -25,7 +25,6 @@
 					<button class="btn btn-outline-secondary btn-sm" onclick="cancel()">取消</button>
 				</div>
 			</div>
-		<!--  	<div id="popupRecipientList" class="popupStyle p-4 w-50"></div> -->
 			
 			<div class="modal fade" id="popupRecipientList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -41,7 +40,6 @@
 					</div>
 				</div>
 			</div>
-			
 		</main>
 		<c:import url="footer.jsp"></c:import>
 		
